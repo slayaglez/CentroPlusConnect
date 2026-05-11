@@ -20,7 +20,7 @@ public class UsuarioRepository extends SQLiteConnectionManager implements IUsuar
     public boolean create(Usuario usuario) {
         try (Connection connection = getConnection();
                 PreparedStatement sentencia = connection
-                        .prepareStatement("INSERT INTO usuario VALUES (?, ?, ?, ?, ?, ?)")) {
+                        .prepareStatement("INSERT INTO usuarios VALUES (?, ?, ?, ?, ?, ?)")) {
 
             sentencia.setInt(1, usuario.getId());
             sentencia.setString(2, usuario.getNombre());
@@ -41,7 +41,7 @@ public class UsuarioRepository extends SQLiteConnectionManager implements IUsuar
     public boolean createAutoId(Usuario usuario) {
         try (Connection connection = getConnection();
                 PreparedStatement sentencia = connection.prepareStatement(
-                        "INSERT INTO usuario (nombre, dni, email, telefono, tipo_usuario) VALUES (?, ?, ?, ?, ?)")) {
+                        "INSERT INTO usuarios (nombre, dni, email, telefono, tipo_usuario) VALUES (?, ?, ?, ?, ?)")) {
 
             sentencia.setString(1, usuario.getNombre());
             sentencia.setString(2, usuario.getDni());
@@ -60,7 +60,7 @@ public class UsuarioRepository extends SQLiteConnectionManager implements IUsuar
     @Override
     public Usuario findById(Integer id) {
         try (Connection connection = getConnection();
-                PreparedStatement sentencia = connection.prepareStatement("SELECT * FROM usuario WHERE id=?")) {
+                PreparedStatement sentencia = connection.prepareStatement("SELECT * FROM usuarios WHERE id=?")) {
 
             sentencia.setInt(1, id);
             ResultSet resultado = sentencia.executeQuery();
@@ -86,7 +86,7 @@ public class UsuarioRepository extends SQLiteConnectionManager implements IUsuar
     @Override
     public List<Usuario> findAll() {
         try (Connection connection = getConnection();
-                PreparedStatement sentencia = connection.prepareStatement("SELECT * FROM usuario")) {
+                PreparedStatement sentencia = connection.prepareStatement("SELECT * FROM usuarios")) {
 
             List<Usuario> usuarios = new ArrayList<>();
             ResultSet resultado = sentencia.executeQuery();
@@ -109,7 +109,7 @@ public class UsuarioRepository extends SQLiteConnectionManager implements IUsuar
             return usuarios;
 
         } catch (Exception e) {
-            System.err.println("Error buscando usuario");
+            System.err.println("Error buscando usuarios");
             return null;
         }
     }

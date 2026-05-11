@@ -14,6 +14,14 @@ public class Usuario {
         this.id = id;
     }
 
+    public Usuario(String nombre, String dni, String email, String telefono, String tipoUsuario) {
+        this.nombre = nombre;
+        this.dni = dni;
+        this.email = email;
+        this.telefono = telefono;
+        this.tipoUsuario = tipoUsuario;
+    }
+
     public Usuario(int id, String nombre, String dni, String email, String telefono, String tipoUsuario) {
         this.id = id;
         this.nombre = nombre;

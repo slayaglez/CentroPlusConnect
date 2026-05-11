@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 public class SQLiteConnectionManager {
 
-    public static String rutaDb = "jdbc:sqlite:database/centroplus.db";
+    public static String rutaDb = "./database/centroplus.db";
 
     public SQLiteConnectionManager(String rutaDb) {
         SQLiteConnectionManager.rutaDb = rutaDb;
