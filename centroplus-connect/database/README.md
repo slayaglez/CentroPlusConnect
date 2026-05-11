@@ -1,4 +1,4 @@
-# BASE DE DATOS CENTROPLUS CONNECT
+## BASE DE DATOS CENTROPLUS CONNECT
 
 La base de datos del sistema CentroPlus Connect usa SQLite3 que almacena la información principal de la aplicación.
 

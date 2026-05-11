@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 import proyecto.intermodular.app.model.Actividad;
 import proyecto.intermodular.app.model.Incidencia;
 import proyecto.intermodular.app.model.Reserva;
+import proyecto.intermodular.app.model.Usuario;
 
 public final class Validations {
 
@@ -146,5 +147,16 @@ public final class Validations {
             return false;
         }
         return isValidEstadoIncidencia(reserva.getEstado());
+    }
+
+    public static boolean isValidUsuario(Usuario usuario) {
+        if (usuario == null) {
+            return false;
+        }
+        return isValidNombre(usuario.getNombre())
+                && isValidDni(usuario.getDni())
+                && isValidEmail(usuario.getEmail())
+                && isValidTelefono(usuario.getTelefono())
+                && isValidTipoUsuario(usuario.getTipoUsuario());
     }
 }
