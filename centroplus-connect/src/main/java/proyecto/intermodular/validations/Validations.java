@@ -1,4 +1,4 @@
-package proyecto.intermodular.Validations;
+package proyecto.intermodular.validations;
 
 import java.util.regex.Pattern;
 
