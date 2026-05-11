@@ -3,13 +3,13 @@ package proyecto.intermodular.app.model;
 import java.util.Objects;
 
 public class Actividad {
-    private int id;
+    private Integer id;
     private String nombre;
     private String tipoActividad;
-    private int duracion;
+    private Integer duracion;
     private double precio;
-    private int plazasMaximas;
-    private int plazasOcupadas;
+    private Integer plazasMaximas;
+    private Integer plazasOcupadas;
 
     public Actividad() {
     }
@@ -29,7 +29,7 @@ public class Actividad {
         this.plazasOcupadas = plazasOcupadas;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -53,7 +53,7 @@ public class Actividad {
         this.tipoActividad = tipoActividad;
     }
 
-    public int getDuracion() {
+    public Integer getDuracion() {
         return duracion;
     }
 
@@ -69,7 +69,7 @@ public class Actividad {
         this.precio = precio;
     }
 
-    public int getPlazasMaximas() {
+    public Integer getPlazasMaximas() {
         return plazasMaximas;
     }
 
@@ -77,7 +77,7 @@ public class Actividad {
         this.plazasMaximas = plazasMaximas;
     }
 
-    public int getPlazasOcupadas() {
+    public Integer getPlazasOcupadas() {
         return plazasOcupadas;
     }
 

@@ -3,7 +3,7 @@ package proyecto.intermodular.app.model;
 import java.util.Objects;
 
 public class Usuario {
-    private int id;
+    private Integer id;
     private String nombre;
     private String dni;
     private String email;
@@ -31,7 +31,7 @@ public class Usuario {
         this.tipoUsuario = tipoUsuario;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

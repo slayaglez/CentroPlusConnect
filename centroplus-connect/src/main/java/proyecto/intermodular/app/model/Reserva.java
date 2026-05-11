@@ -4,9 +4,9 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Reserva {
-    private int id;
-    private int idUsuario;
-    private int idActividad;
+    private Integer id;
+    private Integer idUsuario;
+    private Integer idActividad;
     private LocalDate fecha;
     private String estado;
 
@@ -22,7 +22,7 @@ public class Reserva {
         this.estado = estado;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -30,7 +30,7 @@ public class Reserva {
         this.id = id;
     }
 
-    public int getIdUsuario() {
+    public Integer getIdUsuario() {
         return idUsuario;
     }
 
@@ -38,7 +38,7 @@ public class Reserva {
         this.idUsuario = idUsuario;
     }
 
-    public int getIdActividad() {
+    public Integer getIdActividad() {
         return idActividad;
     }
 

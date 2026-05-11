@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Incidencia {
-    private int id;
-    private int idUsuario;
+    private Integer id;
+    private Integer idUsuario;
     private String asunto;
     private String descripcion;
     private LocalDate fecha;
@@ -24,7 +24,7 @@ public class Incidencia {
         this.estado = estado;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -32,7 +32,7 @@ public class Incidencia {
         this.id = id;
     }
 
-    public int getIdUsuario() {
+    public Integer getIdUsuario() {
         return idUsuario;
     }
 
