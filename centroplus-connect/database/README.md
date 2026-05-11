@@ -1,4 +1,4 @@
-# BASE DE DATOS SQL
+# BASE DE DATOS CENTROPLUS CONNECT
 
 La base de datos del sistema CentroPlus Connect usa SQLite3 que almacena la información principal de la aplicación.
 
@@ -18,5 +18,22 @@ y sus relaciones son:
 
 ## DIAGRAMA DE LA BASE DE DATOS
 
+<div align="center" width="400">
+     <img src="../../images/diagrama-bd.png">
+</div>
 
+
+## ESTRUCTURA DE CARPETAS
+
+centroplus-connect/
+│
+├── database/
+│   ├── centroplus.db
+│   ├── schema.sql
+│   └── seed.sql
+│
+├── images/
+│   └── diagrama-bd.png
+│
+└── README.md
 
