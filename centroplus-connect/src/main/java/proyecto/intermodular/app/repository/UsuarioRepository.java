@@ -20,7 +20,7 @@ public class UsuarioRepository extends SQLiteConnectionManager implements IUsuar
     public boolean create(Usuario usuario) {
         try (Connection connection = getConnection();
                 PreparedStatement sentencia = connection
-                        .prepareStatement("INSERT INTO usuarios VALUES (?, ?, ?, ?, ?, ?)")) {
+                        .prepareStatement("INSERT INTO usuarios (id, nombre, dni, email, telefono, tipo_usuario) VALUES (?, ?, ?, ?, ?, ?)")) {
 
             sentencia.setInt(1, usuario.getId());
             sentencia.setString(2, usuario.getNombre());
@@ -91,10 +91,6 @@ public class UsuarioRepository extends SQLiteConnectionManager implements IUsuar
             List<Usuario> usuarios = new ArrayList<>();
             ResultSet resultado = sentencia.executeQuery();
 
-            if (!resultado.next()) {
-                return null;
-            }
-
             while (resultado.next()) {
                 Integer id = resultado.getInt("id");
                 String nombre = resultado.getString("nombre");
@@ -139,11 +135,11 @@ public class UsuarioRepository extends SQLiteConnectionManager implements IUsuar
     public boolean deleteById(Integer id) {
         try (Connection connection = getConnection();
                 PreparedStatement sentencia = connection
-                        .prepareStatement("DELETE FROM usuario WHERE id=?")) {
+                        .prepareStatement("DELETE FROM usuarios WHERE id=?")) {
 
             sentencia.setInt(1, id);
 
-            return sentencia.executeUpdate() == 1;
+            return sentencia.executeUpdate() > 0;
 
         } catch (Exception e) {
             System.err.println("Error eliminando el usuario");

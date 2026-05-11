@@ -13,6 +13,13 @@ public class Main {
     
         UsuarioService usuarioService = new UsuarioService();
 
+
+        System.out.println("\n[0] Limpiando usuarios...");
+        if(usuarioService.deleteById(4)) System.out.println("Hecho");
+        if(usuarioService.deleteById(5)) System.out.println("Hecho");
+        if(usuarioService.deleteById(6)) System.out.println("Hecho");
+
+
         System.out.println("\n[1] Creando usuarios...");
         usuarioService.create(u1);
         usuarioService.create(u2);
