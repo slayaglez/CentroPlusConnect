@@ -1,4 +1,4 @@
-package proyecto.intermodular.app;
+package proyecto.intermodular.app.model;
 
 import java.util.Objects;
 

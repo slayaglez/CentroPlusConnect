@@ -1,4 +1,4 @@
-package proyecto.intermodular.app;
+package proyecto.intermodular.app.model;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -9,13 +9,13 @@ public class Incidencia {
     private String asunto;
     private String descripcion;
     private LocalDate fecha;
-    private int estado;
+    private String estado;
 
     public Incidencia(int id) {
         this.id = id;
     }
 
-    public Incidencia(int id, int idUsuario, String asunto, String descripcion, LocalDate fecha, int estado) {
+    public Incidencia(int id, int idUsuario, String asunto, String descripcion, LocalDate fecha, String estado) {
         this.id = id;
         this.idUsuario = idUsuario;
         this.asunto = asunto;
@@ -64,11 +64,11 @@ public class Incidencia {
         this.fecha = fecha;
     }
 
-    public int getEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(int estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 

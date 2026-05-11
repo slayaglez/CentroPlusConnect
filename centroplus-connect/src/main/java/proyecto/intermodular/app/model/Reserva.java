@@ -1,4 +1,4 @@
-package proyecto.intermodular.app;
+package proyecto.intermodular.app.model;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -8,13 +8,13 @@ public class Reserva {
     private int idUsuario;
     private int idActividad;
     private LocalDate fecha;
-    private int estado;
+    private String estado;
 
     public Reserva(int id) {
         this.id = id;
     }
 
-    public Reserva(int id, int idUsuario, int idActividad, LocalDate fecha, int estado) {
+    public Reserva(int id, int idUsuario, int idActividad, LocalDate fecha, String estado) {
         this.id = id;
         this.idUsuario = idUsuario;
         this.idActividad = idActividad;
@@ -54,11 +54,11 @@ public class Reserva {
         this.fecha = fecha;
     }
 
-    public int getEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(int estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 
