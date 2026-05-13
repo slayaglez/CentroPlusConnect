@@ -3,14 +3,15 @@ package proyecto.intermodular.app.service;
 import java.util.List;
 
 import proyecto.intermodular.app.model.Actividad;
-import proyecto.intermodular.app.repository.UsuarioRepository;
+import proyecto.intermodular.app.repository.ActividadRepository;
+import proyecto.intermodular.app.repository.interfaces.IActividadRepository;
 import proyecto.intermodular.app.repository.interfaces.IUsuarioRepository;
 import proyecto.intermodular.app.service.interfaces.IActividadService;
 import proyecto.intermodular.validations.Validations;
 
-//public class ActividadService implements IActividadService{
+public class ActividadService implements IActividadService{
 
-    /*private final IActividadRepository repository;
+    private final IActividadRepository repository;
 
     public ActividadService() {
         this.repository = new ActividadRepository();
@@ -57,27 +58,23 @@ import proyecto.intermodular.validations.Validations;
     }
 
     @Override
-    public boolean reservarPlaza() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'reservarPlaza'");
+    public boolean reservarPlaza(Integer idActividad) {
+        return repository.reservarPlaza(idActividad);
     }
 
     @Override
-    public boolean cancelarPlaza() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'cancelarPlaza'");
+    public boolean cancelarPlaza(Integer idActividad) {
+        return repository.cancelarPlaza(idActividad);
     }
 
     @Override
-    public Actividad findCompletas() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findCompletas'");
+    public List<Actividad> findCompletas() {
+        return repository.findCompletas();
     }
 
     @Override
     public double calcularIngresosTotales() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'calcularIngresosTotales'");
-    }*/
+        return repository.calcularIngresosTotales();
+    }
 
-//}
+}
