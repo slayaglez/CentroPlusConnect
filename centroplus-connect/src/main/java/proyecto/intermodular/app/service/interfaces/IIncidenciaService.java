@@ -1,13 +1,12 @@
-package proyecto.intermodular.app.repository.interfaces;
-
+package proyecto.intermodular.app.service.interfaces;
 
 import java.util.List;
 
 import proyecto.intermodular.app.model.Incidencia;
 
-public interface IIncidenciaRepository {
+public interface IIncidenciaService {
 
-     /**
+    /**
      * Crea una incidencia
      * 
      * @param incidencia Incidencia
@@ -16,15 +15,8 @@ public interface IIncidenciaRepository {
     boolean create(Incidencia incidencia);
 
     /**
-     * Crea una incidencia cuyo id es null
-     * 
-     * @param incidencia incidencia
-     * @return boolean
-     */
-    boolean createAutoId(Incidencia incidencia);
-
-    /**
      * Encuentra una incidencia por su id
+     * 
      * @param id Integer identificador unico
      * @return Incidencia
      */
@@ -32,12 +24,14 @@ public interface IIncidenciaRepository {
 
     /**
      * Devuelve una lista de todos las Incidencias
+     * 
      * @return List Incidencia
      */
     List<Incidencia> findAll();
 
     /**
      * Actualiza una incidencia usando el id del argumento
+     * 
      * @param incidencia incidencia nueva
      * @return boolean
      */
@@ -45,6 +39,7 @@ public interface IIncidenciaRepository {
 
     /**
      * Elimina una incidencia por su ID
+     * 
      * @param id Integer identificador unico
      * @return boolean
      */
@@ -52,6 +47,7 @@ public interface IIncidenciaRepository {
 
     /**
      * Cambia el estado de la incidencia
+     * 
      * @param id de la incidencia
      * @return boolean
      */
@@ -59,6 +55,7 @@ public interface IIncidenciaRepository {
 
     /**
      * Busca incidencias por usuario
+     * 
      * @param idUsuario id del usuario
      * @return list incidencias
      */

@@ -2,7 +2,6 @@ package proyecto.intermodular.app.repository.interfaces;
 
 import java.util.List;
 
-import proyecto.intermodular.app.model.Actividad;
 import proyecto.intermodular.app.model.Reserva;
 
 public interface IReservaRepository {

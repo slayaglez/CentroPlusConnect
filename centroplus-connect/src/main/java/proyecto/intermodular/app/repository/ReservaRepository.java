@@ -1,8 +1,5 @@
 package proyecto.intermodular.app.repository;
 
-import java.nio.channels.UnsupportedAddressTypeException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.util.List;
 
 import proyecto.intermodular.app.model.Reserva;

@@ -1,10 +1,13 @@
 package proyecto.intermodular.app;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import proyecto.intermodular.app.model.Actividad;
+import proyecto.intermodular.app.model.Incidencia;
 import proyecto.intermodular.app.model.Usuario;
 import proyecto.intermodular.app.service.ActividadService;
+import proyecto.intermodular.app.service.IncidenciaService;
 import proyecto.intermodular.app.service.UsuarioService;
 
 public class Main {
@@ -61,6 +64,27 @@ public class Main {
         } else {
             for (Actividad actividad : listaActividades) {
                 System.out.println("- ID: " + actividad.getId() + " | Nombre: " + actividad.getNombre());
+            }
+        }
+
+        //INCIDENCIAS
+        Incidencia i1 = new Incidencia(4, 7, "Problema al reservar", "No puedo reservar plazas", LocalDate.of(2026, 03, 04), "EN_PROCESO");
+        Incidencia i2 = new Incidencia(8, 2, "Cambio en el horario", "La hora no coincide", LocalDate.of(2026, 05, 10), "ABIERTO");
+
+        IncidenciaService incidenciaService = new IncidenciaService();
+
+        System.out.println("\n[1] Creando incidencias...");
+        incidenciaService.create(i1);
+        incidenciaService.create(i2);
+
+        System.out.println("\n[2] Listando incidencias...");
+        List<Incidencia> listaIncidencias = incidenciaService.findAll();
+
+        if (listaIncidencias.isEmpty()) {
+            System.out.println("No hay incidencias registradas");
+        } else {
+            for (Incidencia incidencia : listaIncidencias) {
+                System.out.println("- ID: " + incidencia.getId() + " | Asunto: " + incidencia.getAsunto());
             }
         }
     }
