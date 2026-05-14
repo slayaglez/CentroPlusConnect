@@ -5,9 +5,11 @@ import java.util.List;
 
 import proyecto.intermodular.app.model.Actividad;
 import proyecto.intermodular.app.model.Incidencia;
+import proyecto.intermodular.app.model.Reserva;
 import proyecto.intermodular.app.model.Usuario;
 import proyecto.intermodular.app.service.ActividadService;
 import proyecto.intermodular.app.service.IncidenciaService;
+import proyecto.intermodular.app.service.ReservaService;
 import proyecto.intermodular.app.service.UsuarioService;
 
 public class Main {
@@ -85,6 +87,27 @@ public class Main {
         } else {
             for (Incidencia incidencia : listaIncidencias) {
                 System.out.println("- ID: " + incidencia.getId() + " | Asunto: " + incidencia.getAsunto());
+            }
+        }
+
+        //RESERVAS
+        Reserva r1 = new Reserva(5, 1, 3, LocalDate.of(2025, 10, 15), "ACTIVA");
+        Reserva r2 = new Reserva(3, 10, 7, LocalDate.of(2026, 01, 27), "CANCELADA");
+
+        ReservaService reservaService = new ReservaService();
+
+        System.out.println("\n[1] Creando reservas...");
+        reservaService.create(r1);
+        reservaService.create(r2);
+
+        System.out.println("\n[2] Listando reservas...");
+        List<Reserva> listaReservas = reservaService.findAll();
+
+        if (listaReservas.isEmpty()) {
+            System.out.println("No hay reservas registradas");
+        } else {
+            for (Reserva reserva : listaReservas) {
+                System.out.println("- ID: " + reserva.getId() + " | Estado: " + reserva.getEstado());
             }
         }
     }
