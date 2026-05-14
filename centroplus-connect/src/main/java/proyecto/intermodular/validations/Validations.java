@@ -142,11 +142,11 @@ public final class Validations {
                 && isValidEstadoIncidencia(incidencia.getEstado());
     }
 
-    public static boolean isValidEstadoReserva(Reserva reserva) {
+    public static boolean isValidReserva(Reserva reserva) {
         if (reserva == null) {
             return false;
         }
-        return isValidEstadoIncidencia(reserva.getEstado());
+        return isValidEstadoReserva(reserva.getEstado());
     }
 
     public static boolean isValidUsuario(Usuario usuario) {

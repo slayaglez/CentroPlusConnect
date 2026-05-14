@@ -46,11 +46,11 @@ public class IncidenciaRepository extends SQLiteConnectionManager implements IIn
                 PreparedStatement sentencia = connection.prepareStatement(
                         "INSERT INTO incidencias (idUsuario, asunto, descripcion, fecha, estado) VALUES (?, ?, ?, ?, ?)")) {
 
-            sentencia.setInt(2, incidencia.getIdUsuario());
-            sentencia.setString(3, incidencia.getAsunto());
-            sentencia.setString(4, incidencia.getDescripcion());
-            sentencia.setString(5, incidencia.getFecha().toString());
-            sentencia.setString(6, incidencia.getEstado());
+            sentencia.setInt(1, incidencia.getIdUsuario());
+            sentencia.setString(2, incidencia.getAsunto());
+            sentencia.setString(3, incidencia.getDescripcion());
+            sentencia.setString(4, incidencia.getFecha().toString());
+            sentencia.setString(5, incidencia.getEstado());
 
             return sentencia.executeUpdate() > 0;
 
@@ -109,7 +109,7 @@ public class IncidenciaRepository extends SQLiteConnectionManager implements IIn
             return incidencias;
 
         } catch (Exception e) {
-            System.err.println("Error buscandoincidencias");
+            System.err.println("Error buscando incidencias");
             return null;
         }
     }
@@ -119,14 +119,14 @@ public class IncidenciaRepository extends SQLiteConnectionManager implements IIn
         try (Connection connection = getConnection();
                 PreparedStatement sentencia = connection
                         .prepareStatement(
-                                "UPDATE incidencias SET idUsuario=?, asunto=?, descripcion=?, fecha=?, estado=? WHERE id=?")) {
+                                "UPDATE incidencias SET id_usuario=?, asunto=?, descripcion=?, fecha=?, estado=? WHERE id=?")) {
 
             sentencia.setInt(6, incidencia.getId());
-            sentencia.setInt(2, incidencia.getIdUsuario());
-            sentencia.setString(3, incidencia.getAsunto());
-            sentencia.setString(4, incidencia.getDescripcion());
-            sentencia.setString(5, incidencia.getFecha().toString());
-            sentencia.setString(6, incidencia.getEstado());
+            sentencia.setInt(1, incidencia.getIdUsuario());
+            sentencia.setString(2, incidencia.getAsunto());
+            sentencia.setString(3, incidencia.getDescripcion());
+            sentencia.setString(4, incidencia.getFecha().toString());
+            sentencia.setString(5, incidencia.getEstado());
 
             return sentencia.executeUpdate() > 0;
 
