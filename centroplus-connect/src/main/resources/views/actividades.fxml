@@ -10,21 +10,22 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane id="BPActividades" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <FlowPane hgap="10.0" prefHeight="200.0" prefWidth="200.0" vgap="10.0" BorderPane.alignment="CENTER">
+      <FlowPane id="FPActividades" hgap="10.0" prefHeight="200.0" prefWidth="200.0" vgap="10.0" BorderPane.alignment="CENTER">
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
          <children>
-            <VBox prefHeight="200.0" prefWidth="180.0" spacing="5.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: #ddd; -fx-border-radius: 10;">
+            <VBox id="VBActividades" prefHeight="200.0" prefWidth="180.0" spacing="5.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: #ddd; -fx-border-radius: 10;">
                <children>
-                  <ImageView fitHeight="100.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label text="Nombre" />
-                  <Label text="Horario:" />
-                  <Label text="Aforo:" />
-                  <Label text="Instructor:" />
+                  <ImageView id="IVActividades" fitHeight="100.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label id="LActividadesNombre" text="Nombre" />
+                  <Label id="LActividadesTipo" text="Tipo actividad" />
+                  <Label id="LActividadesDuracion" text="Duración:" />
+                  <Label id="LActividadesPrecio" text="Precio:" />
+                  <Label id="LActividadesPlazasMaximas" text="Plazas máximas:" />
+                  <Label id="LActividadesPlazasOcupadas" text="Plazas ocupadas:" />
                   <Button mnemonicParsing="false" text="Reservar" />
                </children>
                <padding>
@@ -35,11 +36,11 @@
       </FlowPane>
    </center>
    <top>
-      <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+      <HBox id="HBActividades" prefHeight="100.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField promptText="Buscar actividad..." />
-            <Button mnemonicParsing="false" text="Añadir actividad" />
-            <Button mnemonicParsing="false" text="Eliminar actividad" />
+            <TextField id="TFActividades" promptText="Buscar actividad..." />
+            <Button id="BActividadesAñadir" mnemonicParsing="false" text="Añadir actividad" />
+            <Button id="BActividadesEliminar" mnemonicParsing="false" text="Eliminar actividad" />
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
