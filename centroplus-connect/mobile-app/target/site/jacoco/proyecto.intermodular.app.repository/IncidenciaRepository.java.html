@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>IncidenciaRepository.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">centroplus-connect</a> &gt; <a href="index.source.html" class="el_package">proyecto.intermodular.app.repository</a> &gt; <span class="el_source">IncidenciaRepository.java</span></div><h1>IncidenciaRepository.java</h1><pre class="source lang-java linenums">package proyecto.intermodular.app.repository;
+
+import proyecto.intermodular.app.repository.interfaces.IIncidenciaRepository;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import proyecto.intermodular.app.model.Incidencia;
+import proyecto.intermodular.database.sqlite.SQLiteConnectionManager;
+
+public class IncidenciaRepository extends SQLiteConnectionManager implements IIncidenciaRepository {
+
+    public IncidenciaRepository() {
+<span class="nc" id="L18">        super(rutaDb);</span>
+<span class="nc" id="L19">    }</span>
+
+    @Override
+    public boolean create(Incidencia incidencia) {
+<span class="nc" id="L23">        try (Connection connection = getConnection();</span>
+<span class="nc" id="L24">                PreparedStatement sentencia = connection</span>
+<span class="nc" id="L25">                        .prepareStatement(</span>
+                                &quot;INSERT INTO incidencias (id, idUsuario, asunto, descripcion, fecha, estado) VALUES (?, ?, ?, ?, ?, ?)&quot;)) {
+
+<span class="nc" id="L28">            sentencia.setInt(1, incidencia.getId());</span>
+<span class="nc" id="L29">            sentencia.setInt(2, incidencia.getIdUsuario());</span>
+<span class="nc" id="L30">            sentencia.setString(3, incidencia.getAsunto());</span>
+<span class="nc" id="L31">            sentencia.setString(4, incidencia.getDescripcion());</span>
+<span class="nc" id="L32">            sentencia.setString(5, incidencia.getFecha().toString());</span>
+<span class="nc" id="L33">            sentencia.setString(6, incidencia.getEstado());</span>
+
+<span class="nc bnc" id="L35" title="All 2 branches missed.">            return sentencia.executeUpdate() &gt; 0;</span>
+
+<span class="nc" id="L37">        } catch (Exception e) {</span>
+<span class="nc" id="L38">            System.err.println(&quot;Error&quot;);</span>
+<span class="nc" id="L39">            return false;</span>
+        }
+    }
+
+    @Override
+    public boolean createAutoId(Incidencia incidencia) {
+<span class="nc" id="L45">        try (Connection connection = getConnection();</span>
+<span class="nc" id="L46">                PreparedStatement sentencia = connection.prepareStatement(</span>
+                        &quot;INSERT INTO incidencias (idUsuario, asunto, descripcion, fecha, estado) VALUES (?, ?, ?, ?, ?)&quot;)) {
+
+<span class="nc" id="L49">            sentencia.setInt(1, incidencia.getIdUsuario());</span>
+<span class="nc" id="L50">            sentencia.setString(2, incidencia.getAsunto());</span>
+<span class="nc" id="L51">            sentencia.setString(3, incidencia.getDescripcion());</span>
+<span class="nc" id="L52">            sentencia.setString(4, incidencia.getFecha().toString());</span>
+<span class="nc" id="L53">            sentencia.setString(5, incidencia.getEstado());</span>
+
+<span class="nc bnc" id="L55" title="All 2 branches missed.">            return sentencia.executeUpdate() &gt; 0;</span>
+
+<span class="nc" id="L57">        } catch (Exception e) {</span>
+<span class="nc" id="L58">            System.err.println(&quot;Error creando incidencia&quot;);</span>
+<span class="nc" id="L59">            return false;</span>
+        }
+    }
+
+    @Override
+    public Incidencia findById(Integer id) {
+<span class="nc" id="L65">        try (Connection connection = getConnection();</span>
+<span class="nc" id="L66">                PreparedStatement sentencia = connection.prepareStatement(&quot;SELECT * FROM incidencias WHERE id=?&quot;)) {</span>
+
+<span class="nc" id="L68">            sentencia.setInt(1, id);</span>
+<span class="nc" id="L69">            ResultSet resultado = sentencia.executeQuery();</span>
+
+<span class="nc bnc" id="L71" title="All 2 branches missed.">            if (!resultado.next()) {</span>
+<span class="nc" id="L72">                return null;</span>
+            }
+
+<span class="nc" id="L75">            Integer idUsuario = resultado.getInt(&quot;id_usuario&quot;);</span>
+<span class="nc" id="L76">            String asunto = resultado.getString(&quot;asunto&quot;);</span>
+<span class="nc" id="L77">            String descripcion = resultado.getString(&quot;descripcion&quot;);</span>
+<span class="nc" id="L78">            LocalDate fecha = LocalDate.parse(resultado.getString(&quot;fecha&quot;));</span>
+<span class="nc" id="L79">            String estado = resultado.getString(&quot;estado&quot;);</span>
+
+<span class="nc" id="L81">            return new Incidencia(id, idUsuario, asunto, descripcion, fecha, estado);</span>
+
+<span class="nc bnc" id="L83" title="All 4 branches missed.">        } catch (Exception e) {</span>
+<span class="nc" id="L84">            System.err.println(&quot;Error buscando incidencia&quot;);</span>
+<span class="nc" id="L85">            return null;</span>
+        }
+    }
+
+    @Override
+    public List&lt;Incidencia&gt; findAll() {
+<span class="nc" id="L91">        try (Connection connection = getConnection();</span>
+<span class="nc" id="L92">                PreparedStatement sentencia = connection.prepareStatement(&quot;SELECT * FROM incidencias&quot;)) {</span>
+
+<span class="nc" id="L94">            List&lt;Incidencia&gt; incidencias = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L95">            ResultSet resultado = sentencia.executeQuery();</span>
+
+<span class="nc bnc" id="L97" title="All 2 branches missed.">            while (resultado.next()) {</span>
+<span class="nc" id="L98">                Integer id = resultado.getInt(&quot;id&quot;);</span>
+<span class="nc" id="L99">                Integer idUsuario = resultado.getInt(&quot;id_usuario&quot;);</span>
+<span class="nc" id="L100">                String asunto = resultado.getString(&quot;asunto&quot;);</span>
+<span class="nc" id="L101">                String descripcion = resultado.getString(&quot;descripcion&quot;);</span>
+<span class="nc" id="L102">                LocalDate fecha = LocalDate.parse(resultado.getString(&quot;fecha&quot;));</span>
+<span class="nc" id="L103">                String estado = resultado.getString(&quot;estado&quot;);</span>
+
+<span class="nc" id="L105">                incidencias.add(new Incidencia(id, idUsuario, asunto, descripcion, fecha, estado));</span>
+
+<span class="nc" id="L107">            }</span>
+
+<span class="nc" id="L109">            return incidencias;</span>
+
+<span class="nc" id="L111">        } catch (Exception e) {</span>
+<span class="nc" id="L112">            System.err.println(&quot;Error buscando incidencias&quot;);</span>
+<span class="nc" id="L113">            return null;</span>
+        }
+    }
+
+    @Override
+    public boolean update(Incidencia incidencia) {
+<span class="nc" id="L119">        try (Connection connection = getConnection();</span>
+<span class="nc" id="L120">                PreparedStatement sentencia = connection</span>
+<span class="nc" id="L121">                        .prepareStatement(</span>
+                                &quot;UPDATE incidencias SET id_usuario=?, asunto=?, descripcion=?, fecha=?, estado=? WHERE id=?&quot;)) {
+
+<span class="nc" id="L124">            sentencia.setInt(6, incidencia.getId());</span>
+<span class="nc" id="L125">            sentencia.setInt(1, incidencia.getIdUsuario());</span>
+<span class="nc" id="L126">            sentencia.setString(2, incidencia.getAsunto());</span>
+<span class="nc" id="L127">            sentencia.setString(3, incidencia.getDescripcion());</span>
+<span class="nc" id="L128">            sentencia.setString(4, incidencia.getFecha().toString());</span>
+<span class="nc" id="L129">            sentencia.setString(5, incidencia.getEstado());</span>
+
+<span class="nc bnc" id="L131" title="All 2 branches missed.">            return sentencia.executeUpdate() &gt; 0;</span>
+
+<span class="nc" id="L133">        } catch (Exception e) {</span>
+<span class="nc" id="L134">            System.err.println(&quot;Error actualizando la incidencia&quot;);</span>
+<span class="nc" id="L135">            return false;</span>
+        }
+    }
+
+    @Override
+    public boolean deleteById(Integer id) {
+<span class="nc" id="L141">        try (Connection connection = getConnection();</span>
+<span class="nc" id="L142">                PreparedStatement sentencia = connection</span>
+<span class="nc" id="L143">                        .prepareStatement(&quot;DELETE FROM incidencias WHERE id=?&quot;)) {</span>
+
+<span class="nc" id="L145">            sentencia.setInt(1, id);</span>
+
+<span class="nc bnc" id="L147" title="All 2 branches missed.">            return sentencia.executeUpdate() &gt; 0;</span>
+
+<span class="nc" id="L149">        } catch (Exception e) {</span>
+<span class="nc" id="L150">            System.err.println(&quot;Error eliminando la incidencia&quot;);</span>
+<span class="nc" id="L151">            return false;</span>
+        }
+    }
+
+    @Override
+    public boolean cambiarEstadoIncidencia(Integer id, String estado) {
+<span class="nc" id="L157">        try (Connection connection = getConnection();</span>
+<span class="nc" id="L158">                PreparedStatement sentencia = connection</span>
+<span class="nc" id="L159">                        .prepareStatement(&quot;UPDATE incidencias SET estado = ? WHERE id = ?&quot;)) {</span>
+
+<span class="nc" id="L161">            sentencia.setString(1, estado);</span>
+<span class="nc" id="L162">            sentencia.setInt(2, id);</span>
+
+<span class="nc bnc" id="L164" title="All 2 branches missed.">            return sentencia.executeUpdate() &gt; 0;</span>
+
+<span class="nc" id="L166">        } catch (Exception e) {</span>
+<span class="nc" id="L167">            System.err.println(&quot;Error cambiando estado&quot;);</span>
+<span class="nc" id="L168">            e.printStackTrace();</span>
+<span class="nc" id="L169">            return false;</span>
+        }
+    }
+
+    @Override
+    public List&lt;Incidencia&gt; findByUsuario(Integer idUsuario) {
+<span class="nc" id="L175">        List&lt;Incidencia&gt; incidencias = new ArrayList&lt;&gt;();</span>
+        
+<span class="nc" id="L177">        try (Connection connection = getConnection();</span>
+<span class="nc" id="L178">                PreparedStatement sentencia = connection</span>
+<span class="nc" id="L179">                        .prepareStatement(&quot;SELECT * FROM incidencias WHERE id_usuario = ?&quot;)) {</span>
+
+<span class="nc" id="L181">            sentencia.setInt(1, idUsuario);</span>
+
+<span class="nc" id="L183">            ResultSet resultado = sentencia.executeQuery();</span>
+
+<span class="nc bnc" id="L185" title="All 2 branches missed.">            while (resultado.next()) {</span>
+
+<span class="nc" id="L187">                Integer id = resultado.getInt(&quot;id&quot;);</span>
+<span class="nc" id="L188">                String asunto = resultado.getString(&quot;asunto&quot;);</span>
+<span class="nc" id="L189">                String descripcion = resultado.getString(&quot;descripcion&quot;);</span>
+<span class="nc" id="L190">                LocalDate fecha = LocalDate.parse(resultado.getString(&quot;fecha&quot;));</span>
+<span class="nc" id="L191">                String estado = resultado.getString(&quot;estado&quot;);</span>
+
+<span class="nc" id="L193">                incidencias.add(new Incidencia(id, idUsuario, asunto, descripcion, fecha, estado));</span>
+<span class="nc" id="L194">            }</span>
+
+<span class="nc" id="L196">        } catch (Exception e) {</span>
+<span class="nc" id="L197">            System.err.println(&quot;Error buscando incidencias&quot;);</span>
+<span class="nc" id="L198">            e.printStackTrace();</span>
+<span class="nc" id="L199">        }</span>
+
+<span class="nc" id="L201">        return incidencias;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReservaRepository.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">centroplus-connect</a> &gt; <a href="index.source.html" class="el_package">proyecto.intermodular.app.repository</a> &gt; <span class="el_source">ReservaRepository.java</span></div><h1>ReservaRepository.java</h1><pre class="source lang-java linenums">package proyecto.intermodular.app.repository;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import proyecto.intermodular.app.model.Incidencia;
+import proyecto.intermodular.app.model.Reserva;
+import proyecto.intermodular.app.model.Usuario;
+import proyecto.intermodular.app.repository.interfaces.IReservaRepository;
+import proyecto.intermodular.database.sqlite.SQLiteConnectionManager;
+
+public class ReservaRepository extends SQLiteConnectionManager implements IReservaRepository {
+
+    public ReservaRepository() {
+<span class="nc" id="L19">        super(rutaDb);</span>
+<span class="nc" id="L20">    }</span>
+
+    @Override
+    public boolean create(Reserva reserva) {
+<span class="nc" id="L24">        try (Connection connection = getConnection();</span>
+<span class="nc" id="L25">                PreparedStatement sentencia = connection</span>
+<span class="nc" id="L26">                        .prepareStatement(</span>
+                                &quot;INSERT INTO reservas (id, id_usuario, id_actividad, fecha, estado) VALUES (?, ?, ?, ?, ?)&quot;)) {
+
+<span class="nc" id="L29">            sentencia.setInt(1, reserva.getId());</span>
+<span class="nc" id="L30">            sentencia.setInt(2, reserva.getIdUsuario());</span>
+<span class="nc" id="L31">            sentencia.setInt(3, reserva.getIdActividad());</span>
+<span class="nc" id="L32">            sentencia.setString(4, reserva.getFecha().toString());</span>
+<span class="nc" id="L33">            sentencia.setString(5, reserva.getEstado());</span>
+
+<span class="nc bnc" id="L35" title="All 2 branches missed.">            return sentencia.executeUpdate() &gt; 0;</span>
+
+<span class="nc" id="L37">        } catch (Exception e) {</span>
+<span class="nc" id="L38">            System.err.println(&quot;Error&quot;);</span>
+<span class="nc" id="L39">            return false;</span>
+        }
+    }
+
+    @Override
+    public boolean createAutoId(Reserva reserva) {
+<span class="nc" id="L45">        try (Connection connection = getConnection();</span>
+<span class="nc" id="L46">                PreparedStatement sentencia = connection.prepareStatement(</span>
+                        &quot;INSERT INTO reservas (id_usuario, id_actividad, fecha, estado) VALUES (?, ?, ?, ?)&quot;)) {
+
+<span class="nc" id="L49">            sentencia.setInt(1, reserva.getIdUsuario());</span>
+<span class="nc" id="L50">            sentencia.setInt(2, reserva.getIdActividad());</span>
+<span class="nc" id="L51">            sentencia.setString(3, reserva.getFecha().toString());</span>
+<span class="nc" id="L52">            sentencia.setString(4, reserva.getEstado());</span>
+
+<span class="nc bnc" id="L54" title="All 2 branches missed.">            return sentencia.executeUpdate() &gt; 0;</span>
+
+<span class="nc" id="L56">        } catch (Exception e) {</span>
+<span class="nc" id="L57">            System.err.println(&quot;Error creando reserva&quot;);</span>
+<span class="nc" id="L58">            return false;</span>
+        }
+
+    }
+
+    @Override
+    public Reserva findById(Integer id) {
+<span class="nc" id="L65">        try (Connection connection = getConnection();</span>
+<span class="nc" id="L66">                PreparedStatement sentencia = connection.prepareStatement(&quot;SELECT * FROM reservas WHERE id=?&quot;)) {</span>
+
+<span class="nc" id="L68">            sentencia.setInt(1, id);</span>
+<span class="nc" id="L69">            ResultSet resultado = sentencia.executeQuery();</span>
+
+<span class="nc bnc" id="L71" title="All 2 branches missed.">            if (!resultado.next()) {</span>
+<span class="nc" id="L72">                return null;</span>
+            }
+
+<span class="nc" id="L75">            Integer idUsuario = resultado.getInt(&quot;id_usuario&quot;);</span>
+<span class="nc" id="L76">            Integer idActividad = resultado.getInt(&quot;id_actividad&quot;);</span>
+<span class="nc" id="L77">            LocalDate fecha = LocalDate.parse(resultado.getString(&quot;fecha&quot;));</span>
+<span class="nc" id="L78">            String estado = resultado.getString(&quot;estado&quot;);</span>
+
+<span class="nc" id="L80">            return new Reserva(id, idUsuario, idActividad, fecha, estado);</span>
+
+<span class="nc bnc" id="L82" title="All 4 branches missed.">        } catch (Exception e) {</span>
+<span class="nc" id="L83">            System.err.println(&quot;Error buscando reserva&quot;);</span>
+<span class="nc" id="L84">            return null;</span>
+        }
+    }
+
+    @Override
+    public List&lt;Reserva&gt; findAll() {
+<span class="nc" id="L90">        try (Connection connection = getConnection();</span>
+<span class="nc" id="L91">                PreparedStatement sentencia = connection.prepareStatement(&quot;SELECT * FROM reservas&quot;)) {</span>
+
+<span class="nc" id="L93">            List&lt;Reserva&gt; reservas = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L94">            ResultSet resultado = sentencia.executeQuery();</span>
+
+<span class="nc bnc" id="L96" title="All 2 branches missed.">            while (resultado.next()) {</span>
+<span class="nc" id="L97">                Integer id = resultado.getInt(&quot;id&quot;);</span>
+<span class="nc" id="L98">                Integer idUsuario = resultado.getInt(&quot;id_usuario&quot;);</span>
+<span class="nc" id="L99">                Integer idActividad = resultado.getInt(&quot;id_actividad&quot;);</span>
+<span class="nc" id="L100">                LocalDate fecha = LocalDate.parse(resultado.getString(&quot;fecha&quot;));</span>
+<span class="nc" id="L101">                String estado = resultado.getString(&quot;estado&quot;);</span>
+
+<span class="nc" id="L103">                reservas.add(new Reserva(id, idUsuario, idActividad, fecha, estado));</span>
+
+<span class="nc" id="L105">            }</span>
+
+<span class="nc" id="L107">            return reservas;</span>
+
+<span class="nc" id="L109">        } catch (Exception e) {</span>
+<span class="nc" id="L110">            System.err.println(&quot;Error buscando reservas&quot;);</span>
+<span class="nc" id="L111">            return null;</span>
+        }
+    }
+
+    @Override
+    public boolean update(Reserva reserva) {
+<span class="nc" id="L117">        try (Connection connection = getConnection();</span>
+<span class="nc" id="L118">                PreparedStatement sentencia = connection</span>
+<span class="nc" id="L119">                        .prepareStatement(</span>
+                                &quot;UPDATE reservas SET id_usuario=?, id_actividad=?, fecha=?, estado=? WHERE id=?&quot;)) {
+
+<span class="nc" id="L122">            sentencia.setInt(5, reserva.getId());</span>
+<span class="nc" id="L123">            sentencia.setInt(1, reserva.getIdUsuario());</span>
+<span class="nc" id="L124">            sentencia.setInt(2, reserva.getIdActividad());</span>
+<span class="nc" id="L125">            sentencia.setString(3, reserva.getFecha().toString());</span>
+<span class="nc" id="L126">            sentencia.setString(4, reserva.getEstado());</span>
+
+<span class="nc bnc" id="L128" title="All 2 branches missed.">            return sentencia.executeUpdate() &gt; 0;</span>
+
+<span class="nc" id="L130">        } catch (Exception e) {</span>
+<span class="nc" id="L131">            System.err.println(&quot;Error actualizando la reserva&quot;);</span>
+<span class="nc" id="L132">            return false;</span>
+        }
+    }
+
+    @Override
+    public boolean deleteById(Integer id) {
+<span class="nc" id="L138">        try (Connection connection = getConnection();</span>
+<span class="nc" id="L139">                PreparedStatement sentencia = connection</span>
+<span class="nc" id="L140">                        .prepareStatement(&quot;DELETE FROM reservas WHERE id=?&quot;)) {</span>
+
+<span class="nc" id="L142">            sentencia.setInt(1, id);</span>
+
+<span class="nc bnc" id="L144" title="All 2 branches missed.">            return sentencia.executeUpdate() &gt; 0;</span>
+
+<span class="nc" id="L146">        } catch (Exception e) {</span>
+<span class="nc" id="L147">            System.err.println(&quot;Error eliminando la reserva&quot;);</span>
+<span class="nc" id="L148">            return false;</span>
+        }
+    }
+
+    @Override
+    public boolean cancelarReserva(Integer idReserva) {
+<span class="nc" id="L154">        try (Connection connection = getConnection();</span>
+<span class="nc" id="L155">                PreparedStatement sentencia = connection.prepareStatement(</span>
+                        &quot;UPDATE reservas SET estado=? WHERE id=?&quot;)) {
+
+<span class="nc" id="L158">            sentencia.setString(1, &quot;CANCELADA&quot;);</span>
+<span class="nc" id="L159">            sentencia.setInt(2, idReserva);</span>
+
+<span class="nc bnc" id="L161" title="All 2 branches missed.">            return sentencia.executeUpdate() &gt; 0;</span>
+
+<span class="nc" id="L163">        } catch (Exception e) {</span>
+<span class="nc" id="L164">            System.err.println(&quot;Error cancelando reserva&quot;);</span>
+<span class="nc" id="L165">            return false;</span>
+        }
+    }
+
+    @Override
+    public List&lt;Reserva&gt; findDisponibles() {
+<span class="nc" id="L171">        try (Connection connection = getConnection();</span>
+<span class="nc" id="L172">                PreparedStatement sentencia = connection.prepareStatement(&quot;SELECT * FROM reservas WHERE estado=?&quot;)) {</span>
+
+<span class="nc" id="L174">            sentencia.setString(1, &quot;ACTIVA&quot;);</span>
+
+<span class="nc" id="L176">            List&lt;Reserva&gt; reservas = new ArrayList&lt;&gt;();</span>
+
+<span class="nc" id="L178">            ResultSet resultado = sentencia.executeQuery();</span>
+
+<span class="nc bnc" id="L180" title="All 2 branches missed.">            while (resultado.next()) {</span>
+
+<span class="nc" id="L182">                Integer id = resultado.getInt(&quot;id&quot;);</span>
+<span class="nc" id="L183">                Integer idUsuario = resultado.getInt(&quot;id_usuario&quot;);</span>
+<span class="nc" id="L184">                Integer idActividad = resultado.getInt(&quot;id_actividad&quot;);</span>
+<span class="nc" id="L185">                LocalDate fecha = LocalDate.parse(resultado.getString(&quot;fecha&quot;));</span>
+<span class="nc" id="L186">                String estado = resultado.getString(&quot;estado&quot;);</span>
+
+<span class="nc" id="L188">                reservas.add(new Reserva(id, idUsuario, idActividad, fecha, estado));</span>
+<span class="nc" id="L189">            }</span>
+
+<span class="nc" id="L191">            return reservas;</span>
+
+<span class="nc" id="L193">        } catch (Exception e) {</span>
+<span class="nc" id="L194">            System.err.println(&quot;Error buscando reservas disponibles&quot;);</span>
+<span class="nc" id="L195">            return null;</span>
+        }
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

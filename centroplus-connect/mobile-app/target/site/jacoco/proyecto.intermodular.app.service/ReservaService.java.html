@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReservaService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">centroplus-connect</a> &gt; <a href="index.source.html" class="el_package">proyecto.intermodular.app.service</a> &gt; <span class="el_source">ReservaService.java</span></div><h1>ReservaService.java</h1><pre class="source lang-java linenums">package proyecto.intermodular.app.service;
+
+import java.util.List;
+
+import proyecto.intermodular.app.model.Reserva;
+import proyecto.intermodular.app.repository.IncidenciaRepository;
+import proyecto.intermodular.app.repository.ReservaRepository;
+import proyecto.intermodular.app.repository.interfaces.IIncidenciaRepository;
+import proyecto.intermodular.app.repository.interfaces.IReservaRepository;
+import proyecto.intermodular.app.service.interfaces.IReservaService;
+import proyecto.intermodular.validations.Validations;
+
+public class ReservaService implements IReservaService {
+
+    private final IReservaRepository repository;
+
+<span class="nc" id="L17">    public ReservaService() {</span>
+<span class="nc" id="L18">        this.repository = new ReservaRepository();</span>
+<span class="nc" id="L19">    }</span>
+
+    @Override
+    public boolean create(Reserva reserva) {
+<span class="nc bnc" id="L23" title="All 2 branches missed.">        if (reserva.getId() == null) {</span>
+<span class="nc" id="L24">            return repository.createAutoId(reserva);</span>
+        }
+<span class="nc bnc" id="L26" title="All 2 branches missed.">        if (!Validations.isValidReserva(reserva)) {</span>
+<span class="nc" id="L27">            return false;</span>
+        }
+<span class="nc" id="L29">        return repository.create(reserva);</span>
+    }
+
+    @Override
+    public Reserva findById(Integer id) {
+<span class="nc bnc" id="L34" title="All 2 branches missed.">        if (id == null) {</span>
+<span class="nc" id="L35">            return null;</span>
+        }
+<span class="nc" id="L37">        return repository.findById(id);</span>
+    }
+
+    @Override
+    public List&lt;Reserva&gt; findAll() {
+<span class="nc" id="L42">        return repository.findAll();</span>
+    }
+
+    @Override
+    public boolean update(Reserva reserva) {
+<span class="nc bnc" id="L47" title="All 2 branches missed.">        if (!Validations.isValidReserva(reserva)) {</span>
+<span class="nc" id="L48">            return false;</span>
+        }
+<span class="nc" id="L50">        return repository.update(reserva);</span>
+    }
+
+    @Override
+    public boolean deleteById(Integer id) {
+<span class="nc bnc" id="L55" title="All 2 branches missed.">        if (id == null) {</span>
+<span class="nc" id="L56">            return false;</span>
+        }
+<span class="nc" id="L58">        return repository.deleteById(id);</span>
+    }
+
+    @Override
+    public boolean cancelarReserva(Integer idReserva) {
+<span class="nc" id="L63">        return repository.cancelarReserva(idReserva);</span>
+    }
+
+    @Override
+    public List&lt;Reserva&gt; findDisponibles() {
+<span class="nc" id="L68">        return repository.findDisponibles();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
