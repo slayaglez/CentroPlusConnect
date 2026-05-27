@@ -11,10 +11,29 @@ public class Incidencia {
     private LocalDate fecha;
     private String estado;
 
+    /**
+     * Constructor por defecto
+     */
+    public Incidencia() {
+    }
+
+    /**
+     * Constructor para busquedas
+     * @param id identificador de la incidencia
+     */
     public Incidencia(int id) {
         this.id = id;
     }
 
+    /**
+     * Constructor de la incidencia
+     * @param id identificador de la incidencia
+     * @param idUsuario identificador del usuario
+     * @param asunto asunto de la incidencia
+     * @param descripcion descripcion de la incidencia
+     * @param fecha fecha de la incidencia
+     * @param estado estado de la incidencia
+     */
     public Incidencia(int id, int idUsuario, String asunto, String descripcion, LocalDate fecha, String estado) {
         this.id = id;
         this.idUsuario = idUsuario;

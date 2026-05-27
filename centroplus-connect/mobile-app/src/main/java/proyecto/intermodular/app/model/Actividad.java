@@ -11,13 +11,30 @@ public class Actividad {
     private Integer plazasMaximas;
     private Integer plazasOcupadas;
 
+    /**
+     * Constructor por defecto
+     */
     public Actividad() {
     }
 
+    /**
+     * Constructor para busquedas
+     * @param id identificador de la clase
+     */
     public Actividad(int id) {
         this.id = id;
     }
 
+    /**
+     * Constructor de la clase
+     * @param id identificador de la actividad
+     * @param nombre nombre de la actividad
+     * @param tipoActividad tipo de la actividad
+     * @param duracion duracion de la actividad
+     * @param precio precio de la actividad
+     * @param plazasMaximas plazas de la actividad
+     * @param plazasOcupadas plazas ocupadas de la actividad
+     */
     public Actividad(int id, String nombre, String tipoActividad, int duracion, double precio, int plazasMaximas,
             int plazasOcupadas) {
         this.id = id;

@@ -1,0 +1,12 @@
+proyecto/intermodular/model/IncidenciaTest.class
+proyecto/intermodular/model/ReservaTest.class
+proyecto/intermodular/repository/ActividadRepositoryTest.class
+proyecto/intermodular/service/UsuarioServiceTest.class
+proyecto/intermodular/model/UsuarioTest.class
+proyecto/intermodular/service/ActividadServiceTest.class
+proyecto/intermodular/repository/ReservaRepositoryTest.class
+proyecto/intermodular/repository/UsuarioRepositoryTest.class
+proyecto/intermodular/service/ReservaServiceTest.class
+proyecto/intermodular/service/IncidenciaServiceTest.class
+proyecto/intermodular/model/ActividadTest.class
+proyecto/intermodular/repository/IncidenciaRepositoryTest.class
