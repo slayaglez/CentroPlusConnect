@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Validations.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">centroplus-connect</a> &gt; <a href="index.source.html" class="el_package">proyecto.intermodular.validations</a> &gt; <span class="el_source">Validations.java</span></div><h1>Validations.java</h1><pre class="source lang-java linenums">package proyecto.intermodular.validations;
+
+import java.util.regex.Pattern;
+
+import proyecto.intermodular.app.model.Actividad;
+import proyecto.intermodular.app.model.Incidencia;
+import proyecto.intermodular.app.model.Reserva;
+import proyecto.intermodular.app.model.Usuario;
+
+public final class Validations {
+
+    private Validations() {
+
+    }
+
+    public static boolean isValidTipoUsuario(String tipoUsuario) {
+<span class="nc bnc" id="L17" title="All 4 branches missed.">        if (tipoUsuario == null || tipoUsuario.isEmpty()) {</span>
+<span class="nc" id="L18">            return false;</span>
+        }
+<span class="nc" id="L20">        String patron = &quot;^(ALUMNO||SOCIO||alumno||socio){1,2}$&quot;;</span>
+<span class="nc" id="L21">        return Pattern.matches(patron, tipoUsuario);</span>
+    }
+
+    public static boolean isValidTipoActividad(String tipoActividad) {
+<span class="nc bnc" id="L25" title="All 4 branches missed.">        if (tipoActividad == null || tipoActividad.isEmpty()) {</span>
+<span class="nc" id="L26">            return false;</span>
+        }
+<span class="nc" id="L28">        String patron = &quot;^ACADEMICA||DEPORTIVA||academica||deportiva$&quot;;</span>
+<span class="nc" id="L29">        return Pattern.matches(patron, tipoActividad);</span>
+    }
+
+    public static boolean isValidEstadoReserva(String estado) {
+<span class="nc bnc" id="L33" title="All 4 branches missed.">        if (estado == null || estado.isEmpty()) {</span>
+<span class="nc" id="L34">            return false;</span>
+        }
+<span class="nc" id="L36">        String patron = &quot;^ACTIVA||CANCELADA||activa||cancelada$&quot;;</span>
+<span class="nc" id="L37">        return Pattern.matches(patron, estado);</span>
+    }
+
+    public static boolean isValidEstadoIncidencia(String estado) {
+<span class="nc bnc" id="L41" title="All 4 branches missed.">        if (estado == null || estado.isEmpty()) {</span>
+<span class="nc" id="L42">            return false;</span>
+        }
+<span class="nc" id="L44">        String patron = &quot;^ABIERTO||EN_PROCESO||CERRADA||abierto||en_proceso||cerrada$&quot;;</span>
+<span class="nc" id="L45">        return Pattern.matches(patron, estado);</span>
+    }
+
+    public static boolean isValidDni(String dni) {
+<span class="nc bnc" id="L49" title="All 4 branches missed.">        if (dni == null || dni.isEmpty()) {</span>
+<span class="nc" id="L50">            return false;</span>
+        }
+<span class="nc" id="L52">        String patron = &quot;^[0-9]{8}[A-Za-z]$&quot;;</span>
+<span class="nc" id="L53">        return Pattern.matches(patron, dni);</span>
+    }
+
+    public static boolean isValidEmail(String email) {
+<span class="nc bnc" id="L57" title="All 4 branches missed.">        if (email == null || email.isEmpty()) {</span>
+<span class="nc" id="L58">            return false;</span>
+        }
+<span class="nc" id="L60">        String patron = &quot;^[a-z]+@[a-z]+\\.[a-z]{2,}$&quot;;</span>
+<span class="nc" id="L61">        return Pattern.matches(patron, email);</span>
+    }
+
+    public static boolean isValidTelefono(String telefono) {
+<span class="nc bnc" id="L65" title="All 4 branches missed.">        if (telefono == null || telefono.isEmpty()) {</span>
+<span class="nc" id="L66">            return false;</span>
+        }
+<span class="nc" id="L68">        String patron = &quot;^\\+[0-9]{2}[0-9]{9}$&quot;;</span>
+<span class="nc" id="L69">        return Pattern.matches(patron, telefono);</span>
+    }
+
+    public static boolean isValidNombre(String nombre) {
+<span class="nc bnc" id="L73" title="All 4 branches missed.">        if (nombre == null || nombre.isEmpty()) {</span>
+<span class="nc" id="L74">            return false;</span>
+        }
+<span class="nc" id="L76">        String patron = &quot;^[A-Za-záéíóúÁÉÍÓÚ]{2,}(?: [A-Za-záéíóúÁÉÍÓÚ]+)*$&quot;;</span>
+<span class="nc" id="L77">        return Pattern.matches(patron, nombre);</span>
+    }
+
+    public static boolean isValidPlazasMaximas(int plazasMaximas) {
+<span class="nc bnc" id="L81" title="All 2 branches missed.">        if (plazasMaximas &lt;= 0) {</span>
+<span class="nc" id="L82">            return false;</span>
+        }
+<span class="nc" id="L84">        return true;</span>
+    }
+
+    public static boolean isValidPlazasOcupadas(int plazasOcupadas) {
+<span class="nc bnc" id="L88" title="All 2 branches missed.">        if (plazasOcupadas &lt; 0) {</span>
+<span class="nc" id="L89">            return false;</span>
+        }
+<span class="nc" id="L91">        return true;</span>
+    }
+
+    public static boolean isValidPrecio(double precio) {
+<span class="nc bnc" id="L95" title="All 2 branches missed.">        if (precio &lt; 0) {</span>
+<span class="nc" id="L96">            return false;</span>
+        }
+<span class="nc" id="L98">        return true;</span>
+    }
+
+    public static boolean isValidDuracion(int duracion) {
+<span class="nc bnc" id="L102" title="All 2 branches missed.">        if (duracion &lt; 0) {</span>
+<span class="nc" id="L103">            return false;</span>
+        }
+<span class="nc" id="L105">        return true;</span>
+    }
+
+    public static boolean isValidDescripcion(String descripcion) {
+<span class="nc bnc" id="L109" title="All 4 branches missed.">        if (descripcion == null | descripcion.isEmpty()) {</span>
+<span class="nc" id="L110">            return false;</span>
+        }
+<span class="nc" id="L112">        String patron = &quot;^[A-Za-záéíóúÁÉÍÓÚñÑ]{2,}$&quot;;</span>
+<span class="nc" id="L113">        return Pattern.matches(patron, descripcion);</span>
+    }
+
+    public static boolean isValidAsunto(String asunto) {
+<span class="nc bnc" id="L117" title="All 4 branches missed.">        if (asunto == null | asunto.isEmpty()) {</span>
+<span class="nc" id="L118">            return false;</span>
+        }
+<span class="nc" id="L120">        String patron = &quot;^[A-Za-záéíóúÁÉÍÓÚñÑ]{2,}$&quot;;</span>
+<span class="nc" id="L121">        return Pattern.matches(patron, asunto);</span>
+    }
+
+    public static boolean isValidActividad(Actividad actividad) {
+<span class="nc bnc" id="L125" title="All 2 branches missed.">        if (actividad == null) {</span>
+<span class="nc" id="L126">            return false;</span>
+        }
+<span class="nc bnc" id="L128" title="All 2 branches missed.">        return isValidNombre(actividad.getNombre())</span>
+<span class="nc bnc" id="L129" title="All 2 branches missed.">                &amp;&amp; isValidTipoActividad(actividad.getTipoActividad())</span>
+<span class="nc bnc" id="L130" title="All 2 branches missed.">                &amp;&amp; isValidDuracion(actividad.getDuracion())</span>
+<span class="nc bnc" id="L131" title="All 2 branches missed.">                &amp;&amp; isValidPrecio(actividad.getPrecio())</span>
+<span class="nc bnc" id="L132" title="All 2 branches missed.">                &amp;&amp; isValidPlazasMaximas(actividad.getPlazasMaximas())</span>
+<span class="nc bnc" id="L133" title="All 2 branches missed.">                &amp;&amp; isValidPlazasOcupadas(actividad.getPlazasOcupadas());</span>
+    }
+
+    public static boolean isValidIncidencia(Incidencia incidencia) {
+<span class="nc bnc" id="L137" title="All 2 branches missed.">        if (incidencia == null) {</span>
+<span class="nc" id="L138">            return false;</span>
+        }
+<span class="nc bnc" id="L140" title="All 2 branches missed.">        return isValidAsunto(incidencia.getAsunto())</span>
+<span class="nc bnc" id="L141" title="All 2 branches missed.">                &amp;&amp; isValidDescripcion(incidencia.getDescripcion())</span>
+<span class="nc bnc" id="L142" title="All 2 branches missed.">                &amp;&amp; isValidEstadoIncidencia(incidencia.getEstado());</span>
+    }
+
+    public static boolean isValidReserva(Reserva reserva) {
+<span class="nc bnc" id="L146" title="All 2 branches missed.">        if (reserva == null) {</span>
+<span class="nc" id="L147">            return false;</span>
+        }
+<span class="nc" id="L149">        return isValidEstadoReserva(reserva.getEstado());</span>
+    }
+
+    public static boolean isValidUsuario(Usuario usuario) {
+<span class="nc bnc" id="L153" title="All 2 branches missed.">        if (usuario == null) {</span>
+<span class="nc" id="L154">            return false;</span>
+        }
+<span class="nc bnc" id="L156" title="All 2 branches missed.">        return isValidNombre(usuario.getNombre())</span>
+<span class="nc bnc" id="L157" title="All 2 branches missed.">                &amp;&amp; isValidDni(usuario.getDni())</span>
+<span class="nc bnc" id="L158" title="All 2 branches missed.">                &amp;&amp; isValidEmail(usuario.getEmail())</span>
+<span class="nc bnc" id="L159" title="All 2 branches missed.">                &amp;&amp; isValidTelefono(usuario.getTelefono())</span>
+<span class="nc bnc" id="L160" title="All 2 branches missed.">                &amp;&amp; isValidTipoUsuario(usuario.getTipoUsuario());</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

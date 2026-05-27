@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Actividad.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">centroplus-connect</a> &gt; <a href="index.source.html" class="el_package">proyecto.intermodular.app.model</a> &gt; <span class="el_source">Actividad.java</span></div><h1>Actividad.java</h1><pre class="source lang-java linenums">package proyecto.intermodular.app.model;
+
+import java.util.Objects;
+
+public class Actividad {
+    private Integer id;
+    private String nombre;
+    private String tipoActividad;
+    private Integer duracion;
+    private double precio;
+    private Integer plazasMaximas;
+    private Integer plazasOcupadas;
+
+<span class="nc" id="L14">    public Actividad() {</span>
+<span class="nc" id="L15">    }</span>
+
+<span class="nc" id="L17">    public Actividad(int id) {</span>
+<span class="nc" id="L18">        this.id = id;</span>
+<span class="nc" id="L19">    }</span>
+
+    public Actividad(int id, String nombre, String tipoActividad, int duracion, double precio, int plazasMaximas,
+<span class="nc" id="L22">            int plazasOcupadas) {</span>
+<span class="nc" id="L23">        this.id = id;</span>
+<span class="nc" id="L24">        this.nombre = nombre;</span>
+<span class="nc" id="L25">        this.tipoActividad = tipoActividad;</span>
+<span class="nc" id="L26">        this.duracion = duracion;</span>
+<span class="nc" id="L27">        this.precio = precio;</span>
+<span class="nc" id="L28">        this.plazasMaximas = plazasMaximas;</span>
+<span class="nc" id="L29">        this.plazasOcupadas = plazasOcupadas;</span>
+<span class="nc" id="L30">    }</span>
+
+    public Integer getId() {
+<span class="nc" id="L33">        return id;</span>
+    }
+
+    public void setId(int id) {
+<span class="nc" id="L37">        this.id = id;</span>
+<span class="nc" id="L38">    }</span>
+
+    public String getNombre() {
+<span class="nc" id="L41">        return nombre;</span>
+    }
+
+    public void setNombre(String nombre) {
+<span class="nc" id="L45">        this.nombre = nombre;</span>
+<span class="nc" id="L46">    }</span>
+
+    public String getTipoActividad() {
+<span class="nc" id="L49">        return tipoActividad;</span>
+    }
+
+    public void setTipoActividad(String tipoActividad) {
+<span class="nc" id="L53">        this.tipoActividad = tipoActividad;</span>
+<span class="nc" id="L54">    }</span>
+
+    public Integer getDuracion() {
+<span class="nc" id="L57">        return duracion;</span>
+    }
+
+    public void setDuracion(int duracion) {
+<span class="nc" id="L61">        this.duracion = duracion;</span>
+<span class="nc" id="L62">    }</span>
+
+    public double getPrecio() {
+<span class="nc" id="L65">        return precio;</span>
+    }
+
+    public void setPrecio(double precio) {
+<span class="nc" id="L69">        this.precio = precio;</span>
+<span class="nc" id="L70">    }</span>
+
+    public Integer getPlazasMaximas() {
+<span class="nc" id="L73">        return plazasMaximas;</span>
+    }
+
+    public void setPlazasMaximas(int plazasMaximas) {
+<span class="nc" id="L77">        this.plazasMaximas = plazasMaximas;</span>
+<span class="nc" id="L78">    }</span>
+
+    public Integer getPlazasOcupadas() {
+<span class="nc" id="L81">        return plazasOcupadas;</span>
+    }
+
+    public void setPlazasOcupadas(int plazasOcupadas) {
+<span class="nc" id="L85">        this.plazasOcupadas = plazasOcupadas;</span>
+<span class="nc" id="L86">    }</span>
+
+    @Override
+    public int hashCode() {
+<span class="nc" id="L90">        return Objects.hash(id);</span>
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+<span class="nc bnc" id="L95" title="All 2 branches missed.">        if (this == obj)</span>
+<span class="nc" id="L96">            return true;</span>
+<span class="nc bnc" id="L97" title="All 2 branches missed.">        if (obj == null)</span>
+<span class="nc" id="L98">            return false;</span>
+<span class="nc bnc" id="L99" title="All 2 branches missed.">        if (getClass() != obj.getClass())</span>
+<span class="nc" id="L100">            return false;</span>
+<span class="nc" id="L101">        Actividad other = (Actividad) obj;</span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">        return id == other.id;</span>
+    }
+
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

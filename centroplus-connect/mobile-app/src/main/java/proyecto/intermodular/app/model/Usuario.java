@@ -2,6 +2,15 @@ package proyecto.intermodular.app.model;
 
 import java.util.Objects;
 
+/**
+ * Usuario
+ * @param Integer id
+ * @param String nombre
+ * @param String dni
+ * @param String email
+ * @param String telefono
+ * @param String tipoUsuario
+ */
 public class Usuario {
     private Integer id;
     private String nombre;
@@ -10,10 +19,27 @@ public class Usuario {
     private String telefono;
     private String tipoUsuario;
     
+    /**
+     * Constructor vacio
+     */
+    public Usuario(){}
+
+    /**
+     * Constructor con identificador
+     * @param id identificador
+     */
     public Usuario(int id) {
         this.id = id;
     }
 
+    /**
+     * Constructor sin ID
+     * @param nombre nombre del usuario
+     * @param dni dni del usuario
+     * @param email email del usuario
+     * @param telefono telefono String
+     * @param tipoUsuario tipo usuario String
+     */
     public Usuario(String nombre, String dni, String email, String telefono, String tipoUsuario) {
         this.nombre = nombre;
         this.dni = dni;
@@ -22,6 +48,15 @@ public class Usuario {
         this.tipoUsuario = tipoUsuario;
     }
 
+    /**
+     * Constructor completo por defecto
+     * @param id identificador
+     * @param nombre nombre del usuario
+     * @param dni dni del usuario
+     * @param email email del usuario
+     * @param telefono telefono String
+     * @param tipoUsuario tipo usuario String
+     */
     public Usuario(int id, String nombre, String dni, String email, String telefono, String tipoUsuario) {
         this.id = id;
         this.nombre = nombre;
@@ -31,6 +66,14 @@ public class Usuario {
         this.tipoUsuario = tipoUsuario;
     }
 
+    /**
+     * Constructor sin telefono
+     * @param id identificador
+     * @param nombre nombre usuario
+     * @param dni dni usuario
+     * @param email email usuario
+     * @param tipoUsuario tipo usuario String
+     */
     public Usuario(int id, String nombre, String dni, String email, String tipoUsuario) {
         this.id = id;
         this.nombre = nombre;
@@ -94,10 +137,12 @@ public class Usuario {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
         if (obj == null)
             return false;
+
+        if (this == obj)
+            return true;
+        
         if (getClass() != obj.getClass())
             return false;
         Usuario other = (Usuario) obj;

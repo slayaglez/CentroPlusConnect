@@ -10,10 +10,27 @@ public class Reserva {
     private LocalDate fecha;
     private String estado;
 
+    /**
+     * Constructor vacio
+     */
+    public Reserva(){}
+
+    /**
+     * Constructor con identificador unico
+     * @param id identificador
+     */
     public Reserva(int id) {
         this.id = id;
     }
 
+    /**
+     * Constructor completo por defecto
+     * @param id identificador
+     * @param idUsuario id usuario
+     * @param idActividad is actividad
+     * @param fecha fecha de la reserva (LocalDate)
+     * @param estado estado de la reserva (String)
+     */
     public Reserva(int id, int idUsuario, int idActividad, LocalDate fecha, String estado) {
         this.id = id;
         this.idUsuario = idUsuario;

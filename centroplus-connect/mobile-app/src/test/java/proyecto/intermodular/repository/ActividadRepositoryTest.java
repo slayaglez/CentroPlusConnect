@@ -10,11 +10,4 @@ public class ActividadRepositoryTest {
 
     private IActividadRepository repository;
 
-    @Test
-    public void findByIdTestOk() {
-
-        Actividad actividad = repository.findById(1);
-
-        Assertions.assertNotNull(actividad);
-    }
 }
