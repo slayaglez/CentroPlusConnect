@@ -31,5 +31,9 @@ public class IncidenciaTest {
         Assertions.assertNotNull(incidencia);
     }
     
-
+    @Test
+    void incidenciaEqualsTrueTest() {
+        Incidencia incidenciaNueva = new Incidencia(1);
+        Assertions.assertEquals(incidencia, incidenciaNueva);
+    }
 }

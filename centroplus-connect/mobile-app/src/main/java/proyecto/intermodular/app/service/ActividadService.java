@@ -17,6 +17,10 @@ public class ActividadService implements IActividadService{
         this.repository = new ActividadRepository();
     }
 
+    public ActividadService(IActividadService actividadService) {
+        this.repository = new ActividadRepository();
+    }
+
     @Override
     public boolean create(Actividad actividad) {
         if (actividad.getId() == null) {
@@ -30,7 +34,7 @@ public class ActividadService implements IActividadService{
 
     @Override
     public Actividad findById(Integer id) {
-        if (id == null) {
+        if (id == null || id < 1) {
             return null;
         }
         return repository.findById(id);
