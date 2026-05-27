@@ -14,15 +14,26 @@ proyecto/intermodular/app/repository/interfaces/IActividadRepository.class
 proyecto/intermodular/app/service/ActividadService.class
 proyecto/intermodular/app/repository/ReservaRepository.class
 proyecto/intermodular/app/service/UsuarioService.class
+<<<<<<< HEAD
 proyecto/intermodular/app/model/Actividad.class
 proyecto/intermodular/app/controllers/LoginController.class
 proyecto/intermodular/app/controllers/ReservaController.class
+=======
+proyecto/intermodular/app/controllers/ReservaController.class
+proyecto/intermodular/app/controllers/LoginController.class
+proyecto/intermodular/app/model/Actividad.class
+>>>>>>> main
 proyecto/intermodular/validations/Validations.class
 proyecto/intermodular/app/service/interfaces/IUsuarioService.class
 proyecto/intermodular/app/service/ReservaService.class
 proyecto/intermodular/app/controllers/UsuarioController.class
+<<<<<<< HEAD
 proyecto/intermodular/app/model/Reserva.class
 proyecto/intermodular/app/controllers/DashboardController.class
+=======
+proyecto/intermodular/app/controllers/DashboardController.class
+proyecto/intermodular/app/model/Reserva.class
+>>>>>>> main
 proyecto/intermodular/app/service/interfaces/IActividadService.class
 proyecto/intermodular/app/repository/interfaces/IIncidenciaRepository.class
 proyecto/intermodular/app/controllers/MainController.class
