@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="ALogin1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox id="HBLogin" layoutX="142.0" layoutY="79.0" prefHeight="700.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane id="ALogin2" prefHeight="400.0" prefWidth="381.0" style="-fx-background-color: #1E293B;">
+               <children>
+                  <VBox id="VBLogin1" alignment="CENTER" layoutX="-9.0" layoutY="43.0" prefHeight="300.0" prefWidth="400.0" spacing="10.0">
+                     <children>
+                        <Label id="LLogin1" alignment="CENTER" contentDisplay="CENTER" prefHeight="47.0" prefWidth="337.0" style="-fx-text-fill: white; -fx-font-size: 30; -fx-font-weight: bold;" text="CentroPlus Connect" textFill="WHITE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label id="LLogin2" alignment="CENTER" prefWidth="300.0" style="-fx-text-fill: #CBD5E1; -fx-font-size: 16;" text="Sistema de gestión" textAlignment="CENTER" />
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+            <AnchorPane id="ALogin3" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <VBox id="VBLogin2" alignment="CENTER" fillWidth="false" prefHeight="394.0" prefWidth="200.0" spacing="15.0">
+                     <children>
+                        <Label id="LLogin3" text="Iniciar sesión" />
+                        <TextField id="TFLogin" prefHeight="25.0" prefWidth="149.0" promptText="Correo electrónico" />
+                        <PasswordField id="PFLogin" promptText="Contraseña" />
+                        <Button id="BLogin" mnemonicParsing="false" text="Entrar" />
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
