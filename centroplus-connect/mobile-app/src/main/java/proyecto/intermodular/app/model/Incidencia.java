@@ -108,4 +108,17 @@ public class Incidencia {
         return id == other.id;
     }
 
+
+    @Override
+    public String toString() {
+        return "{" +
+            " id='" + getId() + "'" +
+            ", idUsuario='" + getIdUsuario() + "'" +
+            ", asunto='" + getAsunto() + "'" +
+            ", descripcion='" + getDescripcion() + "'" +
+            ", fecha='" + getFecha() + "'" +
+            ", estado='" + getEstado() + "'" +
+            "}";
+    }
+
 }
