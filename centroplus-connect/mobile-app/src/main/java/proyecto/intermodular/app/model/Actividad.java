@@ -19,6 +19,7 @@ public class Actividad {
 
     /**
      * Constructor para busquedas
+     * 
      * @param id identificador de la clase
      */
     public Actividad(int id) {
@@ -27,12 +28,13 @@ public class Actividad {
 
     /**
      * Constructor de la clase
-     * @param id identificador de la actividad
-     * @param nombre nombre de la actividad
-     * @param tipoActividad tipo de la actividad
-     * @param duracion duracion de la actividad
-     * @param precio precio de la actividad
-     * @param plazasMaximas plazas de la actividad
+     * 
+     * @param id             identificador de la actividad
+     * @param nombre         nombre de la actividad
+     * @param tipoActividad  tipo de la actividad
+     * @param duracion       duracion de la actividad
+     * @param precio         precio de la actividad
+     * @param plazasMaximas  plazas de la actividad
      * @param plazasOcupadas plazas ocupadas de la actividad
      */
     public Actividad(int id, String nombre, String tipoActividad, int duracion, double precio, int plazasMaximas,
@@ -102,6 +104,16 @@ public class Actividad {
         this.plazasOcupadas = plazasOcupadas;
     }
 
+    public int getPlazasDisponibles() {
+        return plazasMaximas - plazasOcupadas;
+    }
+
+    public void cancelarPlaza() {
+        if (plazasOcupadas > 0) {
+            plazasOcupadas--;
+        }
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id);
@@ -119,5 +131,17 @@ public class Actividad {
         return id == other.id;
     }
 
-    
+    @Override
+    public String toString() {
+        return "{" +
+            " id='" + getId() + "'" +
+            ", nombre='" + getNombre() + "'" +
+            ", tipoActividad='" + getTipoActividad() + "'" +
+            ", duracion='" + getDuracion() + "'" +
+            ", precio='" + getPrecio() + "'" +
+            ", plazasMaximas='" + getPlazasMaximas() + "'" +
+            ", plazasOcupadas='" + getPlazasOcupadas() + "'" +
+            "}";
+    }
+
 }
