@@ -1,11 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: proyecto.intermodular.repository.ActividadRepositoryTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.009 s <<< FAILURE! -- in proyecto.intermodular.repository.ActividadRepositoryTest
-proyecto.intermodular.repository.ActividadRepositoryTest.findByIdTestOk -- Time elapsed: 0.004 s <<< ERROR!
-java.lang.NullPointerException: Cannot invoke "proyecto.intermodular.app.repository.interfaces.IActividadRepository.findById(java.lang.Integer)" because "this.repository" is null
-	at proyecto.intermodular.repository.ActividadRepositoryTest.findByIdTestOk(ActividadRepositoryTest.java:16)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-
+Tests run: 28, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.307 s -- in proyecto.intermodular.repository.ActividadRepositoryTest
