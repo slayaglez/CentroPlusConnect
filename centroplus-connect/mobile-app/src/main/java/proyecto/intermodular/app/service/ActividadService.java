@@ -19,6 +19,9 @@ public class ActividadService implements IActividadService{
 
     @Override
     public boolean create(Actividad actividad) {
+        if (actividad == null) {
+            return false;
+        }
         if (actividad.getId() == null) {
             return repository.createAutoId(actividad);
         }

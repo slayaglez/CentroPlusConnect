@@ -18,6 +18,9 @@ public class IncidenciaService implements IIncidenciaService {
 
     @Override
     public boolean create(Incidencia incidencia) {
+        if (incidencia == null) {
+            return false;
+        }
         if (incidencia.getId() == null) {
             return repository.createAutoId(incidencia);
         }

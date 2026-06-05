@@ -106,18 +106,18 @@ public final class Validations {
     }
 
     public static boolean isValidDescripcion(String descripcion) {
-        if (descripcion == null | descripcion.isEmpty()) {
+        if (descripcion == null || descripcion.isEmpty()) {
             return false;
         }
-        String patron = "^[A-Za-záéíóúÁÉÍÓÚñÑ]{2,}$";
+        String patron = "^[A-Za-záéíóúÁÉÍÓÚñÑ]{2,}(?: [A-Za-záéíóúÁÉÍÓÚñÑ]+)*$";
         return Pattern.matches(patron, descripcion);
     }
 
     public static boolean isValidAsunto(String asunto) {
-        if (asunto == null | asunto.isEmpty()) {
+        if (asunto == null || asunto.isEmpty()) {
             return false;
         }
-        String patron = "^[A-Za-záéíóúÁÉÍÓÚñÑ]{2,}$";
+        String patron = "^[A-Za-záéíóúÁÉÍÓÚñÑ]{2,}(?: [A-Za-záéíóúÁÉÍÓÚñÑ]+)*$";
         return Pattern.matches(patron, asunto);
     }
 
