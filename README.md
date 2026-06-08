@@ -90,7 +90,7 @@ sqlite3 --version
 ### 1. Clonar el repositorio
 
 ```bash
-git clone <url-del-repositorio>
+git clone git@github.com:slayaglez/centroPlus_connect_atteneri_sebastian.git
 cd centroplus-connect/mobile-app
 ```
 
