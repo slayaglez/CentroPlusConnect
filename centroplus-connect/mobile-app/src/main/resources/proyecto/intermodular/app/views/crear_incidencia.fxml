@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="ACrearIncidenciaPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="390.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto.intermodular.app.controllers.CrearIncidenciaController">
+   <children>
+      <AnchorPane fx:id="ACrearIncidencia2" prefHeight="97.0" prefWidth="390.0" style="-fx-background-color: #1a3a5c;">
+         <children>
+            <Label fx:id="LCrearIncidencia" layoutX="21.0" layoutY="42.0" text="Crear incidencia" textFill="WHITE">
+               <font>
+                  <Font name="Carlito" size="35.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Label fx:id="LIdUsuario" layoutX="38.0" layoutY="179.0" text="Id del usuario">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="TIdUsuario" layoutX="36.0" layoutY="207.0" prefHeight="25.0" prefWidth="247.0" promptText="Introduzca el id del usuario" />
+      <Label fx:id="LAsunto" layoutX="39.0" layoutY="247.0" text="Asunto">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="TAsunto" layoutX="36.0" layoutY="279.0" prefHeight="25.0" prefWidth="247.0" promptText="Introduzca el asunto de su incidencia" />
+      <Label fx:id="LDescripcion" layoutX="37.0" layoutY="328.0" text="Descripción">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="TDescripcion" layoutX="36.0" layoutY="366.0" prefHeight="25.0" prefWidth="247.0" promptText="Introduzca la descripción de su incidencia" />
+      <Label fx:id="LFecha" layoutX="37.0" layoutY="429.0" text="Fecha">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <DatePicker fx:id="DPFecha" layoutX="36.0" layoutY="462.0" promptText="Elija la fecha" />
+      <Label fx:id="LEstado" layoutX="37.0" layoutY="487.0" text="Estado">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="TEstado" layoutX="36.0" layoutY="517.0" prefHeight="25.0" prefWidth="247.0" promptText="Introduzca el estado de la incidencia" />
+      <Button fx:id="BCrear" layoutX="114.0" layoutY="562.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="150.0" style="-fx-background-color: C1BEC4;" text="Crear" onAction="#handleCrear">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="BVolver" layoutX="23.0" layoutY="120.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" style="-fx-background-color: C1BEC4;" text="Volver" onAction="#handleVolver" />
+   </children>
+</AnchorPane>

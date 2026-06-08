@@ -150,9 +150,7 @@
                 <version>${javafx.maven.plugin.version}</version>
 
                 <configuration>
-                    <mainClass>
-                        es.ies.puerto.PrincipalApplication
-                    </mainClass>
+                    <mainClass>proyecto.intermodular.app.PrincipalApplication</mainClass>
                 </configuration>
             </plugin>
 
