@@ -14,16 +14,16 @@ public class Incidencia {
     /**
      * Constructor por defecto
      */
-<span class="nc" id="L17">    public Incidencia() {</span>
-<span class="nc" id="L18">    }</span>
+<span class="fc" id="L17">    public Incidencia() {</span>
+<span class="fc" id="L18">    }</span>
 
     /**
      * Constructor para busquedas
      * @param id identificador de la incidencia
      */
-<span class="nc" id="L24">    public Incidencia(int id) {</span>
-<span class="nc" id="L25">        this.id = id;</span>
-<span class="nc" id="L26">    }</span>
+<span class="fc" id="L24">    public Incidencia(int id) {</span>
+<span class="fc" id="L25">        this.id = id;</span>
+<span class="fc" id="L26">    }</span>
 
     /**
      * Constructor de la incidencia
@@ -44,68 +44,81 @@ public class Incidencia {
 <span class="fc" id="L44">    }</span>
 
     public Integer getId() {
-<span class="nc" id="L47">        return id;</span>
+<span class="fc" id="L47">        return id;</span>
     }
 
     public void setId(int id) {
-<span class="nc" id="L51">        this.id = id;</span>
-<span class="nc" id="L52">    }</span>
+<span class="fc" id="L51">        this.id = id;</span>
+<span class="fc" id="L52">    }</span>
 
     public Integer getIdUsuario() {
-<span class="nc" id="L55">        return idUsuario;</span>
+<span class="fc" id="L55">        return idUsuario;</span>
     }
 
     public void setIdUsuario(int idUsuario) {
-<span class="nc" id="L59">        this.idUsuario = idUsuario;</span>
-<span class="nc" id="L60">    }</span>
+<span class="fc" id="L59">        this.idUsuario = idUsuario;</span>
+<span class="fc" id="L60">    }</span>
 
     public String getAsunto() {
 <span class="fc" id="L63">        return asunto;</span>
     }
 
     public void setAsunto(String asunto) {
-<span class="nc" id="L67">        this.asunto = asunto;</span>
-<span class="nc" id="L68">    }</span>
+<span class="fc" id="L67">        this.asunto = asunto;</span>
+<span class="fc" id="L68">    }</span>
 
     public String getDescripcion() {
-<span class="nc" id="L71">        return descripcion;</span>
+<span class="fc" id="L71">        return descripcion;</span>
     }
 
     public void setDescripcion(String descripcion) {
-<span class="nc" id="L75">        this.descripcion = descripcion;</span>
-<span class="nc" id="L76">    }</span>
+<span class="fc" id="L75">        this.descripcion = descripcion;</span>
+<span class="fc" id="L76">    }</span>
 
     public LocalDate getFecha() {
-<span class="nc" id="L79">        return fecha;</span>
+<span class="fc" id="L79">        return fecha;</span>
     }
 
     public void setFecha(LocalDate fecha) {
-<span class="nc" id="L83">        this.fecha = fecha;</span>
-<span class="nc" id="L84">    }</span>
+<span class="fc" id="L83">        this.fecha = fecha;</span>
+<span class="fc" id="L84">    }</span>
 
     public String getEstado() {
 <span class="fc" id="L87">        return estado;</span>
     }
 
     public void setEstado(String estado) {
-<span class="nc" id="L91">        this.estado = estado;</span>
-<span class="nc" id="L92">    }</span>
+<span class="fc" id="L91">        this.estado = estado;</span>
+<span class="fc" id="L92">    }</span>
 
     @Override
     public int hashCode() {
-<span class="nc" id="L96">        return Objects.hash(id);</span>
+<span class="fc" id="L96">        return Objects.hash(id);</span>
     }
 
     @Override
     public boolean equals(Object obj) {
-<span class="nc bnc" id="L101" title="All 2 branches missed.">        if (this == obj)</span>
-<span class="nc" id="L102">            return true;</span>
-<span class="nc bnc" id="L103" title="All 2 branches missed.">        if (obj == null)</span>
-<span class="nc" id="L104">            return false;</span>
-<span class="nc bnc" id="L105" title="All 2 branches missed.">        if (getClass() != obj.getClass())</span>
+<span class="fc bfc" id="L101" title="All 2 branches covered.">        if (this == obj)</span>
+<span class="fc" id="L102">            return true;</span>
+<span class="fc bfc" id="L103" title="All 2 branches covered.">        if (obj == null)</span>
+<span class="fc" id="L104">            return false;</span>
+<span class="pc bpc" id="L105" title="1 of 2 branches missed.">        if (getClass() != obj.getClass())</span>
 <span class="nc" id="L106">            return false;</span>
-<span class="nc" id="L107">        Incidencia other = (Incidencia) obj;</span>
-<span class="nc bnc" id="L108" title="All 2 branches missed.">        return id == other.id;</span>
+<span class="fc" id="L107">        Incidencia other = (Incidencia) obj;</span>
+<span class="fc bfc" id="L108" title="All 2 branches covered.">        return id == other.id;</span>
+    }
+
+
+    @Override
+    public String toString() {
+<span class="fc" id="L114">        return &quot;{&quot; +</span>
+<span class="fc" id="L115">            &quot; id='&quot; + getId() + &quot;'&quot; +</span>
+<span class="fc" id="L116">            &quot;, idUsuario='&quot; + getIdUsuario() + &quot;'&quot; +</span>
+<span class="fc" id="L117">            &quot;, asunto='&quot; + getAsunto() + &quot;'&quot; +</span>
+<span class="fc" id="L118">            &quot;, descripcion='&quot; + getDescripcion() + &quot;'&quot; +</span>
+<span class="fc" id="L119">            &quot;, fecha='&quot; + getFecha() + &quot;'&quot; +</span>
+<span class="fc" id="L120">            &quot;, estado='&quot; + getEstado() + &quot;'&quot; +</span>
+            &quot;}&quot;;
     }
 
 }
