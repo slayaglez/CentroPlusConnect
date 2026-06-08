@@ -1,5 +1,10 @@
 package proyecto.intermodular.app.controllers;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,75 +16,69 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.util.Optional;
+import proyecto.intermodular.app.model.Incidencia;
+import proyecto.intermodular.app.service.IncidenciaService;
 
 public class IncidenciaController {
 
-    // ── Cabecera y búsqueda ──────────────────────────────────────────────────
     @FXML private TextField        TBuscarIncidencia;
     @FXML private ComboBox<String> CIncidencias;
-    @FXML private ScrollBar        SIncidencias;
 
-    // ── Botones CRUD ─────────────────────────────────────────────────────────
     @FXML private Button BCrear;
     @FXML private Button BEditar;
     @FXML private Button BEliminar;
+    @FXML private Button BCambiarEstado;
 
-    // ── Tarjeta de incidencia (plantilla visible en el FXML) ─────────────────
-    @FXML private AnchorPane AIncidencias4;
-    @FXML private Label      LIdUsuario;
-    @FXML private Label      LFecha;
-    @FXML private Label      LEstado;
-    @FXML private Label      LAsunto;
-    @FXML private Label      LDescripcion;
-    @FXML private Button     BCambiarEstado;
+    @FXML private Label LAsunto;
+    @FXML private Label LIdUsuario;
+    @FXML private Label LFecha;
+    @FXML private Label LEstado;
+    @FXML private Label LDescripcion;
+    @FXML private Label LContador;
 
-    // ── Navegación inferior ──────────────────────────────────────────────────
-    @FXML private Label LInicio;
-    @FXML private Label LUsuarios;
-    @FXML private Label LActividades;
-    @FXML private Label LReservas;
+    @FXML private Label LNavInicio;
+    @FXML private Label LNavUsuarios;
+    @FXML private Label LNavActividades;
+    @FXML private Label LNavReservas;
     @FXML private Label LNavIncidencias;
 
-    // Estados posibles de una incidencia (ciclo de cambio)
     private static final String[] ESTADOS = {"Abierta", "En proceso", "Resuelta", "Cerrada"};
 
-    // ── Inicialización ───────────────────────────────────────────────────────
+    private final IncidenciaService service = new IncidenciaService();
+    private List<Incidencia> listaActual = new ArrayList<>();
+    private int indiceActual = -1;
+
     @FXML
     public void initialize() {
-        // Filtro por estado
+        setCursorMano(LNavInicio, LNavUsuarios, LNavActividades,
+                      LNavReservas, LNavIncidencias);
+
         CIncidencias.setItems(FXCollections.observableArrayList(
             "Todos", "Abierta", "En proceso", "Resuelta", "Cerrada"
         ));
         CIncidencias.setValue("Todos");
 
-        // Búsqueda en tiempo real
-        TBuscarIncidencia.textProperty().addListener((obs, oldVal, newVal) -> filtrarIncidencias());
+        BEditar.setDisable(true);
+        BEliminar.setDisable(true);
+        BCambiarEstado.setDisable(true);
+
+        cargarIncidencias("", "Todos");
     }
 
-    // ── Filtro por estado ────────────────────────────────────────────────────
+    @FXML
+    private void handleBuscar(KeyEvent event) {
+        cargarIncidencias(TBuscarIncidencia.getText().trim(), CIncidencias.getValue());
+    }
+
     @FXML
     private void handleFiltro(ActionEvent event) {
-        filtrarIncidencias();
+        cargarIncidencias(TBuscarIncidencia.getText().trim(), CIncidencias.getValue());
     }
 
-    private void filtrarIncidencias() {
-        String textoBusqueda = TBuscarIncidencia.getText().trim().toLowerCase();
-        String filtroEstado  = CIncidencias.getValue();
-
-        // TODO: aplicar filtros sobre la lista de incidencias cargada desde el servicio
-        System.out.printf("Filtrando incidencias → texto='%s', estado='%s'%n",
-                          textoBusqueda, filtroEstado);
-    }
-
-    // ── CRUD ─────────────────────────────────────────────────────────────────
     @FXML
     private void handleCrear(ActionEvent event) {
         navegarA("/proyecto/intermodular/app/views/crear_incidencia.fxml",
@@ -88,96 +87,169 @@ public class IncidenciaController {
 
     @FXML
     private void handleEditar(ActionEvent event) {
-        // TODO: comprobar que hay una incidencia seleccionada antes de navegar
-        navegarA("/proyecto/intermodular/app/views/editar_incidencia.fxml",
-                 "CentroPlus Connect – Editar incidencia", event);
+        if (indiceActual < 0 || indiceActual >= listaActual.size()) return;
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/proyecto/intermodular/app/views/editar_incidencia.fxml")
+            );
+            Parent root = loader.load();
+            EditarIncidenciaController ctrl = loader.getController();
+            Incidencia i = listaActual.get(indiceActual);
+            ctrl.cargarDatos(i.getId(), String.valueOf(i.getIdUsuario()), i.getAsunto(),
+                 i.getDescripcion(), i.getFecha(), i.getEstado());
+            Stage stage = (Stage) BEditar.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("CentroPlus Connect – Editar incidencia");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            mostrarError("No se pudo cargar la pantalla de edición.");
+        }
     }
 
     @FXML
     private void handleEliminar(ActionEvent event) {
-        // TODO: obtener la incidencia seleccionada y pedir confirmación
+        if (indiceActual < 0 || indiceActual >= listaActual.size()) return;
+        Incidencia i = listaActual.get(indiceActual);
+
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
         confirm.setTitle("Eliminar incidencia");
         confirm.setHeaderText(null);
-        confirm.setContentText("¿Seguro que deseas eliminar esta incidencia? Esta acción no se puede deshacer.");
-        Optional<ButtonType> result = confirm.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            // TODO: llamar al servicio para eliminar la incidencia
-            System.out.println("Incidencia eliminada.");
-            mostrarExito("Incidencia eliminada correctamente.");
+        confirm.setContentText("¿Seguro que deseas eliminar la incidencia «" + i.getAsunto() + "»?");
+
+        Optional<ButtonType> resultado = confirm.showAndWait();
+        if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
+            boolean ok = service.deleteById(i.getId());
+            if (ok) {
+                limpiarSeleccion();
+                cargarIncidencias(TBuscarIncidencia.getText().trim(), CIncidencias.getValue());
+            } else {
+                mostrarError("No se pudo eliminar la incidencia.");
+            }
         }
     }
 
-    // ── Cambiar estado (desde la tarjeta) ────────────────────────────────────
     @FXML
     private void handleCambiarEstado(ActionEvent event) {
-        // Cicla al siguiente estado en el array ESTADOS
-        String estadoActual = LEstado.getText();
-        String estadoSiguiente = siguienteEstado(estadoActual);
+        if (indiceActual < 0 || indiceActual >= listaActual.size()) return;
+        Incidencia i = listaActual.get(indiceActual);
+        String estadoSiguiente = siguienteEstado(i.getEstado());
 
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
         confirm.setTitle("Cambiar estado");
         confirm.setHeaderText(null);
-        confirm.setContentText(
-            "¿Cambiar el estado de «" + estadoActual + "» a «" + estadoSiguiente + "»?"
-        );
-        Optional<ButtonType> result = confirm.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            // TODO: llamar al servicio para actualizar el estado en la BD
-            LEstado.setText(estadoSiguiente);
-            actualizarColorEstado(estadoSiguiente);
-            System.out.printf("Estado cambiado: %s → %s%n", estadoActual, estadoSiguiente);
+        confirm.setContentText("¿Cambiar el estado de «" + i.getEstado() + "» a «" + estadoSiguiente + "»?");
+
+        Optional<ButtonType> resultado = confirm.showAndWait();
+        if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
+            boolean ok = service.cambiarEstadoIncidencia(i.getId(), estadoSiguiente);
+            if (ok) {
+                cargarIncidencias(TBuscarIncidencia.getText().trim(), CIncidencias.getValue());
+            } else {
+                mostrarError("No se pudo cambiar el estado.");
+            }
         }
     }
 
-    /** Devuelve el siguiente estado en el ciclo; si es el último, vuelve al primero. */
+    @FXML
+    private void handleAnterior(MouseEvent event) {
+        if (listaActual.isEmpty()) return;
+        indiceActual = (indiceActual - 1 + listaActual.size()) % listaActual.size();
+        mostrarIncidencia(listaActual.get(indiceActual));
+    }
+
+    @FXML
+    private void handleSiguiente(MouseEvent event) {
+        if (listaActual.isEmpty()) return;
+        indiceActual = (indiceActual + 1) % listaActual.size();
+        mostrarIncidencia(listaActual.get(indiceActual));
+    }
+
+    @FXML private void handleNavInicio(MouseEvent e)      { navegarA("/proyecto/intermodular/app/views/dashboard.fxml",    "CentroPlus Connect – Inicio",      e); }
+    @FXML private void handleNavUsuarios(MouseEvent e)    { navegarA("/proyecto/intermodular/app/views/usuarios.fxml",     "CentroPlus Connect – Usuarios",    e); }
+    @FXML private void handleNavActividades(MouseEvent e) { navegarA("/proyecto/intermodular/app/views/actividades.fxml",  "CentroPlus Connect – Actividades", e); }
+    @FXML private void handleNavReservas(MouseEvent e)    { navegarA("/proyecto/intermodular/app/views/reservas.fxml",     "CentroPlus Connect – Reservas",    e); }
+    @FXML private void handleNavIncidencias(MouseEvent e) { /* ya estamos aqui */ }
+
+    // Carga de datos
+    private void cargarIncidencias(String texto, String estado) {
+        List<Incidencia> todas = service.findAll();
+        if (todas == null) todas = new ArrayList<>();
+
+        listaActual = new ArrayList<>();
+        String textoLow = texto.toLowerCase();
+
+        for (Incidencia i : todas) {
+            boolean coincideTexto = texto.isEmpty()
+                || (i.getAsunto() != null && i.getAsunto().toLowerCase().contains(textoLow))
+                || (i.getDescripcion() != null && i.getDescripcion().toLowerCase().contains(textoLow));
+            boolean coincideEstado = "Todos".equals(estado) || estado == null
+                || estado.equalsIgnoreCase(i.getEstado());
+            if (coincideTexto && coincideEstado) listaActual.add(i);
+        }
+
+        if (!listaActual.isEmpty()) {
+            indiceActual = 0;
+            mostrarIncidencia(listaActual.get(0));
+            BEditar.setDisable(false);
+            BEliminar.setDisable(false);
+            BCambiarEstado.setDisable(false);
+        } else {
+            indiceActual = -1;
+            mostrarPlaceholder();
+            limpiarSeleccion();
+        }
+    }
+
+    private void mostrarIncidencia(Incidencia i) {
+        LAsunto.setText(i.getAsunto() != null ? i.getAsunto() : "—");
+        LIdUsuario.setText(i.getIdUsuario() != null ? String.valueOf(i.getIdUsuario()) : "—");
+        LFecha.setText(i.getFecha() != null ? i.getFecha().toString() : "—");
+        LDescripcion.setText(i.getDescripcion() != null ? i.getDescripcion() : "—");
+        LEstado.setText(i.getEstado() != null ? i.getEstado() : "—");
+        actualizarBadgeEstado(i.getEstado());
+        LContador.setText((indiceActual + 1) + " / " + listaActual.size());
+        BEditar.setDisable(false);
+        BEliminar.setDisable(false);
+        BCambiarEstado.setDisable(false);
+    }
+
+    private void mostrarPlaceholder() {
+        LAsunto.setText("Sin resultados");
+        LIdUsuario.setText("—");
+        LFecha.setText("—");
+        LDescripcion.setText("—");
+        LEstado.setText("—");
+        LContador.setText("0 / 0");
+    }
+
+    private void limpiarSeleccion() {
+        BEditar.setDisable(true);
+        BEliminar.setDisable(true);
+        BCambiarEstado.setDisable(true);
+    }
+
     private String siguienteEstado(String estadoActual) {
         for (int i = 0; i < ESTADOS.length; i++) {
             if (ESTADOS[i].equalsIgnoreCase(estadoActual)) {
                 return ESTADOS[(i + 1) % ESTADOS.length];
             }
         }
-        return ESTADOS[0]; // fallback
+        return ESTADOS[0];
     }
 
-    /** Actualiza el color del label de estado según su valor. */
-    private void actualizarColorEstado(String estado) {
-        switch (estado) {
-            case "Abierta"    -> LEstado.setStyle("-fx-text-fill: #a42525;"); // rojo
-            case "En proceso" -> LEstado.setStyle("-fx-text-fill: #c98c22;"); // naranja
-            case "Resuelta"   -> LEstado.setStyle("-fx-text-fill: #56b248;"); // verde
-            case "Cerrada"    -> LEstado.setStyle("-fx-text-fill: #888888;"); // gris
+    private void actualizarBadgeEstado(String estado) {
+        if (estado == null) return;
+        switch (estado.toLowerCase()) {
+            case "abierta"    -> LEstado.setStyle("-fx-background-color: #f8d7da; -fx-text-fill: #842029; -fx-background-radius: 12; -fx-font-size: 12;");
+            case "en proceso" -> LEstado.setStyle("-fx-background-color: #fff3cd; -fx-text-fill: #856404; -fx-background-radius: 12; -fx-font-size: 12;");
+            case "resuelta"   -> LEstado.setStyle("-fx-background-color: #d1e7dd; -fx-text-fill: #0a3622; -fx-background-radius: 12; -fx-font-size: 12;");
+            case "cerrada"    -> LEstado.setStyle("-fx-background-color: #e2e3e5; -fx-text-fill: #41464b; -fx-background-radius: 12; -fx-font-size: 12;");
+            default           -> LEstado.setStyle("-fx-background-color: #cfe2ff; -fx-text-fill: #084298; -fx-background-radius: 12; -fx-font-size: 12;");
         }
     }
 
-    // ── Navegación inferior ──────────────────────────────────────────────────
-    @FXML
-    private void handleNavInicio(MouseEvent event) {
-        navegarA("/proyecto/intermodular/app/views/dashboard.fxml",
-                 "CentroPlus Connect – Inicio", event);
-    }
-
-    @FXML
-    private void handleNavUsuarios(MouseEvent event) {
-        navegarA("/proyecto/intermodular/app/views/usuarios.fxml",
-                 "CentroPlus Connect – Usuarios", event);
-    }
-
-    @FXML
-    private void handleNavActividades(MouseEvent event) {
-        navegarA("/proyecto/intermodular/app/views/actividades.fxml",
-                 "CentroPlus Connect – Actividades", event);
-    }
-
-    @FXML
-    private void handleNavReservas(MouseEvent event) {
-        navegarA("/proyecto/intermodular/app/views/reservas.fxml",
-                 "CentroPlus Connect – Reservas", event);
-    }
-
-    // ── Utilidades de navegación ─────────────────────────────────────────────
-
-    /** Navegación desde botones (ActionEvent). */
+    // Navegación
     private void navegarA(String fxmlPath, String titulo, ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
@@ -188,11 +260,10 @@ public class IncidenciaController {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            mostrarError("No se pudo navegar a: " + titulo);
+            mostrarError("No se pudo cargar: " + fxmlPath);
         }
     }
 
-    /** Navegación desde labels de la barra inferior (MouseEvent). */
     private void navegarA(String fxmlPath, String titulo, MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
@@ -203,11 +274,14 @@ public class IncidenciaController {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            mostrarError("No se pudo navegar a: " + titulo);
+            mostrarError("No se pudo cargar: " + fxmlPath);
         }
     }
 
-    // ── Alertas ──────────────────────────────────────────────────────────────
+    private void setCursorMano(javafx.scene.Node... nodos) {
+        for (javafx.scene.Node n : nodos) n.setCursor(javafx.scene.Cursor.HAND);
+    }
+
     private void mostrarError(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");

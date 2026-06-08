@@ -1,5 +1,8 @@
 package proyecto.intermodular.app.controllers;
 
+import java.io.IOException;
+import java.time.LocalDate;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,24 +13,33 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.time.LocalDate;
+import proyecto.intermodular.app.model.Incidencia;
+import proyecto.intermodular.app.service.IncidenciaService;
 
 public class EditarIncidenciaController {
 
-    @FXML private TextField  TIdUsuario;
-    @FXML private TextField  TAsunto;
-    @FXML private TextField  TDescripcion;
-    @FXML private DatePicker DPFecha;
-    @FXML private TextField  TEstado;
-    @FXML private Button     BGuardarCambios;
-    @FXML private Button     BVolver;
+    @FXML
+    private TextField TIdUsuario;
+    @FXML
+    private TextField TAsunto;
+    @FXML
+    private TextField TDescripcion;
+    @FXML
+    private DatePicker DPFecha;
+    @FXML
+    private TextField TEstado;
+    @FXML
+    private Button BGuardarCambios;
+    @FXML
+    private Button BVolver;
 
     // Datos de la incidencia a editar
-    private int       incidenciaId;
+    private int incidenciaId;
 
-    // Inicialización
+    // Inicializo servicio
+    private final IncidenciaService service = new IncidenciaService();
+
+    // Inicializacion
     @FXML
     public void initialize() {
         // No permitir fechas futuras
@@ -40,9 +52,8 @@ public class EditarIncidenciaController {
         });
     }
 
-
     public void cargarDatos(int id, String idUsuario, String asunto,
-                            String descripcion, LocalDate fecha, String estado) {
+            String descripcion, LocalDate fecha, String estado) {
         this.incidenciaId = id;
         TIdUsuario.setText(idUsuario);
         TAsunto.setText(asunto);
@@ -54,44 +65,33 @@ public class EditarIncidenciaController {
     // Guardar cambios
     @FXML
     private void handleGuardarCambios(ActionEvent event) {
-        String    idUsuario   = TIdUsuario.getText().trim();
-        String    asunto      = TAsunto.getText().trim();
-        String    descripcion = TDescripcion.getText().trim();
-        LocalDate fecha       = DPFecha.getValue();
-        String    estado      = TEstado.getText().trim();
+        String idUsuario = TIdUsuario.getText().trim();
+        String asunto = TAsunto.getText().trim();
+        String descripcion = TDescripcion.getText().trim();
+        LocalDate fecha = DPFecha.getValue();
+        String estado = TEstado.getText().trim();
 
-        // Validación: campos obligatorios
         if (idUsuario.isEmpty() || asunto.isEmpty() || descripcion.isEmpty()
                 || fecha == null || estado.isEmpty()) {
             mostrarError("Todos los campos son obligatorios.");
             return;
         }
-
-        // Validación: id usuario (número entero positivo)
         if (!idUsuario.matches("^\\d+$") || Integer.parseInt(idUsuario) <= 0) {
             mostrarError("El id del usuario debe ser un número entero positivo.");
             return;
         }
-
-        // Validación: asunto (máximo 100 caracteres)
         if (asunto.length() > 100) {
             mostrarError("El asunto no puede superar los 100 caracteres.");
             return;
         }
-
-        // Validación: descripción (máximo 500 caracteres)
         if (descripcion.length() > 500) {
             mostrarError("La descripción no puede superar los 500 caracteres.");
             return;
         }
-
-        // Validación: fecha no futura
         if (fecha.isAfter(LocalDate.now())) {
             mostrarError("La fecha de la incidencia no puede ser futura.");
             return;
         }
-
-        // Validación: estado permitido
         if (!estado.equalsIgnoreCase("Abierta")
                 && !estado.equalsIgnoreCase("En proceso")
                 && !estado.equalsIgnoreCase("Resuelta")
@@ -100,13 +100,21 @@ public class EditarIncidenciaController {
             return;
         }
 
-        System.out.printf(
-            "Incidencia editada → id=%d, idUsuario=%s, asunto='%s', descripcion='%s', fecha=%s, estado=%s%n",
-            incidenciaId, idUsuario, asunto, descripcion, fecha, estado
-        );
+        Incidencia i = new Incidencia();
+        i.setId(incidenciaId);
+        i.setIdUsuario(Integer.parseInt(idUsuario));
+        i.setAsunto(asunto);
+        i.setDescripcion(descripcion);
+        i.setFecha(fecha);
+        i.setEstado(estado);
 
-        mostrarExito("Incidencia «" + asunto + "» actualizada correctamente.");
-        volverAIncidencias(event);
+        boolean ok = service.update(i);
+        if (ok) {
+            mostrarExito("Incidencia «" + asunto + "» actualizada correctamente.");
+            volverAIncidencias(event);
+        } else {
+            mostrarError("No se pudo guardar los cambios.");
+        }
     }
 
     // Volver
@@ -119,8 +127,7 @@ public class EditarIncidenciaController {
     private void volverAIncidencias(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/proyecto/intermodular/app/views/incidencias.fxml")
-            );
+                    getClass().getResource("/proyecto/intermodular/app/views/incidencias.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));

@@ -1,5 +1,8 @@
 package proyecto.intermodular.app.controllers;
 
+import java.io.IOException;
+import java.time.LocalDate;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,9 +13,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.time.LocalDate;
+import proyecto.intermodular.app.model.Incidencia;
+import proyecto.intermodular.app.service.IncidenciaService;
 
 public class CrearIncidenciaController {
 
@@ -24,10 +26,10 @@ public class CrearIncidenciaController {
     @FXML private Button     BCrear;
     @FXML private Button     BVolver;
 
-    // Inicialización
+    private final IncidenciaService service = new IncidenciaService();
+
     @FXML
     public void initialize() {
-        // No permitir fechas futuras: una incidencia se registra en el momento actual
         DPFecha.setDayCellFactory(picker -> new javafx.scene.control.DateCell() {
             @Override
             public void updateItem(LocalDate date, boolean empty) {
@@ -35,13 +37,10 @@ public class CrearIncidenciaController {
                 setDisabled(empty || date.isAfter(LocalDate.now()));
             }
         });
-
-        // Fecha y estado por defecto
         DPFecha.setValue(LocalDate.now());
         TEstado.setText("Abierta");
     }
 
-    // Crear
     @FXML
     private void handleCrear(ActionEvent event) {
         String    idUsuario   = TIdUsuario.getText().trim();
@@ -50,38 +49,27 @@ public class CrearIncidenciaController {
         LocalDate fecha       = DPFecha.getValue();
         String    estado      = TEstado.getText().trim();
 
-        // Validación: campos obligatorios
         if (idUsuario.isEmpty() || asunto.isEmpty() || descripcion.isEmpty()
                 || fecha == null || estado.isEmpty()) {
             mostrarError("Todos los campos son obligatorios.");
             return;
         }
-
-        // Validación: id usuario (número entero positivo)
         if (!idUsuario.matches("^\\d+$") || Integer.parseInt(idUsuario) <= 0) {
             mostrarError("El id del usuario debe ser un número entero positivo.");
             return;
         }
-
-        // Validación: asunto (máximo 100 caracteres)
         if (asunto.length() > 100) {
             mostrarError("El asunto no puede superar los 100 caracteres.");
             return;
         }
-
-        // Validación: descripción (máximo 500 caracteres)
         if (descripcion.length() > 500) {
             mostrarError("La descripción no puede superar los 500 caracteres.");
             return;
         }
-
-        // Validación: fecha no futura
         if (fecha.isAfter(LocalDate.now())) {
             mostrarError("La fecha de la incidencia no puede ser futura.");
             return;
         }
-
-        // Validación: estado permitido
         if (!estado.equalsIgnoreCase("Abierta")
                 && !estado.equalsIgnoreCase("En proceso")
                 && !estado.equalsIgnoreCase("Resuelta")
@@ -90,22 +78,28 @@ public class CrearIncidenciaController {
             return;
         }
 
-        System.out.printf(
-            "Incidencia creada → idUsuario=%s, asunto='%s', descripcion='%s', fecha=%s, estado=%s%n",
-            idUsuario, asunto, descripcion, fecha, estado
-        );
+        Incidencia i = new Incidencia();
+        i.setIdUsuario(Integer.parseInt(idUsuario));
+        i.setAsunto(asunto);
+        i.setDescripcion(descripcion);
+        i.setFecha(fecha);
+        i.setEstado(estado);
 
-        mostrarExito("Incidencia «" + asunto + "» creada correctamente.");
-        volverAIncidencias(event);
+        boolean ok = service.create(i);
+
+        if (ok) {
+            mostrarExito("Incidencia «" + asunto + "» creada correctamente.");
+            volverAIncidencias(event);
+        } else {
+            mostrarError("No se pudo guardar la incidencia. Comprueba que el usuario existe.");
+        }
     }
 
-    // Volver
     @FXML
     private void handleVolver(ActionEvent event) {
         volverAIncidencias(event);
     }
 
-    // Navegación
     private void volverAIncidencias(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(
@@ -114,7 +108,7 @@ public class CrearIncidenciaController {
             Parent root = loader.load();
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setTitle("CentroPlus Connect – Incidencias");
+            stage.setTitle("CentroPlus Connect - Incidencias");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -122,7 +116,6 @@ public class CrearIncidenciaController {
         }
     }
 
-    // Alertas
     private void mostrarError(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error de validación");

@@ -1,5 +1,7 @@
 package proyecto.intermodular.app.controllers;
 
+import java.io.IOException;
+
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,9 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-
 import proyecto.intermodular.app.model.Usuario;
 import proyecto.intermodular.app.service.UsuarioService;
 
@@ -44,7 +43,7 @@ public class CrearUsuarioController {
         String telefono = TTelefono.getText().trim();
         String tipo     = CTipoUsuario.getValue();
 
-        if (nombre.isEmpty() || dni.isEmpty() || email.isEmpty() || tipo == null) {
+        if (nombre.isBlank() || dni.isBlank() || email.isBlank() || tipo == null) {
             mostrarError("Nombre, DNI, Email y Tipo de usuario son obligatorios.");
             return;
         }
@@ -56,13 +55,13 @@ public class CrearUsuarioController {
             mostrarError("El formato del email no es válido.");
             return;
         }
-        if (!telefono.isEmpty() && !telefono.matches("^\\d{9}$")) {
+        if (!telefono.isBlank() && !telefono.matches("^\\d{9}$")) {
             mostrarError("El teléfono debe tener 9 dígitos.");
             return;
         }
 
         Usuario u = new Usuario(nombre, dni, email,
-                                telefono.isEmpty() ? null : telefono, tipo);
+                                telefono.isBlank() ? null : telefono, tipo);
         boolean ok = service.create(u);
 
         if (ok) {

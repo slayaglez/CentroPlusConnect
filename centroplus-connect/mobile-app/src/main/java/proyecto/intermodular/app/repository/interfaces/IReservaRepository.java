@@ -3,6 +3,7 @@ package proyecto.intermodular.app.repository.interfaces;
 import java.util.List;
 
 import proyecto.intermodular.app.model.Reserva;
+import proyecto.intermodular.app.model.ReservaDetalle;
 
 public interface IReservaRepository {
 
@@ -60,4 +61,11 @@ public interface IReservaRepository {
      * @return List de reservas disponibles
      */
     List<Reserva> findDisponibles();
+
+    /**
+     * Devuelve una lista de objetos que incluyen nombre de cliente
+     * y nombre de actividad pertenecientes a la reserva
+     * @return List de reserva con detalles
+     */
+    List<ReservaDetalle> findAllConDetalle();
 }

@@ -7,9 +7,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import proyecto.intermodular.app.model.Incidencia;
 import proyecto.intermodular.app.model.Reserva;
-import proyecto.intermodular.app.model.Usuario;
+import proyecto.intermodular.app.model.ReservaDetalle;
 import proyecto.intermodular.app.repository.interfaces.IReservaRepository;
 import proyecto.intermodular.database.sqlite.SQLiteConnectionManager;
 
@@ -193,6 +192,35 @@ public class ReservaRepository extends SQLiteConnectionManager implements IReser
         } catch (Exception e) {
             System.err.println("Error buscando reservas disponibles");
             return null;
+        }
+    }
+
+    public List<ReservaDetalle> findAllConDetalle() {
+        try (Connection connection = getConnection();
+                PreparedStatement sentencia = connection.prepareStatement(
+                        "SELECT r.id, r.id_usuario, r.id_actividad, " +
+                                "u.nombre AS nombre_usuario, a.nombre AS nombre_actividad, " +
+                                "r.fecha, r.estado " +
+                                "FROM reservas r " +
+                                "INNER JOIN usuarios u ON r.id_usuario = u.id " +
+                                "INNER JOIN actividades a ON r.id_actividad = a.id")) {
+
+            List<ReservaDetalle> lista = new ArrayList<>();
+            ResultSet rs = sentencia.executeQuery();
+            while (rs.next()) {
+                lista.add(new ReservaDetalle(
+                        rs.getInt("id"),
+                        rs.getInt("id_usuario"),
+                        rs.getInt("id_actividad"),
+                        rs.getString("nombre_usuario"),
+                        rs.getString("nombre_actividad"),
+                        LocalDate.parse(rs.getString("fecha")),
+                        rs.getString("estado")));
+            }
+            return lista;
+        } catch (Exception e) {
+            System.err.println("Error buscando reservas con detalle: " + e.getMessage());
+            return new ArrayList<>();
         }
     }
 

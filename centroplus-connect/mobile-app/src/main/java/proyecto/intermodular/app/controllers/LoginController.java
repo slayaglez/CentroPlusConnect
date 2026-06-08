@@ -1,5 +1,7 @@
 package proyecto.intermodular.app.controllers;
 
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,8 +11,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class LoginController {
 
@@ -29,19 +29,19 @@ public class LoginController {
         TContrasenia.setOnAction(this::handleEntrar);
     }
 
-    // Acción: botón Entrar
+    // Accion: boton Entrar
     @FXML
     private void handleEntrar(ActionEvent event) {
         String email      = TEmail.getText().trim();
         String contrasenia = TContrasenia.getText();
 
-        // Validación básica de campos vacíos
+        // Validacion basica de campos vacíos
         if (email.isEmpty() || contrasenia.isEmpty()) {
             mostrarError("Por favor, introduce el email y la contraseña.");
             return;
         }
 
-        // Validación básica de formato email
+        // Validacion basica de formato email
         if (!email.matches("^[\\w._%+\\-]+@[\\w.\\-]+\\.[a-zA-Z]{2,}$")) {
             mostrarError("El formato del email no es válido.");
             return;
@@ -57,7 +57,7 @@ public class LoginController {
         }
     }
 
-    // Acción: botón Cambiar idioma
+    // Accion: boton para cambiar idioma
     @FXML
     private void handleCambiarIdioma(ActionEvent event) {
         // Alterna entre ES y EN 
@@ -67,7 +67,7 @@ public class LoginController {
         System.out.println("Idioma cambiado a: " + idiomaActual);
     }
 
-    // Navegación al Dashboard
+    // Navegacion al Dashboard
     private void navegarAlDashboard(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(
@@ -86,14 +86,14 @@ public class LoginController {
         }
     }
 
-    // Autenticación provisional 
+    //! Autenticación provisional 
     /**
      * Sustituir este método por la llamada real al servicio/repositorio de usuarios.
      * Por ejemplo: return usuarioService.login(email, contrasenia);
      */
     private boolean autenticarUsuario(String email, String contrasenia) {
         // Credenciales de prueba
-        return email.equals("admin@centroplus.com") && contrasenia.equals("admin123");
+        return email.equals("admin@admin.com") && contrasenia.equals("admin");
     }
 
     // Utilidades

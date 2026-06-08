@@ -1,5 +1,8 @@
 package proyecto.intermodular.app.controllers;
 
+import java.io.IOException;
+import java.time.LocalDate;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,9 +13,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.time.LocalDate;
+import proyecto.intermodular.app.model.Reserva;
+import proyecto.intermodular.app.service.ReservaService;
 
 public class CrearReservaController {
 
@@ -23,10 +25,10 @@ public class CrearReservaController {
     @FXML private Button     BCrear;
     @FXML private Button     BVolver;
 
-    // Inicialización
+    private final ReservaService service = new ReservaService();
+
     @FXML
     public void initialize() {
-        // La fecha no puede ser anterior a hoy
         DPFecha.setDayCellFactory(picker -> new javafx.scene.control.DateCell() {
             @Override
             public void updateItem(LocalDate date, boolean empty) {
@@ -34,44 +36,32 @@ public class CrearReservaController {
                 setDisabled(empty || date.isBefore(LocalDate.now()));
             }
         });
-
-        // Estado por defecto
         TEstado.setText("Pendiente");
     }
 
-    // Crear
     @FXML
     private void handleCrear(ActionEvent event) {
-        String     idUsuario   = TIdUsuario.getText().trim();
-        String     idActividad = TIdActividad.getText().trim();
-        LocalDate  fecha       = DPFecha.getValue();
-        String     estado      = TEstado.getText().trim();
+        String    idUsuario   = TIdUsuario.getText().trim();
+        String    idActividad = TIdActividad.getText().trim();
+        LocalDate fecha       = DPFecha.getValue();
+        String    estado      = TEstado.getText().trim();
 
-        // Validación: campos obligatorios
         if (idUsuario.isEmpty() || idActividad.isEmpty() || fecha == null || estado.isEmpty()) {
             mostrarError("Todos los campos son obligatorios.");
             return;
         }
-
-        // Validación: id usuario (número entero positivo)
         if (!idUsuario.matches("^\\d+$") || Integer.parseInt(idUsuario) <= 0) {
             mostrarError("El id del usuario debe ser un número entero positivo.");
             return;
         }
-
-        // Validación: id actividad (número entero positivo)
         if (!idActividad.matches("^\\d+$") || Integer.parseInt(idActividad) <= 0) {
             mostrarError("El id de la actividad debe ser un número entero positivo.");
             return;
         }
-
-        // Validación: fecha no anterior a hoy
         if (fecha.isBefore(LocalDate.now())) {
             mostrarError("La fecha de la reserva no puede ser anterior a hoy.");
             return;
         }
-
-        // Validación: estado permitido
         if (!estado.equalsIgnoreCase("Confirmada")
                 && !estado.equalsIgnoreCase("Pendiente")
                 && !estado.equalsIgnoreCase("Cancelada")) {
@@ -79,20 +69,27 @@ public class CrearReservaController {
             return;
         }
 
-        System.out.printf("Reserva creada → idUsuario=%s, idActividad=%s, fecha=%s, estado=%s%n",
-                          idUsuario, idActividad, fecha, estado);
+        Reserva r = new Reserva();
+        r.setIdUsuario(Integer.parseInt(idUsuario));
+        r.setIdActividad(Integer.parseInt(idActividad));
+        r.setFecha(fecha);
+        r.setEstado(estado);
 
-        mostrarExito("Reserva creada correctamente para el " + fecha + ".");
-        volverAReservas(event);
+        boolean ok = service.create(r);
+
+        if (ok) {
+            mostrarExito("Reserva creada correctamente para el " + fecha + ".");
+            volverAReservas(event);
+        } else {
+            mostrarError("No se pudo guardar la reserva. Comprueba que el usuario y la actividad existen.");
+        }
     }
 
-    // Volver
     @FXML
     private void handleVolver(ActionEvent event) {
         volverAReservas(event);
     }
 
-    // Navegación
     private void volverAReservas(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(
@@ -109,7 +106,6 @@ public class CrearReservaController {
         }
     }
 
-    // Alertas
     private void mostrarError(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error de validación");

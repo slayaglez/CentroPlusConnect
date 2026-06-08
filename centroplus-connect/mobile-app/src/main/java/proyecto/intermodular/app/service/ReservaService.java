@@ -3,9 +3,8 @@ package proyecto.intermodular.app.service;
 import java.util.List;
 
 import proyecto.intermodular.app.model.Reserva;
-import proyecto.intermodular.app.repository.IncidenciaRepository;
+import proyecto.intermodular.app.model.ReservaDetalle;
 import proyecto.intermodular.app.repository.ReservaRepository;
-import proyecto.intermodular.app.repository.interfaces.IIncidenciaRepository;
 import proyecto.intermodular.app.repository.interfaces.IReservaRepository;
 import proyecto.intermodular.app.service.interfaces.IReservaService;
 import proyecto.intermodular.validations.Validations;
@@ -66,6 +65,11 @@ public class ReservaService implements IReservaService {
     @Override
     public List<Reserva> findDisponibles() {
         return repository.findDisponibles();
+    }
+
+    @Override
+    public List<ReservaDetalle> findAllConDetalle() {
+    return repository.findAllConDetalle();
     }
 
 }

@@ -1,5 +1,8 @@
 package proyecto.intermodular.app.controllers;
 
+import java.io.IOException;
+import java.time.LocalDate;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,9 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.time.LocalDate;
 
 public class EditarReservaController {
 
@@ -89,6 +89,7 @@ public class EditarReservaController {
             return;
         }
 
+        //TODO persistencia en BBDD
         System.out.printf("Reserva actualizada → id=%d, idUsuario=%s, idActividad=%s, fecha=%s, estado=%s%n",
                           reservaId, idUsuario, idActividad, fecha, estado);
 

@@ -1,5 +1,7 @@
 package proyecto.intermodular.app.controllers;
 
+import java.io.IOException;
+
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,38 +13,41 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-
 import proyecto.intermodular.app.model.Actividad;
 import proyecto.intermodular.app.service.ActividadService;
 
 public class CrearActividadController {
 
-    @FXML private TextField        TNombre;
-    @FXML private ComboBox<String> CTipoActividad;
-    @FXML private TextField        TDuracion;
-    @FXML private TextField        TPrecio;
-    @FXML private TextField        TPlazasMaximas;
-    @FXML private Button           BCrear;
-    @FXML private Button           BVolver;
+    @FXML
+    private TextField TNombre;
+    @FXML
+    private ComboBox<String> CTipoActividad;
+    @FXML
+    private TextField TDuracion;
+    @FXML
+    private TextField TPrecio;
+    @FXML
+    private TextField TPlazasMaximas;
+    @FXML
+    private Button BCrear;
+    @FXML
+    private Button BVolver;
 
     private final ActividadService service = new ActividadService();
 
     @FXML
     public void initialize() {
         CTipoActividad.setItems(FXCollections.observableArrayList(
-            "Yoga", "Pilates", "Natación", "Musculación", "Spinning", "Zumba", "Artes marciales", "Otro"
-        ));
+                "Yoga", "Pilates", "Natación", "Musculación", "Spinning", "Zumba", "Artes marciales", "Otro"));
     }
 
     @FXML
     private void handleCrear(ActionEvent event) {
-        String nombre   = TNombre.getText().trim();
-        String tipo     = CTipoActividad.getValue();
+        String nombre = TNombre.getText().trim();
+        String tipo = CTipoActividad.getValue();
         String duracion = TDuracion.getText().trim();
-        String precio   = TPrecio.getText().trim();
-        String plazas   = TPlazasMaximas.getText().trim();
+        String precio = TPrecio.getText().trim();
+        String plazas = TPlazasMaximas.getText().trim();
 
         if (nombre.isEmpty() || tipo == null || duracion.isEmpty() || precio.isEmpty() || plazas.isEmpty()) {
             mostrarError("Todos los campos son obligatorios.");
@@ -61,15 +66,13 @@ public class CrearActividadController {
             return;
         }
 
-        Actividad a = new Actividad(
-            0,
-            nombre,
-            tipo,
-            Integer.parseInt(duracion),
-            Double.parseDouble(precio),
-            Integer.parseInt(plazas),
-            0 // plazas ocupadas = 0 al crear
-        );
+        Actividad a = new Actividad();
+        a.setNombre(nombre);
+        a.setTipoActividad(tipo);
+        a.setDuracion(Integer.parseInt(duracion));
+        a.setPrecio(Double.parseDouble(precio));
+        a.setPlazasMaximas(Integer.parseInt(plazas));
+        a.setPlazasOcupadas(0);
         boolean ok = service.create(a);
 
         if (ok) {
@@ -88,8 +91,7 @@ public class CrearActividadController {
     private void volverAActividades(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/proyecto/intermodular/app/views/actividades.fxml")
-            );
+                    getClass().getResource("/proyecto/intermodular/app/views/actividades.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));

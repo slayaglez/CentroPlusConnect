@@ -1,5 +1,7 @@
 package proyecto.intermodular.app.controllers;
 
+import java.io.IOException;
+
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,8 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class EditarActividadController {
 
@@ -36,8 +36,8 @@ public class EditarActividadController {
     }
 
 
-    public void setActividad(int id, String nombre, String tipo,
-                             int duracion, double precio, int plazasMaximas) {
+    public void setActividad(Integer id, String nombre, String tipo,
+                             Integer duracion, double precio, Integer plazasMaximas) {
         this.actividadId = id;
         TNombre.setText(nombre);
         CTipoActividad.setValue(tipo);
@@ -79,6 +79,7 @@ public class EditarActividadController {
             return;
         }
 
+        //TODO persistencia en BBDD
         System.out.printf("Actividad actualizada → id=%d, nombre=%s, tipo=%s, duracion=%s min, precio=%s€, plazas=%s%n",
                           actividadId, nombre, tipo, duracion, precio, plazas);
 

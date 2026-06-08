@@ -20,7 +20,8 @@ public class UsuarioRepository extends SQLiteConnectionManager implements IUsuar
     public boolean create(Usuario usuario) {
         try (Connection connection = getConnection();
                 PreparedStatement sentencia = connection
-                        .prepareStatement("INSERT INTO usuarios (id, nombre, dni, email, telefono, tipo_usuario) VALUES (?, ?, ?, ?, ?, ?)")) {
+                        .prepareStatement(
+                                "INSERT INTO usuarios (id, nombre, dni, email, telefono, tipo_usuario) VALUES (?, ?, ?, ?, ?, ?)")) {
 
             sentencia.setInt(1, usuario.getId());
             sentencia.setString(2, usuario.getNombre());
@@ -32,7 +33,8 @@ public class UsuarioRepository extends SQLiteConnectionManager implements IUsuar
             return sentencia.executeUpdate() > 0;
 
         } catch (Exception e) {
-            System.err.println("Error");
+            System.err.println("Error creando usuario: " + e.getMessage());
+            e.printStackTrace();
             return false;
         }
     }
@@ -52,7 +54,7 @@ public class UsuarioRepository extends SQLiteConnectionManager implements IUsuar
             return sentencia.executeUpdate() > 0;
 
         } catch (Exception e) {
-            System.err.println("Error creando usuario");
+            System.err.println("Error creando usuario: " + e.getMessage());
             e.printStackTrace();
             return false;
         }
@@ -115,7 +117,8 @@ public class UsuarioRepository extends SQLiteConnectionManager implements IUsuar
     public boolean update(Usuario usuario) {
         try (Connection connection = getConnection();
                 PreparedStatement sentencia = connection
-                        .prepareStatement("UPDATE usuarios SET nombre=?, dni=?, email=?, telefono=?, tipo_usuario=? WHERE id=?")) {
+                        .prepareStatement(
+                                "UPDATE usuarios SET nombre=?, dni=?, email=?, telefono=?, tipo_usuario=? WHERE id=?")) {
 
             sentencia.setInt(6, usuario.getId());
             sentencia.setString(1, usuario.getNombre());

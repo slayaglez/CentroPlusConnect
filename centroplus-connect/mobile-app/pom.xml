@@ -151,6 +151,7 @@
 
                 <configuration>
                     <mainClass>proyecto.intermodular.app.PrincipalApplication</mainClass>
+                    <workingDirectory>${project.basedir}</workingDirectory>
                 </configuration>
             </plugin>
 
