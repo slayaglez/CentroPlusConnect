@@ -12,15 +12,17 @@ public class PrincipalApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(
-                PrincipalApplication.class.getResource("usuario-view.fxml")
+                PrincipalApplication.class.getResource(
+                        "/proyecto/intermodular/app/views/login.fxml")
         );
 
-        Scene scene = new Scene(fxmlLoader.load(), 400, 300);
+        Scene scene = new Scene(fxmlLoader.load(), 390, 640);
         scene.getStylesheets().add(
-               PrincipalApplication.class.getResource("css/estilos.css").toExternalForm()
+                PrincipalApplication.class.getResource(
+                        "/css/estilos.css").toExternalForm()
         );
 
-        stage.setTitle("Proyecto JavaFX con Maven");
+        stage.setTitle("CentroPlus Connect – Login");
         stage.setScene(scene);
         stage.show();
     }

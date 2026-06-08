@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AActividadesPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="390.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto.intermodular.app.controllers.ActividadController">
+   <children>
+      <Button fx:id="BEditar" id="BEditar" layoutX="257.0" layoutY="167.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="99.0" style="-fx-background-color: F5DE82;" onAction="#handleEditar" text="Editar" textFill="#c98c22">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="BEliminar" id="BEliminar" layoutX="143.0" layoutY="167.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="99.0" style="-fx-background-color: F2938D;" onAction="#handleEliminar" text="Eliminar" textFill="#a42525">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="BCrear" id="BCrear" layoutX="30.0" layoutY="167.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="99.0" style="-fx-background-color: D8F0A3;" onAction="#handleCrear" text="Crear" textFill="#769462">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <TextField fx:id="TActividad" id="TActividad" onKeyReleased="#handleBuscar" layoutX="22.0" layoutY="118.0" prefHeight="27.0" prefWidth="177.0" promptText="Buscar actividad...">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <AnchorPane id="AActividades2" prefHeight="97.0" prefWidth="390.0" style="-fx-background-color: #1a3a5c;">
+         <children>
+            <Label id="LActividades" layoutX="21.0" layoutY="42.0" text="Actividades" textFill="WHITE">
+               <font>
+                  <Font name="Carlito" size="35.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane id="AActividades3" layoutY="566.0" prefHeight="74.0" prefWidth="390.0" style="-fx-background-color: E6DCDC;">
+         <children>
+            <Label fx:id="LNavInicio" id="LInicio" layoutX="20.0" layoutY="27.0" onMouseClicked="#handleNavInicio" text="Inicio">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="LNavUsuarios" id="LUsuarios" layoutX="69.0" onMouseClicked="#handleNavUsuarios" layoutY="27.0" text="Usuarios">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="LNavActividades" id="LActividades" layoutX="139.0" onMouseClicked="#handleNavActividades" layoutY="27.0" text="Actividades">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="LNavReservas" id="LReservas" layoutX="230.0" onMouseClicked="#handleNavReservas" layoutY="27.0" text="Reservas">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="LNavIncidencias" id="LIncidencias" layoutX="303.0" onMouseClicked="#handleNavIncidencias" layoutY="27.0" text="Incidencias">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane id="AActividades4" layoutX="22.0" layoutY="217.0" prefHeight="150.0" prefWidth="340.0" style="-fx-background-color: E6DCDC;">
+         <children>
+            <Label fx:id="LNombre" id="LNombre" layoutX="14.0" layoutY="14.0" text="Nombre">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="LDuracion" id="LDuracion" layoutX="14.0" layoutY="35.0" text="Duración" />
+            <Label fx:id="LPrecio" id="LPrecio" layoutX="69.0" layoutY="35.0" text="Precio" />
+            <Label fx:id="LTipoActividad" id="LTipoActividad" layoutX="239.0" layoutY="16.0" text="TipoActividad" textFill="#56b248" />
+            <ProgressBar fx:id="PBActividades" id="PBActividades" layoutX="14.0" layoutY="61.0" prefHeight="18.0" prefWidth="298.0" progress="0.0" />
+            <Label fx:id="LPlazasOcupadas" id="LPlazasOcupadas" layoutX="14.0" layoutY="84.0" text="Plazas ocupadas">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
+            <Label fx:id="LTotalPlazas" id="LTotalPlazas" layoutX="268.0" layoutY="84.0" text="Total plazas">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
+            <Button fx:id="BReservarPlazas" id="BReservarPlazas" layoutX="16.0" layoutY="111.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" style="-fx-background-color: C1BEC4;" onAction="#handleReservarPlazas" text="Reservar plazas" />
+         </children>
+      </AnchorPane>
+      <ScrollBar id="SActividades" layoutX="376.0" layoutY="97.0" orientation="VERTICAL" prefHeight="471.0" prefWidth="14.0" />
+      <ComboBox fx:id="CActividades" id="CActividades" onAction="#handleFiltro" layoutX="211.0" layoutY="118.0" prefHeight="31.0" prefWidth="151.0" promptText="Todos" />
+   </children>
+</AnchorPane>

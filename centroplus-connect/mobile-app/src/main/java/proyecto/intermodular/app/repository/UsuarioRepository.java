@@ -53,6 +53,7 @@ public class UsuarioRepository extends SQLiteConnectionManager implements IUsuar
 
         } catch (Exception e) {
             System.err.println("Error creando usuario");
+            e.printStackTrace();
             return false;
         }
     }
