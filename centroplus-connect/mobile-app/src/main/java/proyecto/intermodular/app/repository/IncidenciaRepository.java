@@ -23,7 +23,7 @@ public class IncidenciaRepository extends SQLiteConnectionManager implements IIn
         try (Connection connection = getConnection();
                 PreparedStatement sentencia = connection
                         .prepareStatement(
-                                "INSERT INTO incidencias (id, idUsuario, asunto, descripcion, fecha, estado) VALUES (?, ?, ?, ?, ?, ?)")) {
+                                "INSERT INTO incidencias (id, id_usuario, asunto, descripcion, fecha, estado) VALUES (?, ?, ?, ?, ?, ?)")) {
 
             sentencia.setInt(1, incidencia.getId());
             sentencia.setInt(2, incidencia.getIdUsuario());
@@ -44,7 +44,7 @@ public class IncidenciaRepository extends SQLiteConnectionManager implements IIn
     public boolean createAutoId(Incidencia incidencia) {
         try (Connection connection = getConnection();
                 PreparedStatement sentencia = connection.prepareStatement(
-                        "INSERT INTO incidencias (idUsuario, asunto, descripcion, fecha, estado) VALUES (?, ?, ?, ?, ?)")) {
+                        "INSERT INTO incidencias (id_usuario, asunto, descripcion, fecha, estado) VALUES (?, ?, ?, ?, ?)")) {
 
             sentencia.setInt(1, incidencia.getIdUsuario());
             sentencia.setString(2, incidencia.getAsunto());
