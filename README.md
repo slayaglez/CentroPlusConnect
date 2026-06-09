@@ -1,12 +1,23 @@
-<img src="images/logo.png" style="width:400px">
+<table border="0" style="border-collapse: collapse; border: none;">
+  <tr style="border: none;">
+    <td valign="top" style="border: none; padding-right: 20px; min-width: 400px;">
+      <img src="images/logo.png" width="750" alt="Logo CentroPlus">
+    </td>
+    <td valign="top" style="border: none;">
 
 # CentroPlus Connect
 
-Aplicación de escritorio para la **gestión integral de un centro**: usuarios, actividades, reservas e incidencias. Desarrollada en Java con JavaFX y SQLite como base de datos local.
+CentroPlus es una aplicación orientada para la **gestión integral de un centro**: Usuarios, actividades, reservas e incluso incidencias. Desarrollada en Java con JavaFX y con SQLite como base de datos local.
 
-**Autores:** Atteneri · Sebastián  
+**Autores:** [Atthemyg](https://github.com/Atthemyg) & [slayaglez](https://github.com/slayaglez)
+
 **Versión:** 1.0-SNAPSHOT  
-**Java:** 17 · **JavaFX:** 21 · **SQLite:** 3.45.3
+
+**Java:** 17 - **JavaFX:** 21 - **SQLite:** 3.45.3
+
+</td>
+  </tr>
+</table>
 
 ---
 
