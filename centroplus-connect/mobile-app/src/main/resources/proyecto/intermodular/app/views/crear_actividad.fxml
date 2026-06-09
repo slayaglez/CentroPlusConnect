@@ -30,13 +30,13 @@
          </font>
       </Label>
       <TextField fx:id="TPlazasMaximas" layoutX="36.0" layoutY="501.0" prefHeight="25.0" prefWidth="247.0" promptText="Introduzca las plazas máximas para la actividad" />
-      <Label fx:id="LDuracion" layoutX="36.0" layoutY="327.0" text="Duración">
+      <Label fx:id="LDuracion" layoutX="36.0" layoutY="327.0" text="Duración (min)">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
       <TextField fx:id="TDuracion" layoutX="36.0" layoutY="357.0" prefHeight="25.0" prefWidth="247.0" promptText="Introduzca la duración de la actividad" />
-      <Label fx:id="LPrecio" layoutX="36.0" layoutY="400.0" text="Precio">
+      <Label fx:id="LPrecio" layoutX="36.0" layoutY="400.0" text="Precio (€)">
          <font>
             <Font size="15.0" />
          </font>

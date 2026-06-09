@@ -3,11 +3,18 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <AnchorPane
     maxHeight="-Infinity" maxWidth="-Infinity"
@@ -137,14 +144,67 @@
                 </Label>
             </children>
         </AnchorPane>
-        <AnchorPane layoutY="566.0" prefHeight="74.0" prefWidth="390.0"
-                    style="-fx-background-color: #e6dcdc;">
+        <AnchorPane
+            layoutY="566.0"
+            prefHeight="74.0" prefWidth="390.0"
+            style="
+                -fx-background-color: white;
+                -fx-effect: dropshadow(gaussian, rgba(26,58,92,0.12), 10, 0, 0, -3);
+            ">
             <children>
-                <Label fx:id="LNavInicio"      layoutX="14.0"  layoutY="27.0" onMouseClicked="#handleNavInicio"      text="Inicio"      style="-fx-cursor: hand;"><font><Font size="14.0"/></font></Label>
-                <Label fx:id="LNavUsuarios"    layoutX="68.0"  layoutY="27.0" onMouseClicked="#handleNavUsuarios"    text="Usuarios"    style="-fx-cursor: hand;"><font><Font size="14.0"/></font></Label>
-                <Label fx:id="LNavActividades" layoutX="137.0" layoutY="27.0" onMouseClicked="#handleNavActividades" text="Actividades" style="-fx-cursor: hand;"><font><Font size="14.0"/></font></Label>
-                <Label fx:id="LNavReservas"    layoutX="228.0" layoutY="27.0" onMouseClicked="#handleNavReservas"    text="Reservas"    style="-fx-cursor: hand; -fx-font-weight: bold;"><font><Font size="14.0"/></font></Label>
-                <Label fx:id="LNavIncidencias" layoutX="300.0" layoutY="27.0" onMouseClicked="#handleNavIncidencias" text="Incidencias" style="-fx-cursor: hand;"><font><Font size="14.0"/></font></Label>
+                <HBox
+                    layoutX="0" layoutY="0"
+                    prefWidth="390.0" prefHeight="74.0"
+                    alignment="CENTER"
+                    spacing="0">
+                    <children>
+                        <VBox
+                            prefWidth="78.0" prefHeight="74.0"
+                            alignment="CENTER" spacing="3"
+                            onMouseClicked="#handleNavInicio"
+                            style="-fx-cursor: hand;">
+                            <FontIcon iconLiteral="mdi2h-home" iconSize="20" iconColor="#7a96b0"/>
+                            <Label text="Inicio"
+                                style="-fx-font-family: 'Carlito'; -fx-font-size: 10px; -fx-text-fill: #7a96b0;"/>
+                        </VBox>
+                        <VBox
+                            prefWidth="78.0" prefHeight="74.0"
+                            alignment="CENTER" spacing="3"
+                            onMouseClicked="#handleNavUsuarios"
+                            style="-fx-cursor: hand;">
+                            <FontIcon iconLiteral="mdi2a-account" iconSize="20" iconColor="#7a96b0"/>
+                            <Label text="Usuarios"
+                                style="-fx-font-family: 'Carlito'; -fx-font-size: 10px; -fx-text-fill: #7a96b0;"/>
+                        </VBox>
+                        <VBox
+                            prefWidth="78.0" prefHeight="74.0"
+                            alignment="CENTER" spacing="3"
+                            onMouseClicked="#handleNavActividades"
+                            style="-fx-cursor: hand;">
+                            <FontIcon iconLiteral="mdi2r-run" iconSize="20" iconColor="#7a96b0"/>
+                            <Label text="Actividades"
+                                style="-fx-font-family: 'Carlito'; -fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #7a96b0;"/>
+                        </VBox>
+                        <VBox
+                            prefWidth="78.0" prefHeight="74.0"
+                            alignment="CENTER" spacing="3"
+                            onMouseClicked="#handleNavReservas"
+                            style="-fx-cursor: hand; -fx-border-color: transparent transparent #2e6da4 transparent; -fx-border-width: 0 0 3 0;">
+                            <FontIcon iconLiteral="mdi2c-calendar" iconSize="20" iconColor="#2e6da4"/>
+                            <Label fx:id="LNavReservas" text="Reservas"
+                                style="-fx-font-family: 'Carlito'; -fx-font-size: 10px; -fx-text-fill: #2e6da4;"/>
+                        </VBox>
+                        <VBox
+                            prefWidth="78.0" prefHeight="74.0"
+                            alignment="CENTER" spacing="3"
+                            onMouseClicked="#handleNavIncidencias"
+                            style="-fx-cursor: hand;">
+                            <FontIcon iconLiteral="mdi2a-alert" iconSize="20" iconColor="#a42e2eff"/>
+                            <Label text="Incidencias"
+                                style="-fx-font-family: 'Carlito'; -fx-font-size: 10px; -fx-text-fill: #7a96b0;"/>
+                        </VBox>
+                    </children>
+                </HBox>
             </children>
         </AnchorPane>
     </children>

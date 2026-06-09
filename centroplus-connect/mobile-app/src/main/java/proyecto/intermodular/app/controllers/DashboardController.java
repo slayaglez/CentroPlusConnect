@@ -1,5 +1,8 @@
 package proyecto.intermodular.app.controllers;
 
+import java.io.IOException;
+import java.util.List;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,15 +10,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.util.List;
-
 import proyecto.intermodular.app.model.Actividad;
-import proyecto.intermodular.app.model.Reserva;
 import proyecto.intermodular.app.service.ActividadService;
 import proyecto.intermodular.app.service.IncidenciaService;
 import proyecto.intermodular.app.service.ReservaService;
@@ -23,27 +20,21 @@ import proyecto.intermodular.app.service.UsuarioService;
 
 public class DashboardController {
 
-    // ── Tarjetas de resumen ─────────────────────────────────────────────────
+    // Tarjetas de resumen
     @FXML private Label LStatUsuarios;
     @FXML private Label LStatActividades;
     @FXML private Label LStatReservas;
     @FXML private Label LStatIncidencias;
 
-    // ── Barras de plazas ────────────────────────────────────────────────────
+    // Barras de plazas
     @FXML private VBox VBoxBarras;
 
-    // ── Últimas reservas ────────────────────────────────────────────────────
+    // Últimas reservas e ingresos
     @FXML private Label LUltimasReservas;
     @FXML private Label LIngresosTotales;
-
-    // ── Tarjetas clickables antiguas (se mantienen para no romper el FXML) ──
-    @FXML private AnchorPane AInicioUsuarios;
-    @FXML private AnchorPane AInicioActividades;
-    @FXML private AnchorPane AInicioReservas;
-    @FXML private AnchorPane AInicioIncidencias;
     @FXML private Label LPlazasOcupadas;
 
-    // ── Nav ─────────────────────────────────────────────────────────────────
+    // Nav
     @FXML private Label LNavInicio;
     @FXML private Label LNavUsuarios;
     @FXML private Label LNavActividades;
@@ -57,21 +48,19 @@ public class DashboardController {
 
     @FXML
     public void initialize() {
-        setCursorMano(AInicioUsuarios, AInicioActividades,
-                      AInicioReservas, AInicioIncidencias,
-                      LNavInicio, LNavUsuarios, LNavActividades,
-                      LNavReservas, LNavIncidencias);
+        // CORREGIDO: Se eliminan las referencias a los objetos nulos antiguos
+        setCursorMano(LNavInicio, LNavUsuarios, LNavActividades, LNavReservas, LNavIncidencias);
         cargarResumen();
     }
 
-    // ── Navegación ──────────────────────────────────────────────────────────
+    // Navegacion
     @FXML private void handleNavInicio(MouseEvent e)      { cargarResumen(); }
-    @FXML private void handleNavUsuarios(MouseEvent e)    { navegarA("/proyecto/intermodular/app/views/usuarios.fxml",    "CentroPlus Connect – Usuarios",    e); }
-    @FXML private void handleNavActividades(MouseEvent e) { navegarA("/proyecto/intermodular/app/views/actividades.fxml", "CentroPlus Connect – Actividades", e); }
-    @FXML private void handleNavReservas(MouseEvent e)    { navegarA("/proyecto/intermodular/app/views/reservas.fxml",    "CentroPlus Connect – Reservas",    e); }
-    @FXML private void handleNavIncidencias(MouseEvent e) { navegarA("/proyecto/intermodular/app/views/incidencias.fxml", "CentroPlus Connect – Incidencias", e); }
+    @FXML private void handleNavUsuarios(MouseEvent e)    { navegarA("/proyecto/intermodular/app/views/usuarios.fxml",    "CentroPlus Connect - Usuarios",    e); }
+    @FXML private void handleNavActividades(MouseEvent e) { navegarA("/proyecto/intermodular/app/views/actividades.fxml", "CentroPlus Connect - Actividades", e); }
+    @FXML private void handleNavReservas(MouseEvent e)    { navegarA("/proyecto/intermodular/app/views/reservas.fxml",    "CentroPlus Connect - Reservas",    e); }
+    @FXML private void handleNavIncidencias(MouseEvent e) { navegarA("/proyecto/intermodular/app/views/incidencias.fxml", "CentroPlus Connect - Incidencias", e); }
 
-    // ── Carga de datos ──────────────────────────────────────────────────────
+    // Carga de datos
     private void cargarResumen() {
         // Contadores de tarjetas
         try {
@@ -110,8 +99,10 @@ public class DashboardController {
         } catch (Exception e) { if (LStatIncidencias != null) LStatIncidencias.setText("—"); }
 
         // Barras de plazas por actividad
-        if (VBoxBarras != null && actividades != null) {
+        if (VBoxBarras != null && actividades != null && !actividades.isEmpty()) {
             VBoxBarras.getChildren().clear();
+            if (LPlazasOcupadas != null) LPlazasOcupadas.setVisible(false); // Ocultamos el placeholder genérico
+            
             for (Actividad a : actividades) {
                 if (a.getPlazasMaximas() == null || a.getPlazasMaximas() == 0) continue;
                 double pct = (double) a.getPlazasOcupadas() / a.getPlazasMaximas();
@@ -121,25 +112,24 @@ public class DashboardController {
 
                 Label nombre = new Label(a.getNombre());
                 nombre.setPrefWidth(80);
-                nombre.setStyle("-fx-font-size:11px;-fx-text-fill:#666;");
+                nombre.setStyle("-fx-font-family: 'Carlito'; -fx-font-size: 11px; -fx-text-fill: #7a96b0;");
 
                 ProgressBar pb = new ProgressBar(pct);
                 pb.setPrefWidth(180);
                 pb.setPrefHeight(8);
-                pb.setStyle("-fx-accent:#1a3a5c;");
+                pb.setStyle("-fx-accent: #2e6da4;");
                 javafx.scene.layout.HBox.setHgrow(pb, javafx.scene.layout.Priority.ALWAYS);
 
                 Label pctLabel = new Label(Math.round(pct * 100) + "%");
                 pctLabel.setPrefWidth(36);
-                pctLabel.setStyle("-fx-font-size:10px;-fx-text-fill:#666;-fx-text-alignment:right;");
+                pctLabel.setStyle("-fx-font-family: 'Carlito'; -fx-font-size: 10px; -fx-text-fill: #7a96b0; -fx-text-alignment: right;");
 
                 fila.getChildren().addAll(nombre, pb, pctLabel);
                 VBoxBarras.getChildren().add(fila);
             }
         } else if (LPlazasOcupadas != null) {
-            // Fallback: texto simple en el label antiguo
             if (actividades != null && !actividades.isEmpty()) {
-                StringBuilder sb = new StringBuilder("Plazas ocupadas:\n");
+                StringBuilder sb = new StringBuilder();
                 for (Actividad a : actividades) {
                     if (a.getPlazasMaximas() != null && a.getPlazasMaximas() > 0) {
                         int pct = (int) Math.round((double) a.getPlazasOcupadas() / a.getPlazasMaximas() * 100);
@@ -147,6 +137,8 @@ public class DashboardController {
                     }
                 }
                 LPlazasOcupadas.setText(sb.toString().trim());
+            } else {
+                LPlazasOcupadas.setText("Sin datos de actividades activos.");
             }
         }
 
@@ -154,12 +146,12 @@ public class DashboardController {
         try {
             double ingresos = actividadService.calcularIngresosTotales();
             if (LIngresosTotales != null)
-                LIngresosTotales.setText(String.format("Ingresos totales: %.2f €", ingresos));
+                LIngresosTotales.setText(String.format("%.2f €", ingresos));
         } catch (Exception e) {
-            if (LIngresosTotales != null) LIngresosTotales.setText("Ingresos totales: —");
+            if (LIngresosTotales != null) LIngresosTotales.setText("—");
         }
 
-        // Últimas reservas — texto descriptivo
+        // CORREGIDO: Ultimas reservas ya no repite el título y muestra el listado limpio
         if (LUltimasReservas != null) {
             try {
                 List<?> reservas = reservaService.findAll();
@@ -171,22 +163,22 @@ public class DashboardController {
                         try {
                             Object uId = r.getClass().getMethod("getIdUsuario").invoke(r);
                             Object aId = r.getClass().getMethod("getIdActividad").invoke(r);
-                            sb.append("Usuario ").append(uId).append(" → Actividad ").append(aId).append("\n");
+                            sb.append("• Usuario ").append(uId).append(" → Actividad ").append(aId).append("\n");
                         } catch (Exception ignore) {
-                            sb.append(r.toString()).append("\n");
+                            sb.append("• ").append(r.toString()).append("\n");
                         }
                     }
-                    LUltimasReservas.setText("Últimas reservas:\n" + sb.toString().trim());
+                    LUltimasReservas.setText(sb.toString().trim());
                 } else {
-                    LUltimasReservas.setText("Últimas reservas: sin datos");
+                    LUltimasReservas.setText("No se registran reservas recientes.");
                 }
             } catch (Exception e) {
-                LUltimasReservas.setText("Últimas reservas: —");
+                LUltimasReservas.setText("Error al cargar el historial.");
             }
         }
     }
 
-    // ── Utilidades ──────────────────────────────────────────────────────────
+    // Utilidades
     private void navegarA(String fxmlPath, String titulo, MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));

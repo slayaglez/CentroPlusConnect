@@ -8,20 +8,26 @@ import java.util.List;
 
 import proyecto.intermodular.app.model.Usuario;
 import proyecto.intermodular.app.repository.interfaces.IUsuarioRepository;
+import proyecto.intermodular.app.service.PasswordService;
 import proyecto.intermodular.database.sqlite.SQLiteConnectionManager;
 
 public class UsuarioRepository extends SQLiteConnectionManager implements IUsuarioRepository {
+
+    private final PasswordService passwordHasher = new PasswordService();
 
     public UsuarioRepository() {
         super(rutaDb);
     }
 
     @Override
-    public boolean create(Usuario usuario) {
+    public boolean create(Usuario usuario, String contrasenia) {
+
+        String hash = passwordHasher.hash(contrasenia);
+
         try (Connection connection = getConnection();
                 PreparedStatement sentencia = connection
                         .prepareStatement(
-                                "INSERT INTO usuarios (id, nombre, dni, email, telefono, tipo_usuario) VALUES (?, ?, ?, ?, ?, ?)")) {
+                                "INSERT INTO usuarios (id, nombre, dni, email, telefono, tipo_usuario, hashed_password) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
 
             sentencia.setInt(1, usuario.getId());
             sentencia.setString(2, usuario.getNombre());
@@ -29,6 +35,7 @@ public class UsuarioRepository extends SQLiteConnectionManager implements IUsuar
             sentencia.setString(4, usuario.getEmail());
             sentencia.setString(5, usuario.getTelefono());
             sentencia.setString(6, usuario.getTipoUsuario());
+            sentencia.setString(7, hash);
 
             return sentencia.executeUpdate() > 0;
 
@@ -40,16 +47,20 @@ public class UsuarioRepository extends SQLiteConnectionManager implements IUsuar
     }
 
     @Override
-    public boolean createAutoId(Usuario usuario) {
+    public boolean createAutoId(Usuario usuario, String contrasenia) {
+
+        String hash = passwordHasher.hash(contrasenia);
+
         try (Connection connection = getConnection();
                 PreparedStatement sentencia = connection.prepareStatement(
-                        "INSERT INTO usuarios (nombre, dni, email, telefono, tipo_usuario) VALUES (?, ?, ?, ?, ?)")) {
+                        "INSERT INTO usuarios (nombre, dni, email, telefono, tipo_usuario, hashed_password) VALUES (?, ?, ?, ?, ?, ?)")) {
 
             sentencia.setString(1, usuario.getNombre());
             sentencia.setString(2, usuario.getDni());
             sentencia.setString(3, usuario.getEmail());
             sentencia.setString(4, usuario.getTelefono());
             sentencia.setString(5, usuario.getTipoUsuario());
+            sentencia.setString(6, hash);
 
             return sentencia.executeUpdate() > 0;
 
@@ -57,6 +68,28 @@ public class UsuarioRepository extends SQLiteConnectionManager implements IUsuar
             System.err.println("Error creando usuario: " + e.getMessage());
             e.printStackTrace();
             return false;
+        }
+    }
+
+    public String findHashByEmail(String email) {
+
+        try (Connection connection = getConnection();
+                PreparedStatement sentencia = connection.prepareStatement(
+                        "SELECT hashed_password FROM usuarios WHERE email = ?")) {
+
+            sentencia.setString(1, email);
+            ResultSet resultado = sentencia.executeQuery();
+
+            if (!resultado.next()) {
+                    return null;
+            }
+
+            return resultado.getString("hashed_password");
+
+        } catch (Exception e) {
+            System.err.println("Error buscando contrasenña: " + e.getMessage());
+            e.printStackTrace();
+            return null;
         }
     }
 

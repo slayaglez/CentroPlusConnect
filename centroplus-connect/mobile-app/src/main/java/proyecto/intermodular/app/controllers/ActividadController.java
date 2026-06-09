@@ -56,15 +56,7 @@ public class ActividadController {
     private Button BReservarPlazas;
 
     @FXML
-    private Label LNavInicio;
-    @FXML
-    private Label LNavUsuarios;
-    @FXML
     private Label LNavActividades;
-    @FXML
-    private Label LNavReservas;
-    @FXML
-    private Label LNavIncidencias;
 
     @FXML
     private Label LContador;
@@ -75,8 +67,6 @@ public class ActividadController {
 
     @FXML
     public void initialize() {
-        setCursorMano(LNavInicio, LNavUsuarios, LNavActividades,
-                LNavReservas, LNavIncidencias);
 
         CActividades.setItems(FXCollections.observableArrayList(
                 "Todos", "Yoga", "Pilates", "Natación", "Musculación", "Spinning", "Zumba", "Artes marciales", "Otro"));
@@ -102,30 +92,30 @@ public class ActividadController {
     @FXML
     private void handleCrear(ActionEvent event) {
         navegarA("/proyecto/intermodular/app/views/crear_actividad.fxml",
-                "CentroPlus Connect – Crear actividad", event);
+                "CentroPlus Connect - Crear actividad", event);
     }
 
     @FXML
-private void handleEditar(ActionEvent event) {
-    if (indiceActual < 0 || indiceActual >= listaActual.size()) return;
-    try {
-        FXMLLoader loader = new FXMLLoader(
-            getClass().getResource("/proyecto/intermodular/app/views/editar_actividad.fxml")
-        );
-        Parent root = loader.load();
-        EditarActividadController ctrl = loader.getController();
-        Actividad a = listaActual.get(indiceActual);
-        ctrl.setActividad(a.getId(), a.getNombre(), a.getTipoActividad(),
-                  a.getDuracion(), a.getPrecio(), a.getPlazasMaximas());
-        Stage stage = (Stage) BEditar.getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.setTitle("CentroPlus Connect – Editar actividad");
-        stage.show();
-    } catch (IOException e) {
-        e.printStackTrace();
-        mostrarError("No se pudo cargar la pantalla de edición.");
+    private void handleEditar(ActionEvent event) {
+        if (indiceActual < 0 || indiceActual >= listaActual.size())
+            return;
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/proyecto/intermodular/app/views/editar_actividad.fxml"));
+            Parent root = loader.load();
+            EditarActividadController ctrl = loader.getController();
+            Actividad a = listaActual.get(indiceActual);
+            ctrl.setActividad(a.getId(), a.getNombre(), a.getTipoActividad(),
+                    a.getDuracion(), a.getPrecio(), a.getPlazasMaximas());
+            Stage stage = (Stage) BEditar.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("CentroPlus Connect - Editar actividad");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            mostrarError("No se pudo cargar la pantalla de edición.");
+        }
     }
-}
 
     @FXML
     private void handleEliminar(ActionEvent event) {
@@ -155,7 +145,7 @@ private void handleEditar(ActionEvent event) {
         if (indiceActual < 0 || indiceActual >= listaActual.size())
             return;
         navegarA("/proyecto/intermodular/app/views/reservas.fxml",
-                "CentroPlus Connect – Reservas", event);
+                "CentroPlus Connect - Reservas", event);
     }
 
     // Navegacion tarjeta anterior / siguiente
@@ -177,12 +167,12 @@ private void handleEditar(ActionEvent event) {
 
     @FXML
     private void handleNavInicio(MouseEvent e) {
-        navegarA("/proyecto/intermodular/app/views/dashboard.fxml", "CentroPlus Connect – Inicio", e);
+        navegarA("/proyecto/intermodular/app/views/dashboard.fxml", "CentroPlus Connect - Inicio", e);
     }
 
     @FXML
     private void handleNavUsuarios(MouseEvent e) {
-        navegarA("/proyecto/intermodular/app/views/usuarios.fxml", "CentroPlus Connect – Usuarios", e);
+        navegarA("/proyecto/intermodular/app/views/usuarios.fxml", "CentroPlus Connect - Usuarios", e);
     }
 
     @FXML
@@ -191,12 +181,12 @@ private void handleEditar(ActionEvent event) {
 
     @FXML
     private void handleNavReservas(MouseEvent e) {
-        navegarA("/proyecto/intermodular/app/views/reservas.fxml", "CentroPlus Connect – Reservas", e);
+        navegarA("/proyecto/intermodular/app/views/reservas.fxml", "CentroPlus Connect - Reservas", e);
     }
 
     @FXML
     private void handleNavIncidencias(MouseEvent e) {
-        navegarA("/proyecto/intermodular/app/views/incidencias.fxml", "CentroPlus Connect – Incidencias", e);
+        navegarA("/proyecto/intermodular/app/views/incidencias.fxml", "CentroPlus Connect - Incidencias", e);
     }
 
     // Carga de datos
@@ -296,11 +286,6 @@ private void handleEditar(ActionEvent event) {
             e.printStackTrace();
             mostrarError("No se pudo cargar: " + fxmlPath);
         }
-    }
-
-    private void setCursorMano(javafx.scene.Node... nodos) {
-        for (javafx.scene.Node n : nodos)
-            n.setCursor(javafx.scene.Cursor.HAND);
     }
 
     private void mostrarError(String mensaje) {

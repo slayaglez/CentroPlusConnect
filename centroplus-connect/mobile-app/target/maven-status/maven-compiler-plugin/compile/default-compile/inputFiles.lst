@@ -37,4 +37,5 @@
 /home/cbasx/Escritorio/centroPlus_connect_atteneri_sebastian/centroplus-connect/mobile-app/src/main/java/proyecto/intermodular/app/controllers/EditarActividadController.java
 /home/cbasx/Escritorio/centroPlus_connect_atteneri_sebastian/centroplus-connect/mobile-app/src/main/java/proyecto/intermodular/app/service/interfaces/IReservaService.java
 /home/cbasx/Escritorio/centroPlus_connect_atteneri_sebastian/centroplus-connect/mobile-app/src/main/java/proyecto/intermodular/app/model/ReservaDetalle.java
+/home/cbasx/Escritorio/centroPlus_connect_atteneri_sebastian/centroplus-connect/mobile-app/src/main/java/proyecto/intermodular/app/service/PasswordService.java
 /home/cbasx/Escritorio/centroPlus_connect_atteneri_sebastian/centroplus-connect/mobile-app/src/main/java/proyecto/intermodular/app/service/interfaces/IActividadService.java
