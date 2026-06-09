@@ -50,15 +50,7 @@ public class UsuarioController {
     private Label LTipoUsuario;
 
     @FXML
-    private Label LNavInicio;
-    @FXML
     private Label LNavUsuarios;
-    @FXML
-    private Label LNavActividades;
-    @FXML
-    private Label LNavReservas;
-    @FXML
-    private Label LNavIncidencias;
 
     @FXML
     private Label LContador;
@@ -69,8 +61,6 @@ public class UsuarioController {
 
     @FXML
     public void initialize() {
-        setCursorMano(LNavInicio, LNavUsuarios, LNavActividades,
-                LNavReservas, LNavIncidencias);
 
         ObservableList<String> tipos = FXCollections.observableArrayList(
                 "Todos", "Administrador", "Cliente");
@@ -270,11 +260,6 @@ public class UsuarioController {
             e.printStackTrace();
             mostrarError("No se pudo cargar: " + fxmlPath);
         }
-    }
-
-    private void setCursorMano(javafx.scene.Node... nodos) {
-        for (javafx.scene.Node n : nodos)
-            n.setCursor(javafx.scene.Cursor.HAND);
     }
 
     private void mostrarError(String mensaje) {

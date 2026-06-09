@@ -40,10 +40,6 @@ public class IncidenciaController {
     @FXML private Label LDescripcion;
     @FXML private Label LContador;
 
-    @FXML private Label LNavInicio;
-    @FXML private Label LNavUsuarios;
-    @FXML private Label LNavActividades;
-    @FXML private Label LNavReservas;
     @FXML private Label LNavIncidencias;
 
     private static final String[] ESTADOS = {"Abierta", "En proceso", "Resuelta", "Cerrada"};
@@ -54,8 +50,6 @@ public class IncidenciaController {
 
     @FXML
     public void initialize() {
-        setCursorMano(LNavInicio, LNavUsuarios, LNavActividades,
-                      LNavReservas, LNavIncidencias);
 
         CIncidencias.setItems(FXCollections.observableArrayList(
             "Todos", "Abierta", "En proceso", "Resuelta", "Cerrada"
@@ -276,10 +270,6 @@ public class IncidenciaController {
             e.printStackTrace();
             mostrarError("No se pudo cargar: " + fxmlPath);
         }
-    }
-
-    private void setCursorMano(javafx.scene.Node... nodos) {
-        for (javafx.scene.Node n : nodos) n.setCursor(javafx.scene.Cursor.HAND);
     }
 
     private void mostrarError(String mensaje) {

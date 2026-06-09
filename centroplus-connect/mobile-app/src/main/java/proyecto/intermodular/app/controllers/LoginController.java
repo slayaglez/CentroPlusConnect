@@ -11,6 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import proyecto.intermodular.app.repository.UsuarioRepository;
+import proyecto.intermodular.app.service.PasswordService;
 
 public class LoginController {
 
@@ -18,6 +20,10 @@ public class LoginController {
     @FXML private PasswordField TContrasenia;
     @FXML private Button        BEntrar;
     @FXML private Button        BCambiarIdioma;
+
+    // Password Hasher
+    private final PasswordService paswordHasher = new PasswordService();
+    private final UsuarioRepository repo = new UsuarioRepository();
 
     // Idioma activo
     private String idiomaActual = "ES";
@@ -87,13 +93,14 @@ public class LoginController {
     }
 
     //! Autenticación provisional 
-    /**
-     * Sustituir este método por la llamada real al servicio/repositorio de usuarios.
-     * Por ejemplo: return usuarioService.login(email, contrasenia);
-     */
     private boolean autenticarUsuario(String email, String contrasenia) {
-        // Credenciales de prueba
-        return email.equals("admin@admin.com") && contrasenia.equals("admin");
+        try {
+            String storedHash = repo.findHashByEmail(email);
+            return paswordHasher.verify(contrasenia, storedHash);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     // Utilidades

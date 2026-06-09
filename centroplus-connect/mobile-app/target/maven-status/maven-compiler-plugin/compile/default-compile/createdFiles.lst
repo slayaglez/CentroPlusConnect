@@ -9,6 +9,7 @@ proyecto/intermodular/app/repository/interfaces/IReservaRepository.class
 proyecto/intermodular/app/controllers/ActividadController.class
 proyecto/intermodular/app/controllers/EditarUsuarioController.class
 proyecto/intermodular/app/service/interfaces/IIncidenciaService.class
+proyecto/intermodular/app/model/ReservaDetalle.class
 proyecto/intermodular/app/controllers/CrearActividadController.class
 proyecto/intermodular/app/service/UsuarioService.class
 proyecto/intermodular/app/model/Actividad.class
@@ -18,6 +19,7 @@ proyecto/intermodular/app/service/interfaces/IUsuarioService.class
 proyecto/intermodular/app/service/ReservaService.class
 proyecto/intermodular/app/model/Reserva.class
 proyecto/intermodular/app/service/interfaces/IActividadService.class
+proyecto/intermodular/app/service/PasswordService.class
 proyecto/intermodular/app/model/Incidencia.class
 proyecto/intermodular/app/controllers/CrearIncidenciaController.class
 proyecto/intermodular/app/controllers/EditarIncidenciaController$1.class

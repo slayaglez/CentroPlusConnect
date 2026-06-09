@@ -53,15 +53,8 @@ public class ReservaController {
     private Label LContador;
 
     @FXML
-    private Label LNavInicio;
-    @FXML
-    private Label LNavUsuarios;
-    @FXML
-    private Label LNavActividades;
-    @FXML
     private Label LNavReservas;
-    @FXML
-    private Label LNavIncidencias;
+
 
     private final ReservaService service = new ReservaService();
     private List<ReservaDetalle> listaActual = new ArrayList<>();
@@ -69,8 +62,6 @@ public class ReservaController {
 
     @FXML
     public void initialize() {
-        setCursorMano(LNavInicio, LNavUsuarios, LNavActividades,
-                LNavReservas, LNavIncidencias);
 
         CReservas.setItems(FXCollections.observableArrayList(
                 "Todos", "Confirmada", "Pendiente", "Cancelada"));
@@ -303,11 +294,6 @@ public class ReservaController {
             e.printStackTrace();
             mostrarError("No se pudo cargar: " + fxmlPath);
         }
-    }
-
-    private void setCursorMano(javafx.scene.Node... nodos) {
-        for (javafx.scene.Node n : nodos)
-            n.setCursor(javafx.scene.Cursor.HAND);
     }
 
     private void mostrarError(String mensaje) {

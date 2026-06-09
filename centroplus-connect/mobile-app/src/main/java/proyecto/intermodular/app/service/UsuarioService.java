@@ -16,9 +16,9 @@ public class UsuarioService implements IUsuarioService{
     }
 
     @Override
-    public boolean create(Usuario usuario) {
-        if(usuario.getId() == null) return repository.createAutoId(usuario);
-        return repository.create(usuario);
+    public boolean create(Usuario usuario, String password) {
+        if(usuario.getId() == null) return repository.createAutoId(usuario, password);
+        return repository.create(usuario, password);
     }
 
     @Override

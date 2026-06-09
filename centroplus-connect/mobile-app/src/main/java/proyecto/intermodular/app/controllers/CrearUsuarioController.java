@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import proyecto.intermodular.app.model.Usuario;
@@ -22,6 +23,8 @@ public class CrearUsuarioController {
     @FXML private TextField        TDNI;
     @FXML private TextField        TEmail;
     @FXML private TextField        TTelefono;
+    @FXML private PasswordField    TPassword;
+    @FXML private PasswordField    TPasswordConfirm;
     @FXML private ComboBox<String> CTipoUsuario;
     @FXML private Button           BCrear;
     @FXML private Button           BVolver;
@@ -37,14 +40,17 @@ public class CrearUsuarioController {
 
     @FXML
     private void handleCrear(ActionEvent event) {
-        String nombre   = TNombre.getText().trim();
-        String dni      = TDNI.getText().trim();
-        String email    = TEmail.getText().trim();
-        String telefono = TTelefono.getText().trim();
-        String tipo     = CTipoUsuario.getValue();
+        String nombre    = TNombre.getText().trim();
+        String dni       = TDNI.getText().trim();
+        String email     = TEmail.getText().trim();
+        String telefono  = TTelefono.getText().trim();
+        String password  = TPassword.getText();
+        String confirm   = TPasswordConfirm.getText();
+        String tipo      = CTipoUsuario.getValue();
 
-        if (nombre.isBlank() || dni.isBlank() || email.isBlank() || tipo == null) {
-            mostrarError("Nombre, DNI, Email y Tipo de usuario son obligatorios.");
+        if (nombre.isBlank() || dni.isBlank() || email.isBlank()
+                || password.isBlank() || tipo == null) {
+            mostrarError("Nombre, DNI, Email, Contraseña y Tipo de usuario son obligatorios.");
             return;
         }
         if (!dni.matches("^\\d{8}[A-Za-z]$")) {
@@ -59,11 +65,23 @@ public class CrearUsuarioController {
             mostrarError("El teléfono debe tener 9 dígitos.");
             return;
         }
+        if (password.length() < 6) {
+            mostrarError("La contraseña debe tener al menos 6 caracteres.");
+            return;
+        }
+        if (!password.equals(confirm)) {
+            mostrarError("Las contraseñas no coinciden.");
+            return;
+        }
 
-        Usuario u = new Usuario(nombre, dni, email,
-                                telefono.isBlank() ? null : telefono, tipo);
-        boolean ok = service.create(u);
+        Usuario u = new Usuario();
+        u.setNombre(nombre);
+        u.setDni(dni);
+        u.setEmail(email);
+        u.setTelefono(telefono.isBlank() ? null : telefono);
+        u.setTipoUsuario(tipo);
 
+        boolean ok = service.create(u, password);
         if (ok) {
             mostrarExito("Usuario «" + nombre + "» creado correctamente.");
             volverAUsuarios(event);

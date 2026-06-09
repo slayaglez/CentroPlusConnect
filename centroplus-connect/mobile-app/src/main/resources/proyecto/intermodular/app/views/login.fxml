@@ -1,53 +1,153 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="ALoginPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="390.0" style="-fx-background-color: #1a3a5c;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto.intermodular.app.controllers.LoginController">
-   <children>
-      <AnchorPane id="ALoginSecundario" layoutX="58.0" layoutY="117.0" prefHeight="406.0" prefWidth="273.0" style="-fx-background-color: white;">
-         <children>
-            <Label id="LCentroPlus" layoutX="24.0" layoutY="48.0" prefHeight="66.0" prefWidth="226.0" text="Centro Plus Connect">
-               <font>
-                  <Font name="Carlito Bold" size="26.0" />
-               </font>
-            </Label>
-            <Label id="LAccesoSistema" layoutX="76.0" layoutY="103.0" text="Acceso al sistema">
-               <font>
-                  <Font name="Carlito" size="17.0" />
-               </font>
-            </Label>
-            <Label id="LEmail" layoutX="33.0" layoutY="149.0" text="Email">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <TextField fx:id="TEmail" id="TEmail" layoutX="33.0" layoutY="178.0" prefHeight="31.0" prefWidth="197.0" promptText="usuario@example.com">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </TextField>
-            <Label id="LContrasenia" layoutX="33.0" layoutY="220.0" text="Contraseña">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <PasswordField fx:id="TContrasenia" id="TContrasenia" layoutX="35.0" layoutY="251.0" prefHeight="31.0" prefWidth="197.0" promptText="password">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </PasswordField>
-            <Button fx:id="BEntrar" id="BEntrar" layoutX="66.0" layoutY="312.0" mnemonicParsing="false" onAction="#handleEntrar" prefHeight="37.0" prefWidth="129.0" style="-fx-background-color: C1BEC4;" text="Entrar">
-               <font>
-                  <Font name="Carlito" size="15.0" />
-               </font>
-            </Button>
-         </children>
-      </AnchorPane>
-      <Button fx:id="BCambiarIdioma" id="BCambiarIdioma" layoutX="262.0" layoutY="34.0" mnemonicParsing="false" onAction="#handleCambiarIdioma" prefHeight="37.0" prefWidth="101.0" style="-fx-background-color: C1BEC4;" text="Cambiar idioma" />
-   </children>
+<AnchorPane
+    id="ALoginPrincipal"
+    maxHeight="-Infinity" maxWidth="-Infinity"
+    minHeight="-Infinity" minWidth="-Infinity"
+    prefHeight="640.0" prefWidth="390.0"
+    style="-fx-background-color: #1a3a5c;"
+    xmlns="http://javafx.com/javafx/21"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="proyecto.intermodular.app.controllers.LoginController">
+    <children>
+        <Button
+            fx:id="BCambiarIdioma"
+            layoutX="270.0" layoutY="20.0"
+            prefWidth="100.0" prefHeight="30.0"
+            text="ES / EN"
+            onAction="#handleCambiarIdioma"
+            mnemonicParsing="false"
+            style="
+                -fx-background-color: transparent;
+                -fx-border-color: rgba(255,255,255,0.45);
+                -fx-border-radius: 4;
+                -fx-text-fill: rgba(255,255,255,0.85);
+                -fx-cursor: hand;
+                -fx-font-size: 12px;
+            ">
+            <font><Font name="Carlito" size="12.0"/></font>
+        </Button>
+        <AnchorPane
+            id="ALoginSecundario"
+            layoutX="45.0" layoutY="110.0"
+            prefWidth="300.0" prefHeight="420.0"
+            style="
+                -fx-background-color: white;
+                -fx-background-radius: 12;
+                -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.28), 24, 0, 0, 6);
+            ">
+            <children>
+                <VBox
+                    layoutX="32.0" layoutY="36.0"
+                    prefWidth="236.0"
+                    spacing="0">
+                    <children>
+                        <Label
+                            id="LCentroPlus"
+                            text="CentroPlus Connect"
+                            wrapText="true"
+                            prefWidth="236.0"
+                            style="
+                                -fx-font-size: 26px;
+                                -fx-font-weight: bold;
+                                -fx-text-fill: #1a3a5c;
+                                -fx-font-family: 'Carlito';
+                            ">
+                        </Label>
+                        <Label
+                            id="LAccesoSistema"
+                            text="Acceso al sistema"
+                            style="
+                                -fx-font-size: 13px;
+                                -fx-text-fill: #7a8fa6;
+                                -fx-font-family: 'Carlito';
+                                -fx-padding: 4 0 28 0;
+                            ">
+                        </Label>
+                        <Label
+                            id="LEmail"
+                            text="Correo electrónico"
+                            style="
+                                -fx-font-size: 12px;
+                                -fx-font-weight: bold;
+                                -fx-text-fill: #3a5575;
+                                -fx-font-family: 'Carlito';
+                                -fx-padding: 0 0 5 0;
+                            ">
+                        </Label>
+                        <TextField
+                            fx:id="TEmail"
+                            promptText="usuario@example.com"
+                            prefHeight="36.0"
+                            prefWidth="236.0"
+                            style="
+                                -fx-background-color: #f4f7fb;
+                                -fx-background-radius: 6;
+                                -fx-border-color: #d0dae6;
+                                -fx-border-radius: 6;
+                                -fx-font-size: 13px;
+                                -fx-font-family: 'Carlito';
+                                -fx-text-fill: #1a3a5c;
+                                -fx-padding: 0 10 0 10;
+                            ">
+                        </TextField>
+                        <Label text="" style="-fx-padding: 6 0 0 0;"/>
+                        <Label
+                            id="LContrasenia"
+                            text="Contraseña"
+                            style="
+                                -fx-font-size: 12px;
+                                -fx-font-weight: bold;
+                                -fx-text-fill: #3a5575;
+                                -fx-font-family: 'Carlito';
+                                -fx-padding: 0 0 5 0;
+                            ">
+                        </Label>
+                        <PasswordField
+                            fx:id="TContrasenia"
+                            promptText="Contraseña"
+                            prefHeight="36.0"
+                            prefWidth="236.0"
+                            style="
+                                -fx-background-color: #f4f7fb;
+                                -fx-background-radius: 6;
+                                -fx-border-color: #d0dae6;
+                                -fx-border-radius: 6;
+                                -fx-font-size: 13px;
+                                -fx-font-family: 'Carlito';
+                                -fx-text-fill: #1a3a5c;
+                                -fx-padding: 0 10 0 10;
+                            ">
+                        </PasswordField>
+                        <Label text="" style="-fx-padding: 14 0 0 0;"/>
+                        <Button
+                            fx:id="BEntrar"
+                            text="Entrar"
+                            prefHeight="40.0"
+                            prefWidth="236.0"
+                            onAction="#handleEntrar"
+                            mnemonicParsing="false"
+                            style="
+                                -fx-background-color: #1a3a5c;
+                                -fx-background-radius: 6;
+                                -fx-text-fill: white;
+                                -fx-font-size: 14px;
+                                -fx-font-weight: bold;
+                                -fx-font-family: 'Carlito';
+                                -fx-cursor: hand;
+                            ">
+                        </Button>
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
+    </children>
 </AnchorPane>

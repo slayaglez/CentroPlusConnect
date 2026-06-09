@@ -12,7 +12,7 @@ public interface IUsuarioService {
      * @param usuario Usuario
      * @return boolean
      */
-    boolean create(Usuario usuario);
+    boolean create(Usuario usuario, String password);
 
     /**
      * Encuentra un usuario por su id

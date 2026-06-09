@@ -1,105 +1,272 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane id="AInicioPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="390.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto.intermodular.app.controllers.DashboardController">
-   <children>
-      <AnchorPane id="AInicio2" prefHeight="97.0" prefWidth="390.0" style="-fx-background-color: #1a3a5c;">
-         <children>
-            <Label id="LInicio" layoutX="21.0" layoutY="42.0" text="Inicio" textFill="WHITE">
-               <font>
-                  <Font name="Carlito" size="35.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-      <AnchorPane id="AInicio3" layoutY="566.0" prefHeight="74.0" prefWidth="390.0" style="-fx-background-color: E6DCDC;">
-         <children>
-            <Label fx:id="LNavInicio" id="LInicio" layoutX="20.0" layoutY="27.0" onMouseClicked="#handleNavInicio" text="Inicio">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <Label fx:id="LNavUsuarios" id="LUsuarios" layoutX="69.0" layoutY="27.0" onMouseClicked="#handleNavUsuarios" text="Usuarios">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <Label fx:id="LNavActividades" id="LActividades" layoutX="139.0" layoutY="27.0" onMouseClicked="#handleNavActividades" text="Actividades">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <Label fx:id="LNavReservas" id="LReservas" layoutX="230.0" layoutY="27.0" onMouseClicked="#handleNavReservas" text="Reservas">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <Label fx:id="LNavIncidencias" id="LIncidencias" layoutX="303.0" layoutY="27.0" onMouseClicked="#handleNavIncidencias" text="Incidencias">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="AInicioUsuarios" id="AInicioUsuarios" layoutX="14.0" layoutY="110.0" onMouseClicked="#handleNavUsuarios" prefHeight="80.0" prefWidth="173.0" style="-fx-background-color: E6DCDC;">
-         <children>
-            <Label id="LUsuarios" layoutX="8.0" layoutY="4.0" text="Usuarios">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="AInicioActividades" id="AInicioActividades" layoutX="195.0" layoutY="110.0" onMouseClicked="#handleNavActividades" prefHeight="80.0" prefWidth="173.0" style="-fx-background-color: E6DCDC;">
-         <children>
-            <Label id="LActividades" layoutX="11.0" layoutY="4.0" text="Actividades">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="AInicioReservas" id="AInicioReservas" layoutX="14.0" layoutY="205.0" onMouseClicked="#handleNavReservas" prefHeight="80.0" prefWidth="173.0" style="-fx-background-color: E6DCDC;">
-         <children>
-            <Label id="LReservas" layoutX="7.0" layoutY="4.0" text="Reservas">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="AInicioIncidencias" id="AInicioIncidencias" layoutX="195.0" layoutY="205.0" onMouseClicked="#handleNavIncidencias" prefHeight="80.0" prefWidth="173.0" style="-fx-background-color: E6DCDC;">
-         <children>
-            <Label id="LIncidencias" layoutX="14.0" layoutY="4.0" text="Incidencias">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-      <AnchorPane id="AInicioPlazasOcupadas" layoutX="14.0" layoutY="302.0" prefHeight="116.0" prefWidth="354.0" style="-fx-background-color: E6DCDC;">
-         <children>
-            <Label fx:id="LPlazasOcupadas" id="LPlazasOcupadas" layoutX="6.0" layoutY="4.0" text="Plazas ocupadas por actividad">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-      <AnchorPane id="AInicioUltimasReservas" layoutX="14.0" layoutY="435.0" prefHeight="116.0" prefWidth="354.0" style="-fx-background-color: E6DCDC;">
-         <children>
-            <Label fx:id="LUltimasReservas" id="LUltimasReservas" layoutX="7.0" layoutY="4.0" text="Últimas reservas">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <Label fx:id="LIngresosTotales" id="LIngresosTotales" layoutX="7.0" layoutY="85.0" text="Ingresos totales:" />
-         </children>
-      </AnchorPane>
-      <ScrollBar id="SInicio" layoutX="376.0" layoutY="97.0" orientation="VERTICAL" prefHeight="471.0" prefWidth="14.0" />
-   </children>
+<AnchorPane
+    id="AInicioPrincipal"
+    maxHeight="-Infinity" maxWidth="-Infinity"
+    minHeight="-Infinity" minWidth="-Infinity"
+    prefHeight="640.0" prefWidth="390.0"
+    style="-fx-background-color: #f0f4f8;"
+    xmlns="http://javafx.com/javafx/21"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="proyecto.intermodular.app.controllers.DashboardController">
+    <children>
+        <AnchorPane
+            prefHeight="90.0" prefWidth="390.0"
+            style="-fx-background-color: #1a3a5c;">
+            <children>
+                <VBox layoutX="20.0" layoutY="22.0" spacing="2">
+                    <children>
+                        <Label
+                            text="Inicio"
+                            style="-fx-font-family: 'Carlito'; -fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                        <Label
+                            text="Bienvenido al panel de gestión"
+                            style="-fx-font-family: 'Carlito'; -fx-font-size: 12px; -fx-text-fill: rgba(255,255,255,0.65);"/>
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
+        <ScrollPane
+            layoutY="90.0"
+            prefHeight="476.0" prefWidth="390.0"
+            fitToWidth="true"
+            hbarPolicy="NEVER"
+            vbarPolicy="AS_NEEDED"
+            style="-fx-background: #f0f4f8; -fx-background-color: #f0f4f8; -fx-border-color: transparent; -fx-padding: 0;">
+            <content>
+                <VBox
+                    spacing="12"
+                    style="-fx-padding: 16 14 16 14; -fx-background-color: #f0f4f8;">
+                    <children>
+                        <Label
+                            text="ACCESOS RÁPIDOS"
+                            style="-fx-font-family: 'Carlito'; -fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #7a96b0; -fx-padding: 0 0 2 2;"/>
+                        <GridPane hgap="10" vgap="10">
+                            <columnConstraints>
+                                <ColumnConstraints percentWidth="50"/>
+                                <ColumnConstraints percentWidth="50"/>
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="82"/>
+                                <RowConstraints minHeight="82"/>
+                            </rowConstraints>
+                            <AnchorPane
+                                GridPane.columnIndex="0" GridPane.rowIndex="0"
+                                onMouseClicked="#handleNavUsuarios"
+                                style="
+                                    -fx-background-color: white;
+                                    -fx-background-radius: 10;
+                                    -fx-effect: dropshadow(gaussian, rgba(26,58,92,0.10), 8, 0, 0, 2);
+                                    -fx-cursor: hand;
+                                    -fx-border-color: transparent transparent transparent #2e6da4;
+                                    -fx-border-width: 0 0 0 4;
+                                    -fx-border-radius: 10;
+                                ">
+                                <children>
+                                    <VBox layoutX="14" layoutY="14" spacing="4">
+                                        <FontIcon iconLiteral="mdi2a-account" iconSize="20" iconColor="#2e6da4"/>
+                                        <Label fx:id="LNavUsuarios" text="Usuarios"
+                                            style="-fx-font-family: 'Carlito'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #1a3a5c;"/>
+                                        <Label text="Gestionar miembros"
+                                            style="-fx-font-family: 'Carlito'; -fx-font-size: 10px; -fx-text-fill: #7a96b0;"/>
+                                    </VBox>
+                                </children>
+                            </AnchorPane>
+                            <AnchorPane
+                                GridPane.columnIndex="1" GridPane.rowIndex="0"
+                                onMouseClicked="#handleNavActividades"
+                                style="
+                                    -fx-background-color: white;
+                                    -fx-background-radius: 10;
+                                    -fx-effect: dropshadow(gaussian, rgba(26,58,92,0.10), 8, 0, 0, 2);
+                                    -fx-cursor: hand;
+                                    -fx-border-color: transparent transparent transparent #2e6da4;
+                                    -fx-border-width: 0 0 0 4;
+                                    -fx-border-radius: 10;
+                                ">
+                                <children>
+                                    <VBox layoutX="14" layoutY="14" spacing="4">
+                                        <FontIcon iconLiteral="mdi2r-run" iconSize="20" iconColor="#2e6da4"/>
+                                        <Label fx:id="LNavActividades" text="Actividades"
+                                            style="-fx-font-family: 'Carlito'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #1a3a5c;"/>
+                                        <Label text="Ver programación"
+                                            style="-fx-font-family: 'Carlito'; -fx-font-size: 10px; -fx-text-fill: #7a96b0;"/>
+                                    </VBox>
+                                </children>
+                            </AnchorPane>
+                            <AnchorPane
+                                GridPane.columnIndex="0" GridPane.rowIndex="1"
+                                onMouseClicked="#handleNavReservas"
+                                style="
+                                    -fx-background-color: white;
+                                    -fx-background-radius: 10;
+                                    -fx-effect: dropshadow(gaussian, rgba(26,58,92,0.10), 8, 0, 0, 2);
+                                    -fx-cursor: hand;
+                                    -fx-border-color: transparent transparent transparent #2e6da4;
+                                    -fx-border-width: 0 0 0 4;
+                                    -fx-border-radius: 10;
+                                ">
+                                <children>
+                                    <VBox layoutX="14" layoutY="14" spacing="4">
+                                        <FontIcon iconLiteral="mdi2c-calendar" iconSize="20" iconColor="#2e6da4"/>
+                                        <Label fx:id="LNavReservas" text="Reservas"
+                                            style="-fx-font-family: 'Carlito'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #1a3a5c;"/>
+                                        <Label text="Consultar agenda"
+                                            style="-fx-font-family: 'Carlito'; -fx-font-size: 10px; -fx-text-fill: #7a96b0;"/>
+                                    </VBox>
+                                </children>
+                            </AnchorPane>
+                            <AnchorPane
+                                GridPane.columnIndex="1" GridPane.rowIndex="1"
+                                onMouseClicked="#handleNavIncidencias"
+                                style="
+                                    -fx-background-color: white;
+                                    -fx-background-radius: 10;
+                                    -fx-effect: dropshadow(gaussian, rgba(26,58,92,0.10), 8, 0, 0, 2);
+                                    -fx-cursor: hand;
+                                    -fx-border-color: transparent transparent transparent #e05c4a;
+                                    -fx-border-width: 0 0 0 4;
+                                    -fx-border-radius: 10;
+                                ">
+                                <children>
+                                    <VBox layoutX="14" layoutY="14" spacing="4">
+                                        <FontIcon iconLiteral="mdi2a-alert" iconSize="20" iconColor="#a42e2eff"/>
+                                        <Label fx:id="LNavIncidencias" text="Incidencias"
+                                            style="-fx-font-family: 'Carlito'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #1a3a5c;"/>
+                                        <Label text="Revisar alertas"
+                                            style="-fx-font-family: 'Carlito'; -fx-font-size: 10px; -fx-text-fill: #7a96b0;"/>
+                                    </VBox>
+                                </children>
+                            </AnchorPane>
+                        </GridPane>
+                        <Label
+                            text="RESUMEN"
+                            style="-fx-font-family: 'Carlito'; -fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #7a96b0; -fx-padding: 6 0 2 2;"/>
+                        <AnchorPane
+                            prefHeight="120.0"
+                            style="
+                                -fx-background-color: white;
+                                -fx-background-radius: 10;
+                                -fx-effect: dropshadow(gaussian, rgba(26,58,92,0.10), 8, 0, 0, 2);
+                            ">
+                            <children>
+                                <VBox layoutX="16" layoutY="14" spacing="6">
+                                    <Label
+                                        text="Plazas ocupadas por actividad"
+                                        style="-fx-font-family: 'Carlito'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #1a3a5c;"/>
+                                    
+                                    <VBox fx:id="VBoxBarras" spacing="4" />
+                                    <Label fx:id="LPlazasOcupadas"
+                                        text="Los datos se cargarán al conectar el repositorio"
+                                        style="-fx-font-family: 'Carlito'; -fx-font-size: 11px; -fx-text-fill: #7a96b0;" wrapText="true"/>
+                                </VBox>
+                            </children>
+                        </AnchorPane>
+
+                        <AnchorPane
+                            prefHeight="140.0"
+                            style="
+                                -fx-background-color: white;
+                                -fx-background-radius: 10;
+                                -fx-effect: dropshadow(gaussian, rgba(26,58,92,0.10), 8, 0, 0, 2);
+                            ">
+                            <children>
+                                <VBox layoutX="16" layoutY="14" spacing="6">
+                                    <Label
+                                        text="Últimas reservas"
+                                        style="-fx-font-family: 'Carlito'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #1a3a5c;"/>
+                                    
+                                    <Label fx:id="LUltimasReservas"
+                                        text="Los datos se cargarán al conectar el repositorio"
+                                        style="-fx-font-family: 'Carlito'; -fx-font-size: 11px; -fx-text-fill: #7a96b0;" wrapText="true"/>
+                                    
+                                    <HBox spacing="8" style="-fx-padding: 6 0 0 0;">
+                                        <Label
+                                            text="Ingresos totales:"
+                                            style="-fx-font-family: 'Carlito'; -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #3a5575;"/>
+                                        <Label fx:id="LIngresosTotales"
+                                            text="—"
+                                            style="-fx-font-family: 'Carlito'; -fx-font-size: 12px; -fx-text-fill: #2e6da4;"/>
+                                    </HBox>
+                                </VBox>
+                            </children>
+                        </AnchorPane>
+                    </children>
+                </VBox>
+            </content>
+        </ScrollPane>
+        <AnchorPane
+            layoutY="566.0"
+            prefHeight="74.0" prefWidth="390.0"
+            style="
+                -fx-background-color: white;
+                -fx-effect: dropshadow(gaussian, rgba(26,58,92,0.12), 10, 0, 0, -3);
+            ">
+            <children>
+                <HBox
+                    layoutX="0" layoutY="0"
+                    prefWidth="390.0" prefHeight="74.0"
+                    alignment="CENTER"
+                    spacing="0">
+                    <children>
+                        <VBox
+                            prefWidth="78.0" prefHeight="74.0"
+                            alignment="CENTER" spacing="3"
+                            onMouseClicked="#handleNavInicio"
+                            style="-fx-cursor: hand; -fx-border-color: transparent transparent #2e6da4 transparent; -fx-border-width: 0 0 3 0;">
+                            <FontIcon iconLiteral="mdi2h-home" iconSize="20" iconColor="#2e6da4"/>
+                            <Label fx:id="LNavInicio" text="Inicio"
+                                style="-fx-font-family: 'Carlito'; -fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #2e6da4;"/>
+                        </VBox>
+                        <VBox
+                            prefWidth="78.0" prefHeight="74.0"
+                            alignment="CENTER" spacing="3"
+                            onMouseClicked="#handleNavUsuarios"
+                            style="-fx-cursor: hand;">
+                            <FontIcon iconLiteral="mdi2a-account" iconSize="20" iconColor="#2e6da4"/>
+                            <Label text="Usuarios"
+                                style="-fx-font-family: 'Carlito'; -fx-font-size: 10px; -fx-text-fill: #7a96b0;"/>
+                        </VBox>
+                        <VBox
+                            prefWidth="78.0" prefHeight="74.0"
+                            alignment="CENTER" spacing="3"
+                            onMouseClicked="#handleNavActividades"
+                            style="-fx-cursor: hand;">
+                            <FontIcon iconLiteral="mdi2r-run" iconSize="20" iconColor="#2e6da4"/>
+                            <Label text="Actividades"
+                                style="-fx-font-family: 'Carlito'; -fx-font-size: 10px; -fx-text-fill: #7a96b0;"/>
+                        </VBox>
+                        <VBox
+                            prefWidth="78.0" prefHeight="74.0"
+                            alignment="CENTER" spacing="3"
+                            onMouseClicked="#handleNavReservas"
+                            style="-fx-cursor: hand;">
+                            <FontIcon iconLiteral="mdi2c-calendar" iconSize="20" iconColor="#2e6da4"/>
+                            <Label text="Reservas"
+                                style="-fx-font-family: 'Carlito'; -fx-font-size: 10px; -fx-text-fill: #7a96b0;"/>
+                        </VBox>
+                        <VBox
+                            prefWidth="78.0" prefHeight="74.0"
+                            alignment="CENTER" spacing="3"
+                            onMouseClicked="#handleNavIncidencias"
+                            style="-fx-cursor: hand;">
+                            <FontIcon iconLiteral="mdi2a-alert" iconSize="20" iconColor="#a42e2eff"/>
+                            <Label text="Incidencias"
+                                style="-fx-font-family: 'Carlito'; -fx-font-size: 10px; -fx-text-fill: #7a96b0;"/>
+                        </VBox>
+                    </children>
+                </HBox>
+            </children>
+        </AnchorPane>
+    </children>
 </AnchorPane>

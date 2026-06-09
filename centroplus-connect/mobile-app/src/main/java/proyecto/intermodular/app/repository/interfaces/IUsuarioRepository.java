@@ -12,7 +12,7 @@ public interface IUsuarioRepository {
      * @param usuario Usuario
      * @return boolean
      */
-    boolean create(Usuario usuario);
+    boolean create(Usuario usuario, String contrasenia);
 
     /**
      * Crea un usuario cuyo id es null
@@ -20,7 +20,7 @@ public interface IUsuarioRepository {
      * @param usuario Usuario
      * @return boolean
      */
-    boolean createAutoId(Usuario usuario);
+    boolean createAutoId(Usuario usuario, String contrasenia);
 
     /**
      * Encuentra un usuario por su id
