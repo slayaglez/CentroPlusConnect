@@ -1,4 +1,4 @@
-# CentroPlus Connect
+<img src="images/logo.png">
 
 Aplicación de escritorio para la **gestión integral de un centro**: usuarios, actividades, reservas e incidencias. Desarrollada en Java con JavaFX y SQLite como base de datos local.
 
@@ -23,6 +23,8 @@ Aplicación de escritorio para la **gestión integral de un centro**: usuarios, 
 ---
 
 ## Descripción
+
+<img src="images/header.png">
 
 CentroPlus Connect permite a los administradores de un centro gestionar de forma centralizada:
 
