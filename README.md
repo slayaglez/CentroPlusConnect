@@ -1,7 +1,7 @@
 <table border="0" style="border-collapse: collapse; border: none;">
   <tr style="border: none;">
     <td valign="top" style="border: none; padding-right: 20px; min-width: 400px;">
-      <img src="images/logo.png" width="750" alt="Logo CentroPlus">
+      <img src="images/logo.png" width="850" alt="Logo CentroPlus">
     </td>
     <td valign="top" style="border: none;">
 
