@@ -9,10 +9,8 @@
 
 CentroPlus es una aplicación orientada para la **gestión integral de un centro**: Usuarios, actividades, reservas e incluso incidencias. Desarrollada en Java con JavaFX y con SQLite como base de datos local.
 
-**Autores:** [Atthemyg](https://github.com/Atthemyg) & [slayaglez](https://github.com/slayaglez)
-
+**Autores:** [Atthemyg](https://github.com/Atthemyg) & [slayaglez](https://github.com/slayaglez)  
 **Versión:** 1.0-SNAPSHOT  
-
 **Java:** 17 - **JavaFX:** 21 - **SQLite:** 3.45.3
 
 </td>
