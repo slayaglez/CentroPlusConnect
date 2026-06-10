@@ -13,6 +13,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import proyecto.intermodular.app.model.Actividad;
+import proyecto.intermodular.app.service.ActividadService;
 
 public class EditarActividadController {
 
@@ -24,10 +26,12 @@ public class EditarActividadController {
     @FXML private Button           BGuardarCambios;
     @FXML private Button           BVolver;
 
-    // ID de la actividad que se está editando
+    private final ActividadService service = new ActividadService();
+
+    // ID de la actividad que se esta editando
     private int actividadId = -1;
 
-    // Inicialización
+    // Inicializacion
     @FXML
     public void initialize() {
         CTipoActividad.setItems(FXCollections.observableArrayList(
@@ -79,9 +83,9 @@ public class EditarActividadController {
             return;
         }
 
-        //TODO persistencia en BBDD
-        System.out.printf("Actividad actualizada → id=%d, nombre=%s, tipo=%s, duracion=%s min, precio=%s€, plazas=%s%n",
-                          actividadId, nombre, tipo, duracion, precio, plazas);
+        Actividad actividad = service.findById(actividadId);
+        Actividad actividadNueva = new Actividad(actividadId, nombre, tipo, Integer.parseInt(duracion), Double.parseDouble(precio), Integer.parseInt(plazas), actividad.getPlazasOcupadas());
+        service.update(actividadNueva);
 
         mostrarExito("Actividad «" + nombre + "» actualizada correctamente.");
         volverAActividades(event);
