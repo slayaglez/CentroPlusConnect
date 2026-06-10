@@ -17,32 +17,32 @@ public final class Validations {
         if (tipoUsuario == null || tipoUsuario.isEmpty()) {
             return false;
         }
-        String patron = "^(ALUMNO||SOCIO||alumno||socio){1,2}$";
-        return Pattern.matches(patron, tipoUsuario);
+        String patron = "^ALUMNO||SOCIO$";
+        return Pattern.matches(patron, tipoUsuario.toUpperCase());
     }
 
     public static boolean isValidTipoActividad(String tipoActividad) {
         if (tipoActividad == null || tipoActividad.isEmpty()) {
             return false;
         }
-        String patron = "^ACADEMICA||DEPORTIVA||academica||deportiva$";
-        return Pattern.matches(patron, tipoActividad);
+        String patron = "^ACADEMICA||DEPORTIVA$";
+        return Pattern.matches(patron, tipoActividad.toUpperCase());
     }
 
     public static boolean isValidEstadoReserva(String estado) {
         if (estado == null || estado.isEmpty()) {
             return false;
         }
-        String patron = "^ACTIVA||CANCELADA||activa||cancelada$";
-        return Pattern.matches(patron, estado);
+        String patron = "^ACTIVA||CANCELADA$";
+        return Pattern.matches(patron, estado.toUpperCase());
     }
 
     public static boolean isValidEstadoIncidencia(String estado) {
         if (estado == null || estado.isEmpty()) {
             return false;
         }
-        String patron = "^ABIERTO||EN_PROCESO||CERRADA||abierto||en_proceso||cerrada$";
-        return Pattern.matches(patron, estado);
+        String patron = "^ABIERTA||PROCESANDO||CERRADA$";
+        return Pattern.matches(patron, estado.toUpperCase());
     }
 
     public static boolean isValidDni(String dni) {

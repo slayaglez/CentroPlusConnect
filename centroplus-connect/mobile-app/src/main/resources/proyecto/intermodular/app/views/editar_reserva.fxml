@@ -18,8 +18,8 @@
             </Label>
          </children>
       </AnchorPane>
-      <TextField fx:id="TIdUsuario" layoutX="36.0" layoutY="217.0" prefHeight="25.0" prefWidth="247.0" promptText="Introduzca el id del usuario" />
-      <Label fx:id="LIdUsuario" layoutX="38.0" layoutY="179.0" text="Id del usuario">
+      <TextField fx:id="TIdUsuario" layoutX="36.0" layoutY="217.0" prefHeight="25.0" prefWidth="247.0" promptText="Introduzca el nombre del usuario" />
+      <Label fx:id="LIdUsuario" layoutX="38.0" layoutY="179.0" text="Nombre del usuario">
          <font>
             <Font size="15.0" />
          </font>
@@ -30,12 +30,12 @@
          </font>
       </Label>
       <TextField fx:id="TEstado" layoutX="36.0" layoutY="463.0" prefHeight="25.0" prefWidth="247.0" promptText="Introduzca el estado" />
-      <Label fx:id="LIdActividad" layoutX="38.0" layoutY="267.0" text="Id de la actividad">
+      <Label fx:id="LIdActividad" layoutX="38.0" layoutY="267.0" text="Nombre de la actividad">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="TIdActividad" layoutX="36.0" layoutY="301.0" prefHeight="25.0" prefWidth="247.0" promptText="Introduzca el id de la actividad" />
+      <TextField fx:id="TIdActividad" layoutX="36.0" layoutY="301.0" prefHeight="25.0" prefWidth="247.0" promptText="Introduzca el nombre de la actividad" />
       <Label fx:id="LFecha" layoutX="37.0" layoutY="346.0" text="Fecha">
          <font>
             <Font size="15.0" />

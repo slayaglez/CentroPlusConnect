@@ -14,7 +14,9 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import proyecto.intermodular.app.model.Reserva;
+import proyecto.intermodular.app.service.ActividadService;
 import proyecto.intermodular.app.service.ReservaService;
+import proyecto.intermodular.app.service.UsuarioService;
 
 public class CrearReservaController {
 
@@ -25,7 +27,9 @@ public class CrearReservaController {
     @FXML private Button     BCrear;
     @FXML private Button     BVolver;
 
-    private final ReservaService service = new ReservaService();
+    private final ReservaService serviceR = new ReservaService();
+    private final ActividadService serviceA = new ActividadService();
+    private final UsuarioService serviceU = new UsuarioService();
 
     @FXML
     public void initialize() {
@@ -36,46 +40,47 @@ public class CrearReservaController {
                 setDisabled(empty || date.isBefore(LocalDate.now()));
             }
         });
-        TEstado.setText("Pendiente");
+        TEstado.setText("Activa");
     }
 
     @FXML
     private void handleCrear(ActionEvent event) {
-        String    idUsuario   = TIdUsuario.getText().trim();
-        String    idActividad = TIdActividad.getText().trim();
+        String    nombreUsuario   = TIdUsuario.getText().trim();
+        String    nombreActividad = TIdActividad.getText().trim();
         LocalDate fecha       = DPFecha.getValue();
         String    estado      = TEstado.getText().trim();
 
-        if (idUsuario.isEmpty() || idActividad.isEmpty() || fecha == null || estado.isEmpty()) {
+        if (nombreUsuario.isEmpty() || nombreActividad.isEmpty() || fecha == null || estado.isEmpty()) {
             mostrarError("Todos los campos son obligatorios.");
-            return;
-        }
-        if (!idUsuario.matches("^\\d+$") || Integer.parseInt(idUsuario) <= 0) {
-            mostrarError("El id del usuario debe ser un número entero positivo.");
-            return;
-        }
-        if (!idActividad.matches("^\\d+$") || Integer.parseInt(idActividad) <= 0) {
-            mostrarError("El id de la actividad debe ser un número entero positivo.");
             return;
         }
         if (fecha.isBefore(LocalDate.now())) {
             mostrarError("La fecha de la reserva no puede ser anterior a hoy.");
             return;
         }
-        if (!estado.equalsIgnoreCase("Confirmada")
-                && !estado.equalsIgnoreCase("Pendiente")
+        if (!estado.equalsIgnoreCase("Activa")
                 && !estado.equalsIgnoreCase("Cancelada")) {
-            mostrarError("El estado debe ser: Confirmada, Pendiente o Cancelada.");
+            mostrarError("El estado debe ser: Activa o Cancelada.");
             return;
         }
 
+        Integer idUsuario = serviceU.findIdByName(nombreUsuario);
+        Integer idActividad = serviceA.findIdByName(nombreActividad);
+
+        if(idUsuario == null){
+            mostrarError("El usuario no existe");
+        }
+        if(idActividad == null){
+            mostrarError("La actividad no existe");
+        }
+
         Reserva r = new Reserva();
-        r.setIdUsuario(Integer.parseInt(idUsuario));
-        r.setIdActividad(Integer.parseInt(idActividad));
+        r.setIdUsuario(idUsuario);
+        r.setIdActividad(idActividad);
         r.setFecha(fecha);
         r.setEstado(estado);
 
-        boolean ok = service.create(r);
+        boolean ok = serviceR.create(r);
 
         if (ok) {
             mostrarExito("Reserva creada correctamente para el " + fecha + ".");

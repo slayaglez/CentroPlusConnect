@@ -43,9 +43,9 @@ public class ReservaService implements IReservaService {
 
     @Override
     public boolean update(Reserva reserva) {
-        if (!Validations.isValidReserva(reserva)) {
-            return false;
-        }
+        // if (!Validations.isValidReserva(reserva)) {
+        //     return false;
+        // }
         return repository.update(reserva);
     }
 

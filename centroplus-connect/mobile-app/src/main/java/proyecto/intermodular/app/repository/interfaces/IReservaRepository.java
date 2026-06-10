@@ -68,4 +68,5 @@ public interface IReservaRepository {
      * @return List de reserva con detalles
      */
     List<ReservaDetalle> findAllConDetalle();
+
 }

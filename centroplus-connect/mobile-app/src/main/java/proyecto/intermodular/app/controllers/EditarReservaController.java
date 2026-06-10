@@ -13,23 +13,37 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import proyecto.intermodular.app.model.Reserva;
+import proyecto.intermodular.app.service.ActividadService;
+import proyecto.intermodular.app.service.ReservaService;
+import proyecto.intermodular.app.service.UsuarioService;
 
 public class EditarReservaController {
 
-    @FXML private TextField  TIdUsuario;
-    @FXML private TextField  TIdActividad;
-    @FXML private DatePicker DPFecha;
-    @FXML private TextField  TEstado;
-    @FXML private Button     BGuardarCambios;
-    @FXML private Button     BVolver;
+    @FXML
+    private TextField TIdUsuario;
+    @FXML
+    private TextField TIdActividad;
+    @FXML
+    private DatePicker DPFecha;
+    @FXML
+    private TextField TEstado;
+    @FXML
+    private Button BGuardarCambios;
+    @FXML
+    private Button BVolver;
 
-    // ID de la reserva que se está editando
+    private final ReservaService serviceR = new ReservaService();
+    private final ActividadService serviceA = new ActividadService();
+    private final UsuarioService serviceU = new UsuarioService();
+
+    // ID de la reserva que se esta editando
     private int reservaId = -1;
 
     // Inicialización
     @FXML
     public void initialize() {
-        // Deshabilitar días anteriores a hoy en el DatePicker
+        // Deshabilitar dias anteriores a hoy en el DatePicker
         DPFecha.setDayCellFactory(picker -> new javafx.scene.control.DateCell() {
             @Override
             public void updateItem(LocalDate date, boolean empty) {
@@ -39,9 +53,8 @@ public class EditarReservaController {
         });
     }
 
-
     public void setReserva(int id, int idUsuario, int idActividad,
-                           LocalDate fecha, String estado) {
+            LocalDate fecha, String estado) {
         this.reservaId = id;
         TIdUsuario.setText(String.valueOf(idUsuario));
         TIdActividad.setText(String.valueOf(idActividad));
@@ -52,49 +65,52 @@ public class EditarReservaController {
     // Guardar cambios
     @FXML
     private void handleGuardarCambios(ActionEvent event) {
-        String    idUsuario   = TIdUsuario.getText().trim();
-        String    idActividad = TIdActividad.getText().trim();
-        LocalDate fecha       = DPFecha.getValue();
-        String    estado      = TEstado.getText().trim();
+        String nombreUsuario = TIdUsuario.getText().trim();
+        String nombreActividad = TIdActividad.getText().trim();
+        LocalDate fecha = DPFecha.getValue();
+        String estado = TEstado.getText().trim();
 
-        // Validación: campos obligatorios
-        if (idUsuario.isEmpty() || idActividad.isEmpty() || fecha == null || estado.isEmpty()) {
+        if (nombreUsuario.isEmpty() || nombreActividad.isEmpty() || fecha == null || estado.isEmpty()) {
             mostrarError("Todos los campos son obligatorios.");
             return;
         }
-
-        // Validación: id usuario (número entero positivo)
-        if (!idUsuario.matches("^\\d+$") || Integer.parseInt(idUsuario) <= 0) {
-            mostrarError("El id del usuario debe ser un número entero positivo.");
-            return;
-        }
-
-        // Validación: id actividad (número entero positivo)
-        if (!idActividad.matches("^\\d+$") || Integer.parseInt(idActividad) <= 0) {
-            mostrarError("El id de la actividad debe ser un número entero positivo.");
-            return;
-        }
-
-        // Validación: fecha no anterior a hoy
         if (fecha.isBefore(LocalDate.now())) {
             mostrarError("La fecha de la reserva no puede ser anterior a hoy.");
             return;
         }
-
-        // Validación: estado permitido
-        if (!estado.equalsIgnoreCase("Confirmada")
-                && !estado.equalsIgnoreCase("Pendiente")
+        if (!estado.equalsIgnoreCase("Activa")
                 && !estado.equalsIgnoreCase("Cancelada")) {
-            mostrarError("El estado debe ser: Confirmada, Pendiente o Cancelada.");
+            mostrarError("El estado debe ser: Activa o Cancelada.");
             return;
         }
 
-        //TODO persistencia en BBDD
-        System.out.printf("Reserva actualizada → id=%d, idUsuario=%s, idActividad=%s, fecha=%s, estado=%s%n",
-                          reservaId, idUsuario, idActividad, fecha, estado);
+        Integer idUsuario = serviceU.findIdByName(nombreUsuario);
+        Integer idActividad = serviceA.findIdByName(nombreActividad);
 
-        mostrarExito("Reserva actualizada correctamente.");
-        volverAReservas(event);
+        if (idUsuario == null) {
+            mostrarError("El usuario «" + nombreUsuario + "» no existe.");
+            return;
+        }
+        if (idActividad == null) {
+            mostrarError("La actividad «" + nombreActividad + "» no existe.");
+            return;
+        }
+
+        Reserva r = new Reserva();
+        r.setId(reservaId);
+        r.setIdUsuario(idUsuario);
+        r.setIdActividad(idActividad);
+        r.setFecha(fecha);
+        r.setEstado(estado);
+
+        boolean ok = serviceR.update(r);
+
+        if (ok) {
+            mostrarExito("Reserva actualizada correctamente para el " + fecha + ".");
+            volverAReservas(event);
+        } else {
+            mostrarError("No se pudo actualizar la reserva.");
+        }
     }
 
     // Volver
@@ -107,8 +123,7 @@ public class EditarReservaController {
     private void volverAReservas(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/proyecto/intermodular/app/views/reservas.fxml")
-            );
+                    getClass().getResource("/proyecto/intermodular/app/views/reservas.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
