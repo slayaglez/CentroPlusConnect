@@ -34,7 +34,7 @@ public class CrearUsuarioController {
     @FXML
     public void initialize() {
         CTipoUsuario.setItems(FXCollections.observableArrayList(
-            "Administrador", "Empleado", "Cliente"
+            "Socio", "Alumno"
         ));
     }
 
@@ -103,7 +103,7 @@ public class CrearUsuarioController {
             Parent root = loader.load();
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setTitle("CentroPlus Connect – Usuarios");
+            stage.setTitle("CentroPlus Connect - Usuarios");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
