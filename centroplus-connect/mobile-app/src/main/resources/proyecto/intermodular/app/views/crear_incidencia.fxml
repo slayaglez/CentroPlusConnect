@@ -36,12 +36,12 @@
          </font>
       </Label>
       <TextField fx:id="TDescripcion" layoutX="36.0" layoutY="366.0" prefHeight="25.0" prefWidth="247.0" promptText="Introduzca la descripción de su incidencia" />
-      <Label fx:id="LFecha" layoutX="37.0" layoutY="429.0" text="Fecha">
+      <Label fx:id="LFecha" layoutX="37.0" layoutY="410.0" text="Fecha">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <DatePicker fx:id="DPFecha" layoutX="36.0" layoutY="462.0" promptText="Elija la fecha" />
+      <DatePicker fx:id="DPFecha" layoutX="36.0" layoutY="443.0" promptText="Elija la fecha" />
       <Label fx:id="LEstado" layoutX="37.0" layoutY="487.0" text="Estado">
          <font>
             <Font size="15.0" />
