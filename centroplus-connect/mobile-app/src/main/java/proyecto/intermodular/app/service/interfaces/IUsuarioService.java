@@ -40,4 +40,11 @@ public interface IUsuarioService {
      * @return boolean
      */
     boolean deleteById(Integer id);
+
+    /**
+     * Busca un id de usuario por su nombre
+     * @param nombre nombre usuario String
+     * @return id usuario Integer
+     */
+    Integer findIdByName(String nombre);
 }

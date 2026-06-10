@@ -64,4 +64,10 @@ public interface IActividadService {
      */
     double calcularIngresosTotales();
 
+    /**
+     * Busca un id de actividad por su nombre
+     * @param nombre nombre actividad String
+     * @return id actividad Integer
+     */
+    Integer findIdByName(String nombre);
 }

@@ -22,6 +22,12 @@ public class UsuarioService implements IUsuarioService{
     }
 
     @Override
+    public Integer findIdByName(String nombre) {
+        if(nombre == null || nombre.isBlank()) return null;
+        return repository.findIdByName(nombre);
+    }
+
+    @Override
     public Usuario findById(Integer id) {
         if(id == null) return null;
         return repository.findById(id);

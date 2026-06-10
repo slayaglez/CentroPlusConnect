@@ -48,4 +48,12 @@ public interface IUsuarioRepository {
      * @return boolean
      */
     boolean deleteById(Integer id);
+
+    /**
+     * Devuelve el id de un usuario dado el nombre
+     * de dicho usuario
+     * @param nombre String nombre usuario
+     * @return Integer id usuario
+     */
+    Integer findIdByName(String nombre);
 }

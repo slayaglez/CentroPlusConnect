@@ -114,20 +114,20 @@ public class ReservaRepository extends SQLiteConnectionManager implements IReser
     @Override
     public boolean update(Reserva reserva) {
         try (Connection connection = getConnection();
-                PreparedStatement sentencia = connection
-                        .prepareStatement(
-                                "UPDATE reservas SET id_usuario=?, id_actividad=?, fecha=?, estado=? WHERE id=?")) {
+                PreparedStatement sentencia = connection.prepareStatement(
+                        "UPDATE reservas SET id_usuario=?, id_actividad=?, fecha=?, estado=? WHERE id=?")) {
 
-            sentencia.setInt(5, reserva.getId());
             sentencia.setInt(1, reserva.getIdUsuario());
             sentencia.setInt(2, reserva.getIdActividad());
             sentencia.setString(3, reserva.getFecha().toString());
             sentencia.setString(4, reserva.getEstado());
+            sentencia.setInt(5, reserva.getId());
 
             return sentencia.executeUpdate() > 0;
 
         } catch (Exception e) {
-            System.err.println("Error actualizando la reserva");
+            System.err.println("Error actualizando la reserva: " + e.getMessage());
+            e.printStackTrace();
             return false;
         }
     }

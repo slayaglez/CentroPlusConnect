@@ -5,7 +5,6 @@ import java.util.List;
 import proyecto.intermodular.app.model.Actividad;
 import proyecto.intermodular.app.repository.ActividadRepository;
 import proyecto.intermodular.app.repository.interfaces.IActividadRepository;
-import proyecto.intermodular.app.repository.interfaces.IUsuarioRepository;
 import proyecto.intermodular.app.service.interfaces.IActividadService;
 import proyecto.intermodular.validations.Validations;
 
@@ -29,6 +28,12 @@ public class ActividadService implements IActividadService{
             return false;
         }
         return repository.create(actividad);
+    }
+
+    @Override
+    public Integer findIdByName(String nombre) {
+        if(nombre == null || nombre.isBlank()) return null;
+        return repository.findIdByName(nombre);
     }
 
     @Override
@@ -79,5 +84,4 @@ public class ActividadService implements IActividadService{
     public double calcularIngresosTotales() {
         return repository.calcularIngresosTotales();
     }
-
 }

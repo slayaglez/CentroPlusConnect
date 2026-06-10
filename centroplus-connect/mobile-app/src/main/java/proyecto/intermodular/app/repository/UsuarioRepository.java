@@ -94,6 +94,29 @@ public class UsuarioRepository extends SQLiteConnectionManager implements IUsuar
     }
 
     @Override
+    public Integer findIdByName(String nombre) {
+
+        try (Connection connection = getConnection();
+                PreparedStatement sentencia = connection.prepareStatement(
+                        "SELECT id FROM usuarios WHERE nombre = ?")) {
+
+            sentencia.setString(1, nombre);
+            ResultSet resultado = sentencia.executeQuery();
+
+            if (!resultado.next()) {
+                    return null;
+            }
+
+            return resultado.getInt("id");
+
+        } catch (Exception e) {
+            System.err.println("Error buscando contrasenña: " + e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
     public Usuario findById(Integer id) {
         try (Connection connection = getConnection();
                 PreparedStatement sentencia = connection.prepareStatement("SELECT * FROM usuarios WHERE id=?")) {

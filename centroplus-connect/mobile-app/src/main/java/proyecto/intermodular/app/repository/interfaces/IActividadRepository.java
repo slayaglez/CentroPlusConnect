@@ -71,4 +71,12 @@ public interface IActividadRepository {
      * @return double
      */
     double calcularIngresosTotales();
+
+    /**
+     * Devuelve el id de una actividad dado el nombre
+     * de dicha actividad
+     * @param nombre String nombre actividad
+     * @return Integer id actividad
+     */
+    Integer findIdByName(String nombre);
 }
