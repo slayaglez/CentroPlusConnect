@@ -42,7 +42,7 @@ public class IncidenciaController {
 
     @FXML private Label LNavIncidencias;
 
-    private static final String[] ESTADOS = {"Abierta", "En proceso", "Resuelta", "Cerrada"};
+    private static final String[] ESTADOS = {"Abierta", "Procesando", "Cerrada"};
 
     private final IncidenciaService service = new IncidenciaService();
     private List<Incidencia> listaActual = new ArrayList<>();
@@ -52,7 +52,7 @@ public class IncidenciaController {
     public void initialize() {
 
         CIncidencias.setItems(FXCollections.observableArrayList(
-            "Todos", "Abierta", "En proceso", "Resuelta", "Cerrada"
+            "Todos", "Abierta", "Procesando", "Cerrada"
         ));
         CIncidencias.setValue("Todos");
 
@@ -76,7 +76,7 @@ public class IncidenciaController {
     @FXML
     private void handleCrear(ActionEvent event) {
         navegarA("/proyecto/intermodular/app/views/crear_incidencia.fxml",
-                 "CentroPlus Connect – Nueva incidencia", event);
+                 "CentroPlus Connect - Nueva incidencia", event);
     }
 
     @FXML
@@ -93,7 +93,7 @@ public class IncidenciaController {
                  i.getDescripcion(), i.getFecha(), i.getEstado());
             Stage stage = (Stage) BEditar.getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setTitle("CentroPlus Connect – Editar incidencia");
+            stage.setTitle("CentroPlus Connect - Editar incidencia");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -159,10 +159,10 @@ public class IncidenciaController {
         mostrarIncidencia(listaActual.get(indiceActual));
     }
 
-    @FXML private void handleNavInicio(MouseEvent e)      { navegarA("/proyecto/intermodular/app/views/dashboard.fxml",    "CentroPlus Connect – Inicio",      e); }
-    @FXML private void handleNavUsuarios(MouseEvent e)    { navegarA("/proyecto/intermodular/app/views/usuarios.fxml",     "CentroPlus Connect – Usuarios",    e); }
-    @FXML private void handleNavActividades(MouseEvent e) { navegarA("/proyecto/intermodular/app/views/actividades.fxml",  "CentroPlus Connect – Actividades", e); }
-    @FXML private void handleNavReservas(MouseEvent e)    { navegarA("/proyecto/intermodular/app/views/reservas.fxml",     "CentroPlus Connect – Reservas",    e); }
+    @FXML private void handleNavInicio(MouseEvent e)      { navegarA("/proyecto/intermodular/app/views/dashboard.fxml",    "CentroPlus Connect - Inicio",      e); }
+    @FXML private void handleNavUsuarios(MouseEvent e)    { navegarA("/proyecto/intermodular/app/views/usuarios.fxml",     "CentroPlus Connect - Usuarios",    e); }
+    @FXML private void handleNavActividades(MouseEvent e) { navegarA("/proyecto/intermodular/app/views/actividades.fxml",  "CentroPlus Connect - Actividades", e); }
+    @FXML private void handleNavReservas(MouseEvent e)    { navegarA("/proyecto/intermodular/app/views/reservas.fxml",     "CentroPlus Connect - Reservas",    e); }
     @FXML private void handleNavIncidencias(MouseEvent e) { /* ya estamos aqui */ }
 
     // Carga de datos
