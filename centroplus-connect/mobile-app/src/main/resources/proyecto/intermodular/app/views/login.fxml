@@ -63,7 +63,7 @@
                             ">
                         </Label>
                         <Label
-                            id="LAccesoSistema"
+                            fx:id="LAccesoSistema"
                             text="Acceso al sistema"
                             style="
                                 -fx-font-size: 13px;
@@ -73,7 +73,7 @@
                             ">
                         </Label>
                         <Label
-                            id="LEmail"
+                            fx:id="LEmail"
                             text="Correo electrónico"
                             style="
                                 -fx-font-size: 12px;
@@ -101,7 +101,7 @@
                         </TextField>
                         <Label text="" style="-fx-padding: 6 0 0 0;"/>
                         <Label
-                            id="LContrasenia"
+                            fx:id="LContrasenia"
                             text="Contraseña"
                             style="
                                 -fx-font-size: 12px;

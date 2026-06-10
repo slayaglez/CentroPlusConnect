@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -20,6 +21,9 @@ public class LoginController {
     @FXML private PasswordField TContrasenia;
     @FXML private Button        BEntrar;
     @FXML private Button        BCambiarIdioma;
+    @FXML private Label         LAccesoSistema;
+    @FXML private Label         LEmail;
+    @FXML private Label         LContrasenia;
 
     // Password Hasher
     private final PasswordService paswordHasher = new PasswordService();
@@ -66,9 +70,24 @@ public class LoginController {
     // Accion: boton para cambiar idioma
     @FXML
     private void handleCambiarIdioma(ActionEvent event) {
-        // Alterna entre ES y EN 
         idiomaActual = idiomaActual.equals("ES") ? "EN" : "ES";
-        BCambiarIdioma.setText(idiomaActual.equals("ES") ? "Cambiar idioma" : "Change language");
+
+        if(idiomaActual.equals("ES")){
+            BCambiarIdioma.setText("EN");
+            LAccesoSistema.setText("Acceso al sistema");
+            BEntrar.setText("Entrar");
+            LEmail.setText("Correo electrónico");
+            LContrasenia.setText("Contraseña");
+            TContrasenia.setPromptText("Contraseña");
+        } else {
+            BCambiarIdioma.setText("ES");
+            LAccesoSistema.setText("System access");
+            BEntrar.setText("Enter");
+            LEmail.setText("E-Mail");
+            LContrasenia.setText("Password");
+            TContrasenia.setPromptText("Password");
+        }
+        
 
         System.out.println("Idioma cambiado a: " + idiomaActual);
     }
@@ -92,7 +111,6 @@ public class LoginController {
         }
     }
 
-    //! Autenticación provisional 
     private boolean autenticarUsuario(String email, String contrasenia) {
         try {
             String storedHash = repo.findHashByEmail(email);
