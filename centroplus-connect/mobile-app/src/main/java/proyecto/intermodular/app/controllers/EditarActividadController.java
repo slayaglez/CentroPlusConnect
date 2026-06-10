@@ -35,7 +35,7 @@ public class EditarActividadController {
     @FXML
     public void initialize() {
         CTipoActividad.setItems(FXCollections.observableArrayList(
-            "Yoga", "Pilates", "Natación", "Musculación", "Spinning", "Zumba", "Artes marciales", "Otro"
+            "Deportiva", "Academica"
         ));
     }
 
@@ -106,7 +106,7 @@ public class EditarActividadController {
             Parent root = loader.load();
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setTitle("CentroPlus Connect – Actividades");
+            stage.setTitle("CentroPlus Connect - Actividades");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
