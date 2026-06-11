@@ -83,7 +83,7 @@ public class CrearUsuarioController {
 
         boolean ok = service.create(u, password);
         if (ok) {
-            mostrarExito("Usuario «" + nombre + "» creado correctamente.");
+            mostrarExito("Usuario <" + nombre + "> creado correctamente.");
             volverAUsuarios(event);
         } else {
             mostrarError("No se pudo guardar el usuario. Comprueba que el DNI no esté repetido.");
