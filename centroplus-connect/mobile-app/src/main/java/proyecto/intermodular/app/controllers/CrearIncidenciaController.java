@@ -3,6 +3,7 @@ package proyecto.intermodular.app.controllers;
 import java.io.IOException;
 import java.time.LocalDate;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -22,7 +24,7 @@ public class CrearIncidenciaController {
     @FXML private TextField  TAsunto;
     @FXML private TextField  TDescripcion;
     @FXML private DatePicker DPFecha;
-    @FXML private TextField  TEstado;
+    @FXML private ComboBox<String>  CEstado;
     @FXML private Button     BCrear;
     @FXML private Button     BVolver;
 
@@ -38,7 +40,7 @@ public class CrearIncidenciaController {
             }
         });
         DPFecha.setValue(LocalDate.now());
-        TEstado.setText("Abierta");
+        CEstado.setItems(FXCollections.observableArrayList("Abierta", "Procesando", "Cerrada"));
     }
 
     @FXML
@@ -47,7 +49,7 @@ public class CrearIncidenciaController {
         String    asunto      = TAsunto.getText().trim();
         String    descripcion = TDescripcion.getText().trim();
         LocalDate fecha       = DPFecha.getValue();
-        String    estado      = TEstado.getText().trim();
+        String    estado      = CEstado.getValue();
 
         if (idUsuario.isEmpty() || asunto.isEmpty() || descripcion.isEmpty()
                 || fecha == null || estado.isEmpty()) {
@@ -71,10 +73,9 @@ public class CrearIncidenciaController {
             return;
         }
         if (!estado.equalsIgnoreCase("Abierta")
-                && !estado.equalsIgnoreCase("En proceso")
-                && !estado.equalsIgnoreCase("Resuelta")
+                && !estado.equalsIgnoreCase("Procesando")
                 && !estado.equalsIgnoreCase("Cerrada")) {
-            mostrarError("El estado debe ser: Abierta, En proceso, Resuelta o Cerrada.");
+            mostrarError("El estado debe ser: Abierta, Procesando o Cerrada.");
             return;
         }
 
