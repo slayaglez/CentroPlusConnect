@@ -144,8 +144,8 @@ public class ActividadController {
     private void handleReservarPlazas(ActionEvent event) {
         if (indiceActual < 0 || indiceActual >= listaActual.size())
             return;
-        navegarA("/proyecto/intermodular/app/views/reservas.fxml",
-                "CentroPlus Connect - Reservas", event);
+        navegarA("/proyecto/intermodular/app/views/crear_reservas.fxml",
+                "CentroPlus Connect - Nueva Reserva", event);
     }
 
     // Navegacion tarjeta anterior / siguiente
