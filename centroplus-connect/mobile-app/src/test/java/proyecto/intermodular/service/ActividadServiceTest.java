@@ -138,7 +138,6 @@ public class ActividadServiceTest {
         sinId.setPrecio(precio);
         sinId.setPlazasMaximas(plazas);
         sinId.setPlazasOcupadas(ocupadas);
-        // id es null → debe usar createAutoId
         boolean resultado = service.create(sinId);
         Assertions.assertTrue(resultado, "create con id null debe delegar en createAutoId y devolver true");
     }
@@ -328,8 +327,8 @@ public class ActividadServiceTest {
     @Order(28)
     @Test
     void calcularIngresosTotalesCorrectoTest() {
-        service.create(actividad); // 15.0 * 5 = 75.0
-        service.create(new Actividad(2, "Pilates", tipo, 45, 12.5, 10, 10)); // 12.5 * 10 = 125.0
+        service.create(actividad);
+        service.create(new Actividad(2, "Pilates", tipo, 45, 12.5, 10, 10));
         double resultado = service.calcularIngresosTotales();
         Assertions.assertEquals(200.0, resultado, 0.001, "Los ingresos totales deben ser 200.0");
     }

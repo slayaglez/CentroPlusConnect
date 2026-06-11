@@ -6,6 +6,7 @@ import proyecto.intermodular.app.model.Usuario;
 import proyecto.intermodular.app.repository.UsuarioRepository;
 import proyecto.intermodular.app.repository.interfaces.IUsuarioRepository;
 import proyecto.intermodular.app.service.interfaces.IUsuarioService;
+import proyecto.intermodular.validations.Validations;
 
 public class UsuarioService implements IUsuarioService{
 
@@ -17,7 +18,15 @@ public class UsuarioService implements IUsuarioService{
 
     @Override
     public boolean create(Usuario usuario, String password) {
-        if(usuario.getId() == null) return repository.createAutoId(usuario, password);
+        if (usuario == null) {
+            return false;
+        }
+        if(usuario.getId() == null) {
+            return repository.createAutoId(usuario, password);
+        }
+        if (!Validations.isValidUsuario(usuario)) {
+            return false;
+        }
         return repository.create(usuario, password);
     }
 
@@ -29,7 +38,9 @@ public class UsuarioService implements IUsuarioService{
 
     @Override
     public Usuario findById(Integer id) {
-        if(id == null) return null;
+        if(id == null) {
+            return null;
+        }
         return repository.findById(id);
     }
 
@@ -40,11 +51,17 @@ public class UsuarioService implements IUsuarioService{
 
     @Override
     public boolean update(Usuario usuario) {
+        if (!Validations.isValidUsuario(usuario)) {
+            return false;
+        }
         return repository.update(usuario);
     }
 
     @Override
     public boolean deleteById(Integer id) {
+        if (id == null) {
+            return false;
+        }
         return repository.deleteById(id);
     }
 
