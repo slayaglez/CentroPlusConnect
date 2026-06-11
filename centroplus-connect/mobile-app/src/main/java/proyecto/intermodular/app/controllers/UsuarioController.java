@@ -63,7 +63,7 @@ public class UsuarioController {
     public void initialize() {
 
         ObservableList<String> tipos = FXCollections.observableArrayList(
-                "Todos", "Administrador", "Cliente");
+                "Todos", "Alumno", "Socio");
         CUsuarios.setItems(tipos);
         CUsuarios.setValue("Todos");
 

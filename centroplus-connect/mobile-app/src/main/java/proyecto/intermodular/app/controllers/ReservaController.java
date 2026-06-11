@@ -64,7 +64,7 @@ public class ReservaController {
     public void initialize() {
 
         CReservas.setItems(FXCollections.observableArrayList(
-                "Todos", "Confirmada", "Pendiente", "Cancelada"));
+                "Todos", "Activa", "Cancelada"));
         CReservas.setValue("Todos");
 
         BEditar.setDisable(true);
