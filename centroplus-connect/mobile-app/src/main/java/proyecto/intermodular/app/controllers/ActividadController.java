@@ -69,7 +69,7 @@ public class ActividadController {
     public void initialize() {
 
         CActividades.setItems(FXCollections.observableArrayList(
-                "Todos", "Yoga", "Pilates", "Natación", "Musculación", "Spinning", "Zumba", "Artes marciales", "Otro"));
+                "Todos", "Deportiva", "Academica"));
         CActividades.setValue("Todos");
 
         BEditar.setDisable(true);
