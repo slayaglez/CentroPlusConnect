@@ -58,9 +58,7 @@ public class IncidenciaServiceTest {
         }
     }
 
-    // -----------------------------------------------------------------------
     // CREATE
-    // -----------------------------------------------------------------------
 
     @DisplayName("Test verifica create true con incidencia valida")
     @Order(1)
@@ -119,9 +117,7 @@ public class IncidenciaServiceTest {
         Assertions.assertTrue(resultado, "create con id null debe delegar en createAutoId y devolver true");
     }
 
-    // -----------------------------------------------------------------------
     // FIND BY ID
-    // -----------------------------------------------------------------------
 
     @DisplayName("Test verifica findById null con id null")
     @Order(7)
@@ -148,9 +144,7 @@ public class IncidenciaServiceTest {
         Assertions.assertEquals(incidencia, resultado, "findById debe devolver la incidencia insertada");
     }
 
-    // -----------------------------------------------------------------------
     // FIND ALL
-    // -----------------------------------------------------------------------
 
     @DisplayName("Test verifica findAll not null")
     @Order(10)
@@ -168,9 +162,7 @@ public class IncidenciaServiceTest {
         Assertions.assertTrue(contiene, "findAll debe contener la incidencia insertada");
     }
 
-    // -----------------------------------------------------------------------
     // UPDATE
-    // -----------------------------------------------------------------------
 
     @DisplayName("Test verifica update true con incidencia valida")
     @Order(12)
@@ -200,9 +192,7 @@ public class IncidenciaServiceTest {
         Assertions.assertFalse(resultado, "update debe devolver false con estado invalido");
     }
 
-    // -----------------------------------------------------------------------
     // DELETE BY ID
-    // -----------------------------------------------------------------------
 
     @DisplayName("Test verifica deleteById false con id null")
     @Order(15)
@@ -229,9 +219,7 @@ public class IncidenciaServiceTest {
         Assertions.assertFalse(resultado, "deleteById debe devolver false para un ID inexistente");
     }
 
-    // -----------------------------------------------------------------------
     // CAMBIAR ESTADO
-    // -----------------------------------------------------------------------
 
     @DisplayName("Test verifica cambiarEstadoIncidencia true con estado valido")
     @Order(18)
@@ -267,9 +255,7 @@ public class IncidenciaServiceTest {
         Assertions.assertTrue(resultado, "cambiarEstadoIncidencia debe devolver true al cambiar a CERRADA");
     }
 
-    // -----------------------------------------------------------------------
     // FIND BY USUARIO
-    // -----------------------------------------------------------------------
 
     @DisplayName("Test verifica findByUsuario not null")
     @Order(22)

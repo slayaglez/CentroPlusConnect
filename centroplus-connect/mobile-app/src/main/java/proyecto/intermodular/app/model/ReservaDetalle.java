@@ -11,6 +11,16 @@ public class ReservaDetalle {
     public final LocalDate fecha;
     public final String estado;
 
+    /**
+     * Constructor completo por defecto
+     * @param id identificador
+     * @param idUsuario id del usuario
+     * @param idActividad id de la actividad
+     * @param nombreUsuario nombre del usuario
+     * @param nombreActividad nombre de la actividad
+     * @param fecha fecha de la reserva
+     * @param estado estado de la reserva
+     */
     public ReservaDetalle(int id, int idUsuario, int idActividad,
                           String nombreUsuario, String nombreActividad,
                           LocalDate fecha, String estado) {

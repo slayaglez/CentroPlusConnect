@@ -19,6 +19,9 @@ public class ReservaService implements IReservaService {
 
     @Override
     public boolean create(Reserva reserva) {
+        if (reserva == null) {
+            return false;
+        }
         if (reserva.getId() == null) {
             return repository.createAutoId(reserva);
         }
@@ -43,9 +46,9 @@ public class ReservaService implements IReservaService {
 
     @Override
     public boolean update(Reserva reserva) {
-        // if (!Validations.isValidReserva(reserva)) {
-        //     return false;
-        // }
+        if (!Validations.isValidReserva(reserva)) {
+            return false;
+        }
         return repository.update(reserva);
     }
 
@@ -69,7 +72,7 @@ public class ReservaService implements IReservaService {
 
     @Override
     public List<ReservaDetalle> findAllConDetalle() {
-    return repository.findAllConDetalle();
+        return repository.findAllConDetalle();
     }
 
 }
