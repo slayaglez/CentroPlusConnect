@@ -103,15 +103,108 @@ centroPlus_connect_atteneri_sebastian/
 └── centroplus-connect/
     ├── docker-compose.yml
     ├── doc/
-    │   └── DOCUMENTACION.md 
+    │   └── DOCUMENTACION.md
+    │
     ├── backend-api/
+    │   ├── pom.xml
+    │   ├── src/
+    │   │   ├── main/
+    │   │   │   ├── java/com/centroplus/api/
+    │   │   │   │   ├── CentroPlusApplication.java
+    │   │   │   │   │
+    │   │   │   │   ├── domain/
+    │   │   │   │   │   └── model/
+    │   │   │   │   │       ├── Usuario.java
+    │   │   │   │   │       ├── Actividad.java
+    │   │   │   │   │       ├── Reserva.java
+    │   │   │   │   │       └── Incidencia.java
+    │   │   │   │   │
+    │   │   │   │   ├── business/
+    │   │   │   │   │   ├── UsuarioService.java
+    │   │   │   │   │   ├── ActividadService.java
+    │   │   │   │   │   ├── ReservaService.java
+    │   │   │   │   │   ├── IncidenciaService.java
+    │   │   │   │   │   └── interfaces/
+    │   │   │   │   │       ├── IUsuarioService.java
+    │   │   │   │   │       ├── IActividadService.java
+    │   │   │   │   │       ├── IReservaService.java
+    │   │   │   │   │       └── IIncidenciaService.java
+    │   │   │   │   │
+    │   │   │   │   ├── adapters/
+    │   │   │   │   │   ├── in/
+    │   │   │   │   │   │   ├── controller/
+    │   │   │   │   │   │   │   ├── AuthController.java
+    │   │   │   │   │   │   │   ├── UsuarioController.java
+    │   │   │   │   │   │   │   ├── ActividadController.java
+    │   │   │   │   │   │   │   ├── ReservaController.java
+    │   │   │   │   │   │   │   └── IncidenciaController.java
+    │   │   │   │   │   │   │
+    │   │   │   │   │   │   └── api/
+    │   │   │   │   │   │       ├── AuthRequest.java
+    │   │   │   │   │   │       ├── AuthResponse.java
+    │   │   │   │   │   │       ├── UsuarioRequest.java
+    │   │   │   │   │   │       ├── UsuarioResponse.java
+    │   │   │   │   │   │       ├── ActividadRequest.java
+    │   │   │   │   │   │       ├── ActividadResponse.java
+    │   │   │   │   │   │       ├── ReservaRequest.java
+    │   │   │   │   │   │       ├── ReservaResponse.java
+    │   │   │   │   │   │       ├── IncidenciaRequest.java
+    │   │   │   │   │   │       └── IncidenciaResponse.java
+    │   │   │   │   │   │
+    │   │   │   │   │   ├── mapper/
+    │   │   │   │   │   │   └── CentroPlusMapper.java
+    │   │   │   │   │   │
+    │   │   │   │   │   └── out/
+    │   │   │   │   │       └── persistence/
+    │   │   │   │   │           ├── UsuarioPersistenceAdapter.java
+    │   │   │   │   │           ├── ActividadPersistenceAdapter.java
+    │   │   │   │   │           ├── ReservaPersistenceAdapter.java
+    │   │   │   │   │           ├── IncidenciaPersistenceAdapter.java
+    │   │   │   │   │           │
+    │   │   │   │   │           ├── interfaces/
+    │   │   │   │   │           │   ├── IUsuarioPersistenceAdapter.java
+    │   │   │   │   │           │   ├── IActividadPersistenceAdapter.java
+    │   │   │   │   │           │   ├── IReservaPersistenceAdapter.java
+    │   │   │   │   │           │   └── IIncidenciaPersistenceAdapter.java
+    │   │   │   │   │           │
+    │   │   │   │   │           └── jpa/
+    │   │   │   │   │               ├── UsuarioJpaEntity.java
+    │   │   │   │   │               ├── UsuarioJpaRepository.java
+    │   │   │   │   │               ├── ActividadJpaEntity.java
+    │   │   │   │   │               ├── ActividadJpaRepository.java
+    │   │   │   │   │               ├── ReservaJpaEntity.java
+    │   │   │   │   │               ├── ReservaJpaRepository.java
+    │   │   │   │   │               ├── IncidenciaJpaEntity.java
+    │   │   │   │   │               └── IncidenciaJpaRepository.java
+    │   │   │   │   │
+    │   │   │   │   └── infrastructure/
+    │   │   │   │       ├── security/
+    │   │   │   │       │   ├── SecurityConfig.java
+    │   │   │   │       │   ├── JwtService.java
+    │   │   │   │       │   └── JwtAuthenticationFilter.java
+    │   │   │   │       │
+    │   │   │   │       └── openapi/
+    │   │   │   │           └── OpenApiConfig.java
+    │   │   │   │
+    │   │   │   └── resources/
+    │   │   │       └── application.properties
+    │   │   │
+    │   │   └── test/
+    │   │       └── java/
+    │   │           ├── controller/
+    │   │           ├── business/
+    │   │           └── persistence/
+    │   │
+    │   └── target/
+    │
     ├── database/
-    │   ├── centroplus.db          
-    │   ├── centroplus-backup.db   
-    │   ├── schema.sql           
-    │   ├── seed.sql   
-    │   ├── Diagrama.drawio          
-    │   └── Diagrama.png           
+    │   ├── centroplus.db
+    │   ├── centroplus-backup.db
+    │   ├── schema.sql
+    │   ├── seed.sql
+    │   ├── Diagrama.drawio
+    │   └── Diagrama.png
+    │         
     └── mobile-app/
         ├── pom.xml
         ├── database/
