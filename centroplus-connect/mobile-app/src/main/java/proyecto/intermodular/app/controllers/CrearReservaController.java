@@ -3,6 +3,7 @@ package proyecto.intermodular.app.controllers;
 import java.io.IOException;
 import java.time.LocalDate;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -23,7 +25,7 @@ public class CrearReservaController {
     @FXML private TextField  TIdUsuario;
     @FXML private TextField  TIdActividad;
     @FXML private DatePicker DPFecha;
-    @FXML private TextField  TEstado;
+    @FXML private ComboBox<String>  CEstado;
     @FXML private Button     BCrear;
     @FXML private Button     BVolver;
 
@@ -40,7 +42,7 @@ public class CrearReservaController {
                 setDisabled(empty || date.isBefore(LocalDate.now()));
             }
         });
-        TEstado.setText("Activa");
+        CEstado.setItems(FXCollections.observableArrayList("Activa", "Cancelada"));
     }
 
     @FXML
@@ -48,7 +50,7 @@ public class CrearReservaController {
         String    nombreUsuario   = TIdUsuario.getText().trim();
         String    nombreActividad = TIdActividad.getText().trim();
         LocalDate fecha       = DPFecha.getValue();
-        String    estado      = TEstado.getText().trim();
+        String    estado      = CEstado.getValue();
 
         if (nombreUsuario.isEmpty() || nombreActividad.isEmpty() || fecha == null || estado.isEmpty()) {
             mostrarError("Todos los campos son obligatorios.");
